@@ -6,12 +6,12 @@
     </div>
 
     <div>
-      <label for="email">用户邮箱:</label>
-      <input type="text" v-model="email" id="email" placeholder="请输入邮箱" />
+      <label for="email">电话号码:</label>
+      <input type="text" v-model="email" id="email" placeholder="请输入电话号码" />
     </div>
-    <div class="emailErr">
-      <span v-if="prompt1">*该邮箱已被注册</span>
-    </div>
+    <!-- <div class="emailErr">
+      <span v-if="prompt1">*该电话号码已被注册</span>
+    </div> -->
     <!-- 用户密码 -->
     <div>
       <label for="userPwd">用户密码:</label>
@@ -19,6 +19,15 @@
         type="text"
         v-model="userPwd"
         id="userPwd"
+        placeholder="请输入密码"
+      />
+    </div>
+    <div>
+      <label for="userPwd">确认密码:</label>
+      <input
+        type="text"
+        v-model="reUserPwd"
+        id="reUserPwd"
         placeholder="请输入密码"
       />
     </div>
@@ -68,6 +77,7 @@ export default {
     return {
       email: "",
       userPwd: "",
+      reUsePwd:'',
       svg: "",
       userSvg: "",
       userPic: "",
@@ -87,6 +97,10 @@ export default {
   methods: {
     async send() {
       // 交互结果
+      console.log(this.userPwd, this.reUserPwd)
+      if(this.userPwd!==this.reUserPwd){
+        alert('两次密码不一样')
+      }
       let fileReader = new FormData();
       fileReader.append("userPic", this.userPic);
       fileReader.append("email", this.email);
