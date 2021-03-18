@@ -3,7 +3,7 @@
         <!-- 菜名以及菜的说明 -->
         <div class="caipu-name">
             <h1>
-                <a href="###" class="caiming">{{ caixinxi.caiming }}</a>
+                <a href="###" class="caiming">{{ foodDetailData.caiming }}</a>
             </h1>
             <a href="###" class="user-avator">
                 <!-- 用户的头像 -->
@@ -12,10 +12,10 @@
             </a>
         </div>
         <a href="###" class="cai-img">
-            <img :src="caixinxi.caiimg1" alt="图片加载失败" />
+            <img :src="foodDetailData.caiimg1" alt="图片加载失败" />
         </a>
         <div class="cai-text">
-            <span>{{ caixinxi.text }}</span>
+            <span>{{ foodDetailData.description }}</span>
         </div>
         <div class="caidetail">
             <div class="quan">
@@ -24,7 +24,7 @@
             <h3>食材明细</h3>
         </div>
         <!-- 调料的 -->
-        <fieldset v-for="el in cailiao" :key="el.id">
+        <fieldset v-for="el in foodDetailData.cailiao" :key="el.id">
             <legend v-show="el.clname">{{ el.clname }}</legend>
             <div class="cailiao">
                 <span v-for="el1 in el.detai" :key="el1">{{ el1 }}</span>
@@ -37,7 +37,7 @@
             <h3>排包的做法步骤</h3>
         </div>
         <!-- 做菜的步骤 -->
-        <div class="buzhou" v-for="el in buzhou" :key="el.id1">
+        <div class="buzhou" v-for="el in foodDetailData.step" :key="el.id1">
             <img :src="el.img1" alt />
             <div class="content">
                 <div class="id1">{{ el.id1 }}</div>
@@ -53,7 +53,7 @@
         </div>
         <!-- 做菜小窍门部分 -->
         <div class="qiaomen">
-            <p v-for="el in qiaomen" :key="el.id">{{ el.id }}、{{ el.text }}</p>
+            <p v-for="el in foodDetailData.careful" :key="el.id">{{ el.id }}、{{ el.text }}</p>
             <p class="username">
                 来自美食天下
                 <a href="###">xxxxxxxxx</a>的作品
@@ -101,12 +101,76 @@ export default {
     data() {
         return {
             data1: 0,
+            foodDetailData:{
+                caiming: "宽粉炖鸡块",
+                caiimg1: "https://i8.meishichina.com/attachment/recipe/2020/09/16/202009161600243928756795730571.jpg?x-oss-process=style/p800",
+                description: "宽粉炖鸡块，泽瑞妈认为这是一道足可以和小鸡炖蘑菇比肩的美食，宽粉吸足了鸡肉的汤汁，晶莹剔透， Q弹爽滑，鸡肉酥烂、鲜香入味，却香而不腻，简直是太好吃了。",
+                // 做菜步骤
+                step: [
+                    {
+                        id1: 4,
+                        img1: "https://i8.meishichina.com/attachment/recipe/2020/09/22/2020092216007543727947377756041.jpg?x-oss-process=style/p320",
+                        describle: "准备好所需要的食材，这次使用的高筋面粉是金龙鱼面包粉，很细腻，很容易出膜，所使用的食材也是配方的1.2倍。",
+                    },
+                    {
+                        id1: 5,
+                        img1: "https://i8.meishichina.com/attachment/recipe/2020/09/22/2020092216007543727947377756041.jpg?x-oss-process=style/p320",
+                        describle: "准备好所需要的食材，这次使用的高筋面粉是金龙鱼面包粉，很细腻，很容易出膜，所使用的食材也是配方的1.2倍。",
+                    },
+                    {
+                        id1: 6,
+                        img1: "https://i8.meishichina.com/attachment/recipe/2020/09/22/2020092216007543727947377756041.jpg?x-oss-process=style/p320",
+                        describle: "准备好所需要的食材，这次使用的高筋面粉是金龙鱼面包粉，很细腻，很容易出膜，所使用的食材也是配方的1.2倍。",
+                    },
+                    {
+                        id1: 7,
+                        img1: "https://i8.meishichina.com/attachment/recipe/2020/09/22/2020092216007543727947377756041.jpg?x-oss-process=style/p320",
+                        describle: "准备好所需要的食材，这次使用的高筋面粉是金龙鱼面包粉，很细腻，很容易出膜，所使用的食材也是配方的1.2倍。",
+                    },
+                ],
+                // 食材
+                cailiao: [
+                    { id: 1, clname: "主料", detai: ["油", "盐", "酱", "醋"] },
+                    {
+                        id: 2,
+                        clname: "辅料",
+                        detai: ["油", "盐", "酱油", "醋"],
+                    },
+                    {
+                        id: 3,
+                        clname: "",
+                        detai: ["油", "盐", "酱油", "醋"],
+                    },
+                ],
+            
+            // 做菜小窍门
+                careful: [
+                    {
+                        id: 1,
+                        text: "肉类可以用猪里脊，鸡胸肉，牛里脊都可以",
+                    },
+                    {
+                        id: 2,
+                        text: "肉腌制一定要入味，起码一个小时以上，汤汁是酸甜的，如果肉再没有味道这个菜就不好吃了。",
+                    },
+                    {
+                        id: 3,
+                        text: "玉米淀粉是干的往肉上裹的，不需要用水。",
+                    },
+                    {
+                        id: 4,
+                        text: "糖醋汁比例方便大家记我按54321排比写的，如果拿不准混合好以后可以尝下，根据自家口味进行微调。",
+                    },
+                    {
+                        id: 5,
+                        text: "肉类可以用猪里脊，鸡胸肉，牛里脊都可以",
+                    },
+                ],
+            },
             tubiao: "http://static.meishichina.com/v6/img/zhen/ix2.png?v=4",
             // 菜的详细信息
             caixinxi: {
-                caiming: "宽粉炖鸡块",
-                caiimg1: "https://i8.meishichina.com/attachment/recipe/2020/09/16/202009161600243928756795730571.jpg?x-oss-process=style/p800",
-                text: "宽粉炖鸡块，泽瑞妈认为这是一道足可以和小鸡炖蘑菇比肩的美食，宽粉吸足了鸡肉的汤汁，晶莹剔透， Q弹爽滑，鸡肉酥烂、鲜香入味，却香而不腻，简直是太好吃了。",
+               
             },
             // 八个小图标部分的数据，转发评论的
             xiaotubiao: [
@@ -153,72 +217,14 @@ export default {
                     text: "新浪微博",
                 },
             ],
-            // 口味
-            cailiao: [
-                { id: 1, clname: "主料", detai: ["油", "盐", "酱", "醋"] },
-                {
-                    id: 2,
-                    clname: "辅料",
-                    detai: ["油", "盐", "酱油", "醋"],
-                },
-                {
-                    id: 3,
-                    clname: "",
-                    detai: ["油", "盐", "酱油", "醋"],
-                },
-            ],
-            // 做菜步骤
-            buzhou: [
-                {
-                    id1: 4,
-                    img1: "https://i8.meishichina.com/attachment/recipe/2020/09/22/2020092216007543727947377756041.jpg?x-oss-process=style/p320",
-                    describle: "准备好所需要的食材，这次使用的高筋面粉是金龙鱼面包粉，很细腻，很容易出膜，所使用的食材也是配方的1.2倍。",
-                },
-                {
-                    id1: 5,
-                    img1: "https://i8.meishichina.com/attachment/recipe/2020/09/22/2020092216007543727947377756041.jpg?x-oss-process=style/p320",
-                    describle: "准备好所需要的食材，这次使用的高筋面粉是金龙鱼面包粉，很细腻，很容易出膜，所使用的食材也是配方的1.2倍。",
-                },
-                {
-                    id1: 6,
-                    img1: "https://i8.meishichina.com/attachment/recipe/2020/09/22/2020092216007543727947377756041.jpg?x-oss-process=style/p320",
-                    describle: "准备好所需要的食材，这次使用的高筋面粉是金龙鱼面包粉，很细腻，很容易出膜，所使用的食材也是配方的1.2倍。",
-                },
-                {
-                    id1: 7,
-                    img1: "https://i8.meishichina.com/attachment/recipe/2020/09/22/2020092216007543727947377756041.jpg?x-oss-process=style/p320",
-                    describle: "准备好所需要的食材，这次使用的高筋面粉是金龙鱼面包粉，很细腻，很容易出膜，所使用的食材也是配方的1.2倍。",
-                },
-            ],
-            // 做菜小窍门
-            qiaomen: [
-                {
-                    id: 1,
-                    text: "肉类可以用猪里脊，鸡胸肉，牛里脊都可以",
-                },
-                {
-                    id: 2,
-                    text: "肉腌制一定要入味，起码一个小时以上，汤汁是酸甜的，如果肉再没有味道这个菜就不好吃了。",
-                },
-                {
-                    id: 3,
-                    text: "玉米淀粉是干的往肉上裹的，不需要用水。",
-                },
-                {
-                    id: 4,
-                    text: "糖醋汁比例方便大家记我按54321排比写的，如果拿不准混合好以后可以尝下，根据自家口味进行微调。",
-                },
-                {
-                    id: 5,
-                    text: "肉类可以用猪里脊，鸡胸肉，牛里脊都可以",
-                },
-            ],
+            
         };
     },
     async mounted() {
         // 根据菜谱的 id 请求菜谱的详细信息
+        console.log('foodId', this.$store.state)
         let res = await this.$axios.get("/details", { params: { foodId: this.$store.state.myFoodId } });
-        console.log(res);
+        console.log('res',res);
     },
 };
 </script>

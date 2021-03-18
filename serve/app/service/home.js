@@ -7,7 +7,7 @@ class HomeService extends Service {
     return data;
   }
   async food() {
-    const sql = 'SELECT food.id, food.title, food.image, food.alone, myuser.userName FROM food, myuser WHERE food.userId = myuser.id ORDER BY food.id LIMIT 20';
+    const sql = 'SELECT food.id, food.title, food.image, food.alone, myuser.userName FROM food, myuser WHERE food.userId = myuser.userId ORDER BY food.id LIMIT 20';
     return await this.app.mysql.query(sql);
   }
   async book() {
@@ -32,7 +32,7 @@ class HomeService extends Service {
     }
 
     const sql3 =
-        'SELECT topic.id, myuser.userName, myuser.userPic FROM myuser, topic WHERE topic.userId = myuser.id';
+        'SELECT topic.id, myuser.userName, myuser.userPic FROM myuser, topic WHERE topic.userId = myuser.userId';
     const data3 = await this.app.mysql.query(sql3);
 
     for (let i = 0; i < res.length; i++) {
@@ -48,22 +48,41 @@ class HomeService extends Service {
     return data;
   }
   async register(userInfo) {
-    // const { ctx } = this;
-    const sql1 = `select *from myuser where email ="${userInfo.email}"`;
+    const sql1 = `select *from myuser where phone ="${userInfo.phone}"`;
     const result = await this.app.mysql.query(sql1);
-    console.log(result);
     if (result[0]) return { code: '4002', info: '手机号已经注册过了哟' };
-    const insertSql = `insert into myuser (userSex,email, userPwd, userPic) values ("${userInfo.userSex}","${userInfo.email}","${userInfo.userPwd}","${userInfo.userPic}")`;
+    const insertSql = `insert into myuser (userName, phone, userPwd) values ("${userInfo.phone.substring(7, 11)}", "${userInfo.phone}","${userInfo.userPwd}")`;
     const result1 = await this.app.mysql.query(insertSql);
     if (result1.affectedRows > 0) return { code: '2001', info: '注册成功' };
     return { code: '5001', info: '后台错误' };
   }
   async login(loginInfo) {
-    console.log('loginInfo', loginInfo);
-    const sql = `select * from myuser where email="${loginInfo.email}" and userPwd="${loginInfo.userPwd}"`;
+    const sql = `select * from myuser where phone="${loginInfo.phone}" and userPwd="${loginInfo.userPwd}"`;
     const result = await this.app.mysql.query(sql);
-    console.log(result);
     return result;
+  }
+  async details(Id) {
+    console.log(Id);
+    const sql = `select * from food_detail where foodId=${Id}`;
+    const result = await this.app.mysql.query(sql);
+    const data = {};
+    // const step1 = [];
+    data.description = result[0].description;
+    // eslint-disable-next-line no-const-assign
+    const step1 = result[0].step.split('||');
+    // 步骤
+    const step = [];
+    for (let i = 0; i < step1.length; i++) {
+      const step3 = {};
+      step3.img1 = step1[i].split('&&')[0];
+      step3.describle = step1[i].split('&&')[1];
+      step.push(step3);
+    }
+    // 细节
+    data.careful = result[0].careful.split('||');
+    console.log(data.careful);
+
+    return 'result';
   }
 }
 module.exports = HomeService;

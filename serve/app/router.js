@@ -20,6 +20,7 @@ module.exports = app => {
   router.get('/topic', controller.home.topic);
   // advice 健康 烘焙 为您推荐
   router.get('/advice', controller.home.advice);
-
+  // 菜谱详情部分
+  router.get('/details', controller.home.details);
 
 };

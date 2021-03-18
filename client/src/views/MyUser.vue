@@ -28,8 +28,8 @@
         </div>
 
         <div class="box">
-            <router-link :class="showClass" to="/MyUser/Login" @click.native="choosePlay(1)">登录</router-link>
-            <router-link :class="otherClass" to="/MyUser/Register" @click.native="choosePlay(2)">注册</router-link>
+            <router-link :class="showClass" to="/MyUser/Login" @click.native="choosePlay('login')">登录</router-link>
+            <router-link :class="otherClass" to="/MyUser/Register" @click.native="choosePlay('register')">注册</router-link>
             <router-view></router-view>
         </div>
     </div>
@@ -61,10 +61,10 @@ export default {
     },
     methods: {
         choosePlay(arg) {
-            if (arg == 1) {
+            if (arg == 'login') {
                 this.showClass = "mybox selected";
                 this.otherClass = "mybox";
-            } else if (arg == 2) {
+            } else if (arg == 'register') {
                 this.otherClass = "mybox selected";
                 this.showClass = "mybox";
             }
@@ -101,8 +101,6 @@ export default {
     background-color: rgba(255, 255, 255, 0.9);
     margin: 0px auto;
     position: relative;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
 }
 
 /* 登录注册两个盒子 */
@@ -112,8 +110,6 @@ export default {
     text-decoration: none;
     width: 50%;
     z-index: 1;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
 }
 
 .selected {

@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="foodbox">
-            <div class="foodkinds" v-for="item in foodobj" :key="item.id" @click="toDetails(item.id)">
+            <div class="foodkinds" v-for="item in foodData" :key="item.userId" @click="toDetails(item)">
                 <div style="overflow: hidden">
                     <img :src="item.image" alt="图片加载失败" />
                 </div>
@@ -32,20 +32,20 @@ export default {
     data() {
         return {
             foodItem: ["热菜", "凉菜", "汤羹", "主食", "小吃", "西餐", "菜谱首页"],
-            foodobj: [],
+            foodData:[],
         };
     },
 
     // 请求数据库首页新秀菜谱的数据
     async mounted() {
         let result = await this.$axios.get("/food");
-        this.foodobj = result.data;
+        this.foodData = result.data;
     },
 
     methods: {
-        toDetails(foodId) {
-            this.$store.commit("increment", { n: foodId });
-            this.$router.push({ name: "Details", params: { foodId } });
+        toDetails(item) {
+            this.$store.commit("increment", { n: item.id });
+            this.$router.push({ name: "Details", params: { item } });
         },
     },
 };

@@ -1,6 +1,6 @@
 'use strict';
-const fs = require('fs');
-const path = require('path');
+// const fs = require('fs');
+// const path = require('path');
 const Controller = require('egg').Controller;
 
 class HomeController extends Controller {
@@ -32,19 +32,19 @@ class HomeController extends Controller {
     console.log(this.ctx.request.files);
     const { ctx } = this;
     if (ctx.request.files) {
-      const filename = path.basename(ctx.request.files[0].filepath);
-      const oldPath = `${ctx.request.files[0].filepath}`;
-      const newPath = `${__dirname}/../public/upload/${filename}`;
-      fs.copyFileSync(oldPath, newPath);
-      fs.unlink(oldPath, err => {
-        if (err) console.log(err);
-      });
-      const imgUrl = `http://localhost:7001/public/upload/${filename}`;
-      ctx.request.body.userPic = imgUrl;
+      // const filename = path.basename(ctx.request.files[0].filepath);
+      // const oldPath = `${ctx.request.files[0].filepath}`;
+      // const newPath = `${__dirname}/../public/upload/${filename}`;
+      // fs.copyFileSync(oldPath, newPath);
+      // fs.unlink(oldPath, err => {
+      //   if (err) console.log(err);
+      // });
+      // const imgUrl = `http://localhost:7001/public/upload/${filename}`;
+      // ctx.request.body.userPic = imgUrl;
       const result = await ctx.service.home.register(ctx.request.body);
-      console.log(result);
+      console.log('result', result);
+      this.ctx.body = result;
     }
-    this.ctx.body = 'register';
   }
   async login() {
     const { ctx } = this;
@@ -59,6 +59,12 @@ class HomeController extends Controller {
     } else {
       ctx.body = { code: '4005', info: '账号或密码错误' };
     }
+  }
+  async details() {
+    const { ctx } = this;
+    console.log(ctx.request.query.foodId);
+    const result = await this.ctx.service.home.details(ctx.request.query.foodId);
+    ctx.body = result;
   }
 }
 module.exports = HomeController;
