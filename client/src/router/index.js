@@ -17,6 +17,12 @@ const routes = [
         component: () => import("../views/Details.vue"),
     },
     {
+        // 搜索栏
+        path: "/Search",
+        name: "Search",
+        component: () => import("../views/Search.vue"),
+    },
+    {
         // 登录注册
         path: "/MyUser",
         name: "MyUser",

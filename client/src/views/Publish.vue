@@ -9,7 +9,6 @@
       <router-link to="/Publish/Favorite">收藏</router-link>
       <router-link to="/Publish/MySelf">账户设置</router-link>
     </div>
-
     <router-view></router-view>
   </div>
 </template>

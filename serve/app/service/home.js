@@ -66,9 +66,7 @@ class HomeService extends Service {
     const sql = `select * from food_detail where foodId=${Id}`;
     const result = await this.app.mysql.query(sql);
     const data = {};
-    // const step1 = [];
     data.description = result[0].description;
-    // eslint-disable-next-line no-const-assign
     const step1 = result[0].step.split('||');
     // 步骤
     const step = [];
@@ -78,11 +76,21 @@ class HomeService extends Service {
       step3.describle = step1[i].split('&&')[1];
       step.push(step3);
     }
+    data.step = step;
     // 细节
     data.careful = result[0].careful.split('||');
-    console.log(data.careful);
-
-    return 'result';
+    // 食材明细
+    const cailiao = [];
+    const Ingredient1 = result[0].Ingredient.split('。');
+    console.log(Ingredient1);
+    for (let i = 0; i < Ingredient1.length; i++) {
+      const obj = {};
+      obj.clname = Ingredient1[i].split('：')[0];
+      obj.detai = Ingredient1[i].split('：')[1].split('，');
+      cailiao.push(obj);
+    }
+    data.cailiao = cailiao;
+    return data;
   }
 }
 module.exports = HomeService;

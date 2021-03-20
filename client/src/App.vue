@@ -19,13 +19,14 @@
         </div>
         <!-- 右边导航 -->
         <div class="rightnav">
-          <router-link to="/MyUser/Register">注册</router-link>
-          <router-link to="/MyUser/Login">登录</router-link>
+          <div class="isLogin">
+            <router-link to="/MyUser/Register">注册</router-link>
+            <router-link to="/MyUser/Login">登录</router-link>
+          </div>
           <router-link to="/Publish">发布</router-link>
         </div>
       </div>
     </div>
-
     <router-view></router-view>
   </div>
 </template>
@@ -78,7 +79,7 @@ export default {
 .leftnav {
   position: absolute;
   top: 0;
-  left: 0;
+  left: 255px;
   font-size: 14px;
   line-height: 40px;
   color: #cccccc;
@@ -130,10 +131,12 @@ export default {
 }
 .rightnav {
   position: absolute;
-  right: 0;
+  right: 255px;
   top: 0;
 }
-
+.rightnav .isLogin{
+  display: inline-block;
+}
 .rightnav a {
   vertical-align: top;
   display: inline-block;

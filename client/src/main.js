@@ -5,7 +5,7 @@ import axios from "axios";
 // element-ui
 import ElementUI from "element-ui"; // 引入组件库
 import "element-ui/lib/theme-chalk/index.css"; // 全局的css样式
-
+import '@/assets/icon/iconfont.css';
 import Vuex from "vuex";
 
 //引入vuex-persistedstate

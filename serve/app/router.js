@@ -22,5 +22,6 @@ module.exports = app => {
   router.get('/advice', controller.home.advice);
   // 菜谱详情部分
   router.get('/details', controller.home.details);
-
+  // 搜索
+  router.get('/search', controller.home.search);
 };

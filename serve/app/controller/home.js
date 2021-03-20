@@ -66,5 +66,10 @@ class HomeController extends Controller {
     const result = await this.ctx.service.home.details(ctx.request.query.foodId);
     ctx.body = result;
   }
+  async search() {
+    const { ctx } = this;
+    console.log(ctx.query);
+    ctx.body = 'res';
+  }
 }
 module.exports = HomeController;

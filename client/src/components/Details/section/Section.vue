@@ -3,25 +3,22 @@
         <!-- 菜名以及菜的说明 -->
         <div class="caipu-name">
             <h1>
-                <a href="###" class="caiming">{{ foodDetailData.caiming }}</a>
+                <a href="###" class="caiming">{{ foodData1.title }}</a>
             </h1>
             <a href="###" class="user-avator">
                 <!-- 用户的头像 -->
                 <img src="https://i5.meishichina.com/data/avatar/009/17/98/77_avatar_big.jpg?x-oss-process=style/c320&v=20200922" alt="图片加载失败" />
-                <p>用户名</p>
+                <p>{{foodData1.userName}}</p>
             </a>
         </div>
         <a href="###" class="cai-img">
-            <img :src="foodDetailData.caiimg1" alt="图片加载失败" />
+            <img :src="foodData1.image" alt="图片加载失败" />
         </a>
         <div class="cai-text">
             <span>{{ foodDetailData.description }}</span>
         </div>
         <div class="caidetail">
-            <div class="quan">
-                <div class="quan1"></div>
-            </div>
-            <h3>食材明细</h3>
+           <i class="iconfont icon-shenpi"></i><h3>食材明细</h3>
         </div>
         <!-- 调料的 -->
         <fieldset v-for="el in foodDetailData.cailiao" :key="el.id">
@@ -31,40 +28,23 @@
             </div>
         </fieldset>
         <div class="caidetail">
-            <div class="quan">
-                <div class="quan1"></div>
-            </div>
-            <h3>排包的做法步骤</h3>
+            <i class="iconfont icon-mingxi"></i><h3>食材明细</h3><h3>做法步骤</h3>
         </div>
         <!-- 做菜的步骤 -->
-        <div class="buzhou" v-for="el in foodDetailData.step" :key="el.id1">
+        <div class="buzhou" v-for="(el,index) in foodDetailData.step" :key="index">
             <img :src="el.img1" alt />
             <div class="content">
-                <div class="id1">{{ el.id1 }}</div>
+                <div class="id1">{{ index+1 }}</div>
                 <div class="cont-text">{{ el.describle }}</div>
             </div>
         </div>
 
         <div class="caidetail">
-            <div class="quan">
-                <div class="quan1"></div>
-            </div>
-            <h3>小窍门</h3>
+            <i class="iconfont icon-zhuyishixiang"></i><h3>注意事项</h3>
         </div>
         <!-- 做菜小窍门部分 -->
         <div class="qiaomen">
-            <p v-for="el in foodDetailData.careful" :key="el.id">{{ el.id }}、{{ el.text }}</p>
-            <p class="username">
-                来自美食天下
-                <a href="###">xxxxxxxxx</a>的作品
-            </p>
-            <p>使用的厨具：炒锅</p>
-            <p>
-                所属分类：
-                <a href="###">热菜</a>
-                <a href="###">家常菜</a>
-                <a href="###">下饭菜</a>
-            </p>
+            <p v-for="(el,index) in foodDetailData.careful" :key="index">{{ el }}</p>
         </div>
         <!-- 图标部分 -->
         <div class="tubiao">
@@ -88,6 +68,12 @@
 
 <script>
 export default {
+    props:{
+        foodData:{
+            type:Object,   //类型是数组
+            default:{}    //默认值为空
+        }
+    },
     methods: {
         fn(arg1) {
             let imgs = document.querySelectorAll(".singletb img");
@@ -101,77 +87,10 @@ export default {
     data() {
         return {
             data1: 0,
-            foodDetailData:{
-                caiming: "宽粉炖鸡块",
-                caiimg1: "https://i8.meishichina.com/attachment/recipe/2020/09/16/202009161600243928756795730571.jpg?x-oss-process=style/p800",
-                description: "宽粉炖鸡块，泽瑞妈认为这是一道足可以和小鸡炖蘑菇比肩的美食，宽粉吸足了鸡肉的汤汁，晶莹剔透， Q弹爽滑，鸡肉酥烂、鲜香入味，却香而不腻，简直是太好吃了。",
-                // 做菜步骤
-                step: [
-                    {
-                        id1: 4,
-                        img1: "https://i8.meishichina.com/attachment/recipe/2020/09/22/2020092216007543727947377756041.jpg?x-oss-process=style/p320",
-                        describle: "准备好所需要的食材，这次使用的高筋面粉是金龙鱼面包粉，很细腻，很容易出膜，所使用的食材也是配方的1.2倍。",
-                    },
-                    {
-                        id1: 5,
-                        img1: "https://i8.meishichina.com/attachment/recipe/2020/09/22/2020092216007543727947377756041.jpg?x-oss-process=style/p320",
-                        describle: "准备好所需要的食材，这次使用的高筋面粉是金龙鱼面包粉，很细腻，很容易出膜，所使用的食材也是配方的1.2倍。",
-                    },
-                    {
-                        id1: 6,
-                        img1: "https://i8.meishichina.com/attachment/recipe/2020/09/22/2020092216007543727947377756041.jpg?x-oss-process=style/p320",
-                        describle: "准备好所需要的食材，这次使用的高筋面粉是金龙鱼面包粉，很细腻，很容易出膜，所使用的食材也是配方的1.2倍。",
-                    },
-                    {
-                        id1: 7,
-                        img1: "https://i8.meishichina.com/attachment/recipe/2020/09/22/2020092216007543727947377756041.jpg?x-oss-process=style/p320",
-                        describle: "准备好所需要的食材，这次使用的高筋面粉是金龙鱼面包粉，很细腻，很容易出膜，所使用的食材也是配方的1.2倍。",
-                    },
-                ],
-                // 食材
-                cailiao: [
-                    { id: 1, clname: "主料", detai: ["油", "盐", "酱", "醋"] },
-                    {
-                        id: 2,
-                        clname: "辅料",
-                        detai: ["油", "盐", "酱油", "醋"],
-                    },
-                    {
-                        id: 3,
-                        clname: "",
-                        detai: ["油", "盐", "酱油", "醋"],
-                    },
-                ],
-            
-            // 做菜小窍门
-                careful: [
-                    {
-                        id: 1,
-                        text: "肉类可以用猪里脊，鸡胸肉，牛里脊都可以",
-                    },
-                    {
-                        id: 2,
-                        text: "肉腌制一定要入味，起码一个小时以上，汤汁是酸甜的，如果肉再没有味道这个菜就不好吃了。",
-                    },
-                    {
-                        id: 3,
-                        text: "玉米淀粉是干的往肉上裹的，不需要用水。",
-                    },
-                    {
-                        id: 4,
-                        text: "糖醋汁比例方便大家记我按54321排比写的，如果拿不准混合好以后可以尝下，根据自家口味进行微调。",
-                    },
-                    {
-                        id: 5,
-                        text: "肉类可以用猪里脊，鸡胸肉，牛里脊都可以",
-                    },
-                ],
-            },
+            foodDetailData:[],
+            foodData1:{},
             tubiao: "http://static.meishichina.com/v6/img/zhen/ix2.png?v=4",
             // 菜的详细信息
-            caixinxi: {
-               
-            },
             // 八个小图标部分的数据，转发评论的
             xiaotubiao: [
                 {
@@ -222,9 +141,9 @@ export default {
     },
     async mounted() {
         // 根据菜谱的 id 请求菜谱的详细信息
-        console.log('foodId', this.$store.state)
         let res = await this.$axios.get("/details", { params: { foodId: this.$store.state.myFoodId } });
-        console.log('res',res);
+        this.foodDetailData = res.data;
+        this.foodData1 = this.foodData.item;
     },
 };
 </script>
@@ -370,23 +289,7 @@ export default {
     justify-content: flex-start;
     align-items: center;
 }
-.caidetail .quan {
-    width: 20px;
-    height: 20px;
-    background-color: #ff6767;
-    border-radius: 50%;
-    display: inline-block;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.quan .quan1 {
-    width: 10px;
-    height: 10px;
-    display: inline-block;
-    background-color: #fff;
-    border-radius: 5px;
-}
+
 .caidetail h3 {
     display: inline-block;
     margin-left: 10px;
@@ -415,7 +318,6 @@ fieldset legend {
 }
 .buzhou {
     height: 165px;
-    background-color: sandybrown;
     margin-bottom: 40px;
     display: flex;
     margin-left: 20px;

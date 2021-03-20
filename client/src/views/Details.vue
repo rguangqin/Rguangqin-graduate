@@ -3,7 +3,7 @@
     <LogoBar></LogoBar>
     <Advertising></Advertising>
     <div id="content" class="w">
-      <Section></Section>
+      <Section :foodData="foodDeatailData"></Section>
       <Aside></Aside>
     </div>
     <Footer></Footer>
@@ -25,7 +25,7 @@ export default {
     };
   },
   created() {
-    this.foodDeatailData.foodData = this.$route.params;
+    this.foodDeatailData = this.$route.params;
   },
   components: {
     LogoBar,
