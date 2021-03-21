@@ -42,14 +42,12 @@ class HomeController extends Controller {
       // const imgUrl = `http://localhost:7001/public/upload/${filename}`;
       // ctx.request.body.userPic = imgUrl;
       const result = await ctx.service.home.register(ctx.request.body);
-      console.log('result', result);
       this.ctx.body = result;
     }
   }
   async login() {
     const { ctx } = this;
     const result = await ctx.service.home.login(ctx.request.body);
-    console.log('result', result);
     if (result[0]) {
       // 登录成功，通知浏览器做 cookie，
       // ctx.session.email 在整个后端任何地方都可访问，仅限同一个客户端ip
@@ -62,14 +60,15 @@ class HomeController extends Controller {
   }
   async details() {
     const { ctx } = this;
-    console.log(ctx.request.query.foodId);
+    // console.log(ctx.request.query.foodId);
     const result = await this.ctx.service.home.details(ctx.request.query.foodId);
     ctx.body = result;
   }
   async search() {
     const { ctx } = this;
-    console.log(ctx.query);
-    ctx.body = 'res';
+    const res = await ctx.service.home.search(ctx.query);
+    console.log(res);
+    ctx.body = res;
   }
 }
 module.exports = HomeController;

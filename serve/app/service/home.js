@@ -62,7 +62,6 @@ class HomeService extends Service {
     return result;
   }
   async details(Id) {
-    console.log(Id);
     const sql = `select * from food_detail where foodId=${Id}`;
     const result = await this.app.mysql.query(sql);
     const data = {};
@@ -82,7 +81,6 @@ class HomeService extends Service {
     // 食材明细
     const cailiao = [];
     const Ingredient1 = result[0].Ingredient.split('。');
-    console.log(Ingredient1);
     for (let i = 0; i < Ingredient1.length; i++) {
       const obj = {};
       obj.clname = Ingredient1[i].split('：')[0];
@@ -91,6 +89,22 @@ class HomeService extends Service {
     }
     data.cailiao = cailiao;
     return data;
+  }
+  async search(obj) {
+    const res = {};
+    const bookSql = `select * from book where name='${obj.searchKey}'`;
+    const bookRes = await this.app.mysql.query(bookSql);
+    res.book = bookRes;
+    const foodSql = `select * from food where title like '%${obj.searchKey}%'`;
+    const foodRes = await this.app.mysql.query(foodSql);
+    console.log(foodRes);
+    for (let i = 0; i < foodRes.length; i++) {
+      const userSql = `select username from myuser where userId=${foodRes[i].userId}`;
+      const userRes = await this.app.mysql.query(userSql);
+      foodRes[i].userName = userRes[0].username;
+    }
+    res.food = foodRes;
+    return res;
   }
 }
 module.exports = HomeService;
