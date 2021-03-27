@@ -24,4 +24,10 @@ module.exports = app => {
   router.get('/details', controller.home.details);
   // 搜索
   router.get('/search', controller.home.search);
+  // 点赞
+  router.get('/dianzan', controller.home.dianzan);
+  // 收藏
+  router.get('/shoucang', controller.home.shoucang);
+  // 发布菜谱
+  router.post('/fabucaipu', controller.home.fabucaipu);
 };

@@ -2,7 +2,7 @@
 <div>
     <div >
        <div class="text">
-           <div v-if="showdata1" class="gofabu"> 你还没有发布任何话题,点击 <router-link to="/Publish/PBLtopic/fabu">发布话题</router-link>去发布</div>
+           <!-- <div v-if="showdata1" class="gofabu"> 你还没有发布任何话题,点击 <router-link to="/Publish/PBLtopic/fabu">发布话题</router-link>去发布</div> -->
            <span v-if="showdata2" @click="test" class="actived">已发布，点击刷新</span>
        </div>
        <div class="show" v-for="(el,index) in dataarr" :key="index">

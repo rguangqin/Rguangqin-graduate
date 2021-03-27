@@ -1,4 +1,7 @@
 <template>
+<div id="details">
+    <!-- <LogoBar></LogoBar> -->
+    <div id="content" class="w">
     <div id="section">
         <!-- 菜名以及菜的说明 -->
         <div class="caipu-name">
@@ -56,7 +59,6 @@
         <div class="pinglun">
             <textarea name="" id="" cols="30" rows="10"></textarea>
             <div class="fabiao">
-                <div class="fabiao-left">Ctrl+Enter 也可提交哦</div>
                 <div class="fabiao-right">发表评论</div>
             </div>
             <div class="tiaoshu">
@@ -89,54 +91,6 @@ export default {
             data1: 0,
             foodDetailData:[],
             foodData1:{},
-            tubiao: "http://static.meishichina.com/v6/img/zhen/ix2.png?v=4",
-            // 菜的详细信息
-            // 八个小图标部分的数据，转发评论的
-            xiaotubiao: [
-                {
-                    id: 1,
-                    left1: -210,
-                    left2: -180,
-                    text: "人点赞",
-                },
-                {
-                    id: 2,
-                    left1: 0,
-                    left2: -30,
-                    text: "人收藏",
-                },
-                {
-                    id: 3,
-                    left1: -240,
-                    text: "加入菜单",
-                },
-                {
-                    id: 4,
-                    left1: -270,
-                    text: "条评论",
-                },
-                {
-                    id: 5,
-                    left1: -150,
-                    text: "微信",
-                },
-                {
-                    id: 6,
-                    left1: -90,
-                    text: "QQ好友",
-                },
-                {
-                    id: 7,
-                    left1: -120,
-                    text: "QQ空间",
-                },
-                {
-                    id: 8,
-                    left1: -60,
-                    text: "新浪微博",
-                },
-            ],
-            
         };
     },
     async mounted() {
@@ -154,9 +108,9 @@ export default {
     padding: 0;
 }
 #section {
+    margin-top: 40px;
     position: absolute;
     left: 0;
-    top: 0;
     width: 640px;
 }
 .pinglun textarea {
@@ -191,46 +145,6 @@ export default {
     text-align: center;
     background-color: #ff6767;
     border-left: 1px solid #ccc;
-}
-.tubiao {
-    height: 83px;
-    color: #666;
-    font-size: 12px;
-    display: flex;
-    justify-content: space-between;
-}
-.tubiao .singletb {
-    margin-top: 15px;
-    width: 77px;
-    height: 53px;
-    text-decoration: none;
-    color: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-.tubiao img {
-    width: 300px;
-    height: 30px;
-    position: relative;
-    /* left: -60px; */
-}
-.tubiao span {
-    width: 30px;
-    height: 30px;
-    display: inline-block;
-    overflow: hidden;
-}
-.caipu-left {
-    width: 640px;
-    height: 900px;
-}
-.caipu-right {
-    width: 300px;
-    height: 900px;
-    /* 高度 */
-    background-color: rosybrown;
 }
 .user-avator,
 .caiming {

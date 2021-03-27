@@ -1,6 +1,6 @@
 'use strict';
-// const fs = require('fs');
-// const path = require('path');
+const fs = require('fs');
+const path = require('path');
 const Controller = require('egg').Controller;
 
 class HomeController extends Controller {
@@ -53,15 +53,14 @@ class HomeController extends Controller {
       // ctx.session.email 在整个后端任何地方都可访问，仅限同一个客户端ip
       ctx.session.email = ctx.request.body.email;
       // 返回客户端
-      ctx.body = { code: '2002', info: result[0] };
+      ctx.body = { code: '2002', info: result[0], userId: result[0].userId };
     } else {
       ctx.body = { code: '4005', info: '账号或密码错误' };
     }
   }
   async details() {
     const { ctx } = this;
-    // console.log(ctx.request.query.foodId);
-    const result = await this.ctx.service.home.details(ctx.request.query.foodId);
+    const result = await this.ctx.service.home.details(ctx.request.query);
     ctx.body = result;
   }
   async search() {
@@ -70,5 +69,39 @@ class HomeController extends Controller {
     console.log(res);
     ctx.body = res;
   }
+  async dianzan() {
+    const { ctx } = this;
+    const result = await ctx.service.home.dianzan(ctx.query);
+    ctx.body = result;
+  }
+  async shoucang() {
+    const { ctx } = this;
+    const result = await ctx.service.home.shoucang(ctx.query);
+    ctx.body = result;
+  }
+  async fabucaipu() {
+    const { ctx } = this;
+    const filePath = [];
+    // 处理传递过来的图片地址
+    for (const key in ctx.request.files) {
+      console.log(key);
+      // key为0表示为成品图
+      filePath.push(dealFile(ctx.request.files[key], key ? 'test' : 'test1'));
+    }
+    const result = await ctx.service.home.fabucaipu(ctx.request.body, filePath);
+    this.ctx.body = result;
+  }
 }
 module.exports = HomeController;
+
+// 将图片复制当相应的文件且返回存放的地址
+function dealFile(file, fileAdd) {
+  const filename = path.basename(file.filepath);
+  const oldPath = file.filepath;
+  const nwePath = `${__dirname}/../public/test/${filename}`;
+  fs.copyFileSync(oldPath, nwePath);
+  fs.unlink(oldPath, err => {
+    if (err) console.log(err);
+  });
+  return `http://localhost:7001/public/${fileAdd}/${filename}`;
+}

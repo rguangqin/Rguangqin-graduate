@@ -54,14 +54,18 @@ export default {
       this.$router.push("/Register");
     },
     async login() {
-      let loginRes = await this.$axios.post("/login", {
+      const params = {
         phone: this.phone,
         userPwd: this.userPwd,
-      });
+      };
+      let loginRes = await this.$axios.post("/login", params);
       if (loginRes.data.code == 2002) {
         // 登陆成功,先缓存，再跳转
         // 前端缓存
-        window.localStorage.setItem("islogin", true);
+        window.localStorage.setItem("userId", loginRes.data.userId);
+        for(let key in params){
+          window.localStorage.setItem(key,params[key])
+        }
         this.$router.push("/");
       } else if (loginRes.data.code == 4005) {
         // 账号或密码错误

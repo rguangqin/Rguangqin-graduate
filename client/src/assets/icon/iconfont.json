@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "3315407",
+      "name": "点赞",
+      "font_class": "dianzan1",
+      "unicode": "e627",
+      "unicode_decimal": 58919
+    },
+    {
+      "icon_id": "19954256",
+      "name": "收 藏",
+      "font_class": "shoucang2",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
       "icon_id": "2188794",
       "name": "步骤",
       "font_class": "shenpi",

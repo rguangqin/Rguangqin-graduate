@@ -7,10 +7,11 @@ import ElementUI from "element-ui"; // 引入组件库
 import "element-ui/lib/theme-chalk/index.css"; // 全局的css样式
 import '@/assets/icon/iconfont.css';
 import Vuex from "vuex";
-
+import FoodCard from './components/Global/FoodCard.vue'
 //引入vuex-persistedstate
 import createPersistedState from 'vuex-persistedstate'
 
+Vue.component('FoodCard', FoodCard)
 Vue.use(ElementUI);
 Vue.use(Vuex);
 

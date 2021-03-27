@@ -14,13 +14,6 @@
         <router-link to="##">{{ mynav[1] }}</router-link>
         <router-link to="##">{{ mynav[2] }}</router-link>
       </div>
-      <div class="serchBox">
-        <input type="text" />
-        <router-link to="##">搜索</router-link>
-      </div>
-    </div>
-    <div class="dongtai">
-         <router-link :to="el.link" v-for="el in title" :key=el.title>{{el.title}}</router-link>
     </div>
   </div>
 </template>
@@ -39,7 +32,6 @@ export default {
         { name: "赞与收藏", num: "9" },
       ],
       mynav: ["通知", "私信", "福利活动"],
-      title:[{title:'我关注的动态',link:'###'},{title:'所有动态',link:'###'},{title:'我的动态',link:'###'}]
     };
   },
 };

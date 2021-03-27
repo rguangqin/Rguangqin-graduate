@@ -7,7 +7,7 @@ class HomeService extends Service {
     return data;
   }
   async food() {
-    const sql = 'SELECT food.id, food.title, food.image, food.alone, myuser.userName FROM food, myuser WHERE food.userId = myuser.userId ORDER BY food.id LIMIT 20';
+    const sql = 'SELECT food.id, food.title, food.image, myuser.userName FROM food, myuser WHERE food.userId = myuser.userId ORDER BY food.id LIMIT 20';
     return await this.app.mysql.query(sql);
   }
   async book() {
@@ -61,10 +61,16 @@ class HomeService extends Service {
     const result = await this.app.mysql.query(sql);
     return result;
   }
-  async details(Id) {
-    const sql = `select * from food_detail where foodId=${Id}`;
+  async details(params) {
+    const sql = `select * from food_detail where foodId=${params.foodId}`;
     const result = await this.app.mysql.query(sql);
     const data = {};
+    // 点赞
+    if (result[0].thumb && (result[0].thumb.indexOf(params.phone) !== -1)) data.thumb = true;
+    else data.thumb = false;
+    // // 收藏
+    if (result[0].favorite && (result[0].favorite.indexOf(params.favorite) !== -1)) data.favorite = true;
+    else data.favorite = false;
     data.description = result[0].description;
     const step1 = result[0].step.split('||');
     // 步骤
@@ -97,7 +103,6 @@ class HomeService extends Service {
     res.book = bookRes;
     const foodSql = `select * from food where title like '%${obj.searchKey}%'`;
     const foodRes = await this.app.mysql.query(foodSql);
-    console.log(foodRes);
     for (let i = 0; i < foodRes.length; i++) {
       const userSql = `select username from myuser where userId=${foodRes[i].userId}`;
       const userRes = await this.app.mysql.query(userSql);
@@ -105,6 +110,60 @@ class HomeService extends Service {
     }
     res.food = foodRes;
     return res;
+  }
+  async dianzan(params) {
+    const sql = `select thumb,favorite from food_detail where foodId=${params.foodId}`;
+    const result = await this.app.mysql.query(sql);
+    // 删除点赞
+    if (result[0].thumb && (result[0].thumb.indexOf(params.phone) !== -1)) {
+      if (!JSON.parse(params.dianzanIcon)) {
+        const dianzanSql = `update food_detail set thumb='${result[0].thumb.replace(params.phone + ',', '')}' where foodId = ${params.foodId}`;
+        const res = await this.app.mysql.query(dianzanSql);
+        console.log('res', res);
+      }// 增加点赞
+    } else if (!result[0].thumb || result[0].thumb.indexOf(params.phone) === -1) {
+      if (JSON.parse(params.dianzanIcon)) {
+        const dianzanSql = `update food_detail set thumb='${result[0].thumb + params.phone + ','}' where foodId = ${params.foodId}`;
+        const res = await this.app.mysql.query(dianzanSql);
+        console.log('res', res);
+      }
+    }
+    // 删除收藏
+    if (result[0].favorite && (result[0].favorite.indexOf(params.phone) !== -1)) {
+      if (!JSON.parse(params.shoucangIcon)) {
+        const shoucangSql = `update food_detail set favorite='${result[0].favorite.replace(params.phone + ',', '')}' where foodId = ${params.foodId}`;
+        const res = await this.app.mysql.query(shoucangSql);
+        return res;
+      }// 增加收藏
+    } else if (!result[0].favorite || result[0].favorite.indexOf(params.phone) === -1) {
+      if (JSON.parse(params.dianzanIcon)) {
+        const shoucangSql = `update food_detail set favorite='${result[0].favorite + params.phone + ','}' where foodId = ${params.foodId}`;
+        const res = await this.app.mysql.query(shoucangSql);
+        return res;
+      }
+    }
+  }
+  async shoucang(params) {
+    const sql = `select thumb,favorite from food_detail where foodId=${params.foodId}`;
+    const result = await this.app.mysql.query(sql);
+    // 删除收藏
+    if (result[0].favorite && (result[0].favorite.indexOf(params.phone) !== -1)) {
+      if (!JSON.parse(params.shoucangIcon)) {
+        const shoucangSql = `update food_detail set favorite='${result[0].favorite.replace(params.phone + ',', '')}' where foodId = ${params.foodId}`;
+        const res = await this.app.mysql.query(shoucangSql);
+        return res;
+      }// 增加收藏
+    } else if (!result[0].favorite || result[0].favorite.indexOf(params.phone) === -1) {
+      if (JSON.parse(params.dianzanIcon)) {
+        const shoucangSql = `update food_detail set favorite='${result[0].favorite + params.phone + ','}' where foodId = ${params.foodId}`;
+        const res = await this.app.mysql.query(shoucangSql);
+        return res;
+      }
+    }
+  }
+  async fabucaipu(data, filePath) {
+    console.log(data, filePath);
+    return 'res';
   }
 }
 module.exports = HomeService;

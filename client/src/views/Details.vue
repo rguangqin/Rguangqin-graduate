@@ -1,48 +1,314 @@
 <template>
-  <div id="details">
-    <LogoBar></LogoBar>
-    <Advertising></Advertising>
-    <div id="content" class="w">
-      <Section :foodData="foodDeatailData"></Section>
-      <Aside></Aside>
+  <div id="detail">
+    <div class="section">
+      <!-- 菜名以及菜的说明 -->
+      <div class="caipu-name">
+        <h1>
+          <a href="###" class="caiming">{{ foodData1.title }}</a>
+        </h1>
+        <a href="###" class="user-avator">
+          <!-- 用户的头像 -->
+          <img
+            src="https://i5.meishichina.com/data/avatar/009/17/98/77_avatar_big.jpg?x-oss-process=style/c320&v=20200922"
+            alt="图片加载失败"
+          />
+          <p>{{ foodData1.userName }}</p>
+        </a>
+      </div>
+      <a href="###" class="cai-img">
+        <img :src="foodData1.image" alt="图片加载失败" />
+      </a>
+      <div class="cai-text">
+        <span>{{ foodDetailData.description }}</span>
+      </div>
+      <div class="caidetail">
+        <i class="iconfont icon-shenpi"></i>
+        <h3>食材明细</h3>
+      </div>
+      <!-- 调料的 -->
+      <fieldset v-for="el in foodDetailData.cailiao" :key="el.id">
+        <legend v-show="el.clname">{{ el.clname }}</legend>
+        <div class="cailiao">
+          <span v-for="el1 in el.detai" :key="el1">{{ el1 }}</span>
+        </div>
+      </fieldset>
+      <div class="caidetail">
+        <i class="iconfont icon-mingxi"></i>
+        <h3>食材明细</h3>
+        <h3>做法步骤</h3>
+      </div>
+      <!-- 做菜的步骤 -->
+      <div
+        class="buzhou"
+        v-for="(el, index) in foodDetailData.step"
+        :key="index"
+      >
+        <img :src="el.img1" alt />
+        <div class="content">
+          <div class="id1">{{ index + 1 }}</div>
+          <div class="cont-text">{{ el.describle }}</div>
+        </div>
+      </div>
+
+      <div class="caidetail">
+        <i class="iconfont icon-zhuyishixiang"></i>
+        <h3>注意事项</h3>
+      </div>
+      <!-- 做菜小窍门部分 -->
+      <div class="qiaomen">
+        <p v-for="(el, index) in foodDetailData.careful" :key="index">
+          {{ el }}
+        </p>
+      </div>
+      <!-- 图标部分 -->
+      <div class="user-operat">
+        <span :class="`iconfont icon-dianzan1 ${dianzanIcon ? 'dianzan' : ''}`" @click="addDianzanClass()"></span>
+        <span :class="`iconfont icon-shoucang2 ${shoucangIcon ? 'shoucang' : ''}`" @click="addShoucangClass()"></span>
+      </div>
+      <!-- <div class="pinglun">
+        <textarea name="" id="" cols="30" rows="10"></textarea>
+        <div class="fabiao">
+          <div class="fabiao-left">Ctrl+Enter 也可提交哦</div>
+          <div class="fabiao-right">发表评论</div>
+        </div>
+        <div class="tiaoshu">
+          <span></span>
+        </div>
+      </div> -->
     </div>
-    <Footer></Footer>
   </div>
 </template>
 
 <script>
-import LogoBar from "@/components/Details/header/LogoBar";
-import Advertising from "@/components/Details/header/Advertising";
-// import Content from "@/components/Details/Content";
-import Footer from "@/components/Details/footer/Footer";
-import Section from "@/components/Details/section/Section";
-import Aside from "@/components/Details/aside/Aside";
 export default {
-  props: ["foodData"],
+  props: {
+    foodData: {
+      type: Object, //类型是数组
+      default: ()=>{}, //默认值为空
+    },
+  },
+  methods: {
+    async addDianzanClass(){
+      if(this.dianzanIcon){
+        this.dianzanIcon = false;
+      }
+      else this.dianzanIcon = true;
+      const res = await this.$axios.get("/dianzan",{params:{foodId:this.$store.state.myFoodId,phone:window.localStorage.phone,dianzanIcon:this.dianzanIcon}})
+  },
+    async addShoucangClass(){
+      if(this.shoucangIcon)
+      this.shoucangIcon = false;
+      else this.shoucangIcon = true;
+      const res = await this.$axios.get("/shoucang",{params:{foodId:this.$store.state.myFoodId,phone:window.localStorage.phone,shoucangIcon:this.shoucangIcon}})
+    }
+
+  },
   data() {
     return {
-      foodDeatailData: {},
+      data1: 0,
+      foodDetailData: [],
+      foodData1: {},
+      dianzanIcon:false,
+      shoucangIcon:false,
     };
   },
-  created() {
-    this.foodDeatailData = this.$route.params;
-  },
-  components: {
-    LogoBar,
-    Advertising,
-    Footer,
-    // Content,
-    Section,
-    Aside,
+  async mounted() {
+    // 根据菜谱的 id 请求菜谱的详细信息
+    let res = await this.$axios.get("/details", {
+      params: { foodId: this.$store.state.myFoodId,phone:window.localStorage.phone },
+    });
+    this.dianzanIcon = res.data.thumb;
+    this.shoucangIcon = res.data.favorite;
+    this.foodDetailData = res.data;
+    this.foodData1 = this.$route.params.item;
   },
 };
 </script>
 
 <style scoped>
-#details {
+* {
+  margin: 0;
+  padding: 0;
+}
+#detail{
+    width: 990px;
+    margin: 0 auto;
+}
+.section {
+  width: 640px;
   margin-top: 40px;
 }
-#content {
+.pinglun textarea {
+  overflow: hidden;
+  height: 90px;
+  line-height: 20px;
+  font-size: 14px;
+  width: 640px;
+  outline: 0;
+  padding: 5px;
+}
+.fabiao {
+  width: 640px;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #ccc;
+  height: 30px;
+  font-size: 12px;
+  background-color: #eeeeee;
+}
+.fabiao .fabiao-left {
+  padding-left: 10px;
+  color: #666;
+  height: 30px;
+  line-height: 30px;
+}
+.fabiao .fabiao-right {
+  color: #fff;
+  height: 30px;
+  width: 100px;
+  line-height: 30px;
+  text-align: center;
+  background-color: #ff6767;
+  border-left: 1px solid #ccc;
+}
+.caipu-left {
+  width: 640px;
+  height: 900px;
+}
+.caipu-right {
+  width: 300px;
+  height: 900px;
+  background-color: rosybrown;
+}
+.user-avator,
+.caiming {
+  text-decoration: none;
+  color: #111;
+}
+
+.user-avator img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+}
+.caipu-name {
+  height: 70px;
   position: relative;
+}
+.user-avator {
+  font-size: 12px;
+  position: absolute;
+  right: 0;
+  top: 10px;
+  text-align: center;
+}
+.caipu-name h1 {
+  height: 70px;
+  width: 200px;
+  line-height: 70px;
+}
+.cai-img img {
+  width: 640px;
+  height: 426px;
+  margin-top: 10px;
+}
+.cai-text {
+  margin-top: 20px;
+}
+.cai-text span::before,
+.cai-text span::after {
+  content: "“";
+  display: inline-block;
+  text-indent: -10px;
+  height: 24px;
+  width: 30px;
+  font-size: 40px;
+  color: #bfbfbf;
+  vertical-align: bottom;
+}
+.cai-text span::after {
+  content: "”";
+}
+.caidetail {
+  height: 60px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.caidetail h3 {
+  display: inline-block;
+  margin-left: 10px;
+}
+.cailiao {
+  width: 638px;
+  height: 70px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 20px;
+}
+.cailiao span:hover {
+  color: #ff6767;
+  cursor: pointer;
+}
+fieldset {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+fieldset legend {
+  margin-left: 50px;
+  text-align: start;
+  padding: 0 10px;
+}
+.buzhou {
+  height: 165px;
+  margin-bottom: 40px;
+  display: flex;
+  margin-left: 20px;
+}
+.buzhou img {
+  width: 220px;
+  height: auto;
+}
+
+.content {
+  margin-left: 20px;
+  font-size: 18px;
+}
+.content .id1 {
+  width: 36px;
+  height: 36px;
+  /* background-color: sandybrown; */
+  border-radius: 50%;
+  text-align: center;
+  line-height: 36px;
+  border: 1px solid #ccc;
+  margin: 22px 0 10px 0;
+}
+.qiaomen p:nth-last-of-type(1),
+.qiaomen p:nth-last-of-type(2),
+.qiaomen p:nth-last-of-type(3) {
+  margin: 10px 0;
+}
+.qiaomen a {
+  padding: 0 5px;
+  text-decoration: navajowhite;
+  color: #000;
+}
+.qiaomen a:hover {
+  color: #ff6767;
+}
+.user-operat{
+  height: 50px;
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+.shoucang::before,
+.dianzan::before{
+  color: #ff6767 !important;
 }
 </style>

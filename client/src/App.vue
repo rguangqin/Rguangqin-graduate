@@ -38,14 +38,7 @@ export default {
       navtile: [
         { navName: "菜谱", toWhere: "##" },
         { navName: "食材", toWhere: "##" },
-        { navName: "珍选", toWhere: "##" },
-        { navName: "健康", toWhere: "##" },
-        { navName: "专题", toWhere: "##" },
-        { navName: "社区", toWhere: "##" },
-        { navName: "活动", toWhere: "##" },
-        { navName: "搜索", toWhere: "##" },
-        { navName: "烘焙", toWhere: "##" },
-        { navName: "妈妈派", toWhere: "##" },
+        { navName: "搜索", toWhere: "/Search" },
       ],
     };
   },

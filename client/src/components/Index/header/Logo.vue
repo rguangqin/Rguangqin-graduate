@@ -1,12 +1,9 @@
 <template>
   <div id="logo" class="w">
     <div class="logoPic"></div>
-    <div class="logoNav">
-      <router-link to="##" v-for="item in navItem" :key="item">{{ item }}</router-link>
-    </div>
     <div class="serchBox">
       <input type="text" placeholder="输入要搜索的关键字" v-model='searchKey'/>
-      <router-link :to="{path:'/Search',query: {searchKey}}">搜索</router-link>
+      <router-link :to="{path:'/Search',query: {searchKey:this.searchKey}}">搜索</router-link>
     </div>
     <router-view></router-view>
   </div>
@@ -17,7 +14,6 @@ export default {
   data() {
     return {
       searchKey:'',
-      navItem: ["首页", "菜谱", "食材", "珍选", "健康", "专题", "社区", "话题"],
     };
   },
 };

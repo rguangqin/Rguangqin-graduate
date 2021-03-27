@@ -46,7 +46,7 @@ const routes = [
         path: "/Publish",
         name: "Publish",
         component: () => import("../views/Publish.vue"),
-        redirect:'Publish/PBLtopic/mytopic',
+        redirect:'Publish/Vip',
         children: [
             {
                 path: "Vip",
@@ -62,52 +62,13 @@ const routes = [
                     {
                         path:"caipu",
                         component:() => import("@/components/Publish/detail/caipu.vue"),
-                         
-                    }
-                ]
-               
-            },
-            {
-                path: "PBLtopic",
-                name: "PBLtopic",
-                component: () => import("@/components/Publish/PBLtopic.vue"),
-                redirect:'/Publish/PBLtopic/mytopic',
-                children:[
-                    {
-                        path:"mytopic",
-                        component:() => import("@/components/Publish/detail/mytopic.vue"),
-                         
                     },
                     {
                         path:"fabu",
-                        component:() => import("@/components/Publish/detail/fabu.vue")
-                      }
+                        component:()=>import("@/components/Publish/detail/fabu.vue")
+                       }
                 ]
-            },
-            {
-                path: "PBLlog",
-                name: "PBLlog",
-                component: () => import("@/components/Publish/PBLlog.vue"),
-                redirect:'/Publish/PBLlog/log',
-                children:[
-                    {
-                        path:"log",
-                        component:() => import("@/components/Publish/detail/log.vue"),
-                         
-                    }
-                ]
-            },
-            {
-                path: "PBLmenu",
-                name: "PBLmenu",
-                component: () => import("@/components/Publish/PBLmenu.vue"),
-                redirect:'/Publish/PBLmenu/caidan',
-                children:[
-                    {
-                        path:"caidan",
-                        component:() => import("@/components/Publish/detail/caidan.vue"), 
-                    }
-                ]
+               
             },
             {
                 path: "Favorite",
@@ -136,23 +97,6 @@ const routes = [
                         component:() => import("@/components/Publish/detail/caidan.vue")
                     },
                 ]
-            },
-            {
-                path: "MySelf",
-                name: "MySelf",
-                component: () => import("@/components/Publish/MySelf.vue"),
-                redirect:'/Publish/MySelf/myself',
-                children:[
-                    {
-                    path:"myself",
-                    component:() => import("@/components/Publish/detail/Myself.vue"),
-                    meta: { keepAlive: true }
-                },
-                {
-                    path:"adress",
-                    component:() => import("@/components/Publish/detail/adress.vue"),
-                },
-            ]
             },
         ],
     },

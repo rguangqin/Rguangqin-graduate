@@ -12,14 +12,14 @@
     </div>
 
     <!-- 轮播图上方菜单 -->
-    <div class="menu">
+    <!-- <div class="menu">
       <router-link class="part" to="##" v-for="item in menuItem" :key="item.title">
         {{item.title}}
         <div class="more">
           <router-link v-for="myItem in item.content" to="##" :key="myItem">{{myItem}}</router-link>
         </div>
       </router-link>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -100,6 +100,7 @@ export default {
 <style scoped>
 .lbt {
   position: relative;
+  margin-top: 100px;
 }
 
 .el-carousel__item:nth-child(2n) {
@@ -113,7 +114,7 @@ export default {
 .lbtHref {
   display: block;
 }
-
+/* 
 .menu {
   position: absolute;
   z-index: 2;
@@ -168,5 +169,5 @@ export default {
 }
 .more a:hover {
   color: #ff6767;
-}
+} */
 </style>

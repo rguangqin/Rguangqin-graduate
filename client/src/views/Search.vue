@@ -1,16 +1,42 @@
 <template>
   <div id="search">
     <div class="search-content">
-      <div class="searchKey">
-        <input
-          id="phone"
-          type="text"
-          v-model="searchKey"
-          placeholder="搜索菜谱或者食材"
-        />
-        <div class="search-btn" @click="search()">搜索</div>
+      <div class="select-box">
+        <div class="search-select">
+          <!-- <span
+            :class="el === type ? 'selcet' : ''"
+            v-for="(el, index) in typeArr"
+            :key="index"
+            @click="() => (type = el)"
+            >{{ el }}</span
+          > -->
+        </div>
+        <div class="searchKey">
+          <input
+            id="phone"
+            type="text"
+            v-model="searchKey"
+            placeholder="搜索菜谱或者食材"
+          />
+          <div class="search-btn" @click="search()">搜索</div>
+        </div>
       </div>
-      <div>展示搜索结果</div>
+      <div class="search-show">
+        <div class="book-show" v-for="el in searchData.book" :key="el.id">
+          <img :src="el.image" />
+          <div>
+            <span>{{ el.name }}&nbsp;&nbsp;[食材]</span>
+            <span>{{ el.introduction }}</span>
+          </div>
+        </div>
+        <div class="food-show" v-for="el in searchData.food" :key="el.id">
+          <img :src="el.image" />
+          <div>
+            <span>{{ el.title }}</span>
+            <span>{{ el.userName }}</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -18,20 +44,26 @@
 export default {
   data() {
     return {
+      // type: "综合",
+      // typeArr: ["综合", "菜谱", "食材"],
       searchKey: "",
+      searchData: {},
     };
   },
   methods: {
     async search() {
-      console.log("search");
-      const params = { searchKey: this.searchKey };
-      const res = await this.$axios.get("/search", { params });
+      const res = await this.$axios.get("/search", { params:{
+        searchKey:this.searchKey,
+        type:this.type,
+      } });
+      this.searchData = res.data;
       console.log("搜索的内容", res);
     },
   },
   mounted() {
     this.searchKey = this.$route.query.searchKey;
-    if(this.searchKey) this.search();
+    console.log(this.$route.query.searchKey)
+    if (this.searchKey) this.search();
   },
 };
 </script>
@@ -40,12 +72,25 @@ export default {
   margin-top: 40px;
   width: 100%;
 }
+.select-box {
+  margin: 0 auto;
+  width: 560px;
+}
 .search-content {
   margin: 0 auto;
   width: 990px;
 }
+.search-select {
+  margin-top: 150px;
+  font-size: 20px;
+}
+.search-select span {
+  padding-right: 20px;
+}
+.search-select .selcet {
+  color: #ff6767;
+}
 .searchKey {
-  margin: 150px;
   display: flex;
 }
 .searchKey input {
@@ -54,6 +99,7 @@ export default {
   border: 2px solid #ff6767;
   outline: medium;
   padding-left: 20px;
+  font-size: 20px;
 }
 .searchKey input::-webkit-input-placeholder {
   font-size: 16px;
@@ -65,5 +111,24 @@ export default {
   font-size: 20px;
   line-height: 50px;
   text-align: center;
+}
+.search-show {
+  margin-top: 50px;
+}
+.search-show img {
+  width: 200px;
+  height: 200px;
+  margin-right: 20px;
+}
+.food-show,
+.book-show {
+  display: flex;
+  margin-top: 20px;
+}
+.food-show div,
+.book-show div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>
