@@ -4,7 +4,8 @@
             <img :src="foodData.image" alt="图片加载失败" />
         </div>
         <p class="foodtile">{{ foodData.title }}</p>
-        <p class="foodp">{{ foodData.userName }}</p>
+        <p class="userName" v-if="foodData.userName">{{foodData.userName}} </p>
+        <p class="thumb"  v-if="!foodData.userName"><span>{{foodData.thumb.length}}人点赞</span><span>{{foodData.favorite.length}}人收藏</span></p>
     </div>
 </template>
 <script>
@@ -26,7 +27,9 @@ export default {
 }
 </script>
 <style scoped>
-
+p{
+    margin: 5px 0;
+}
 .foodkinds {
     position: relative;
     width: 230px;
@@ -99,12 +102,17 @@ export default {
     font-size: 18px;
 }
 
-.foodp {
+.userName {
     font-size: 12px;
     color: #7a7474;
 }
 
-.foodp:hover {
+.userName:hover {
     color: #ff6767;
+}
+.thumb{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
 }
 </style>

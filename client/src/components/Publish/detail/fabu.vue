@@ -78,15 +78,21 @@ export default {
       data.stepText = this.stepText;
       data.name = this.dishName;
       data.careful = this.careful;
+      data.description = this.dishDes;
+      data.userId = window.localStorage.getItem('userId');
       formData.append("stepImgs", this.resultImg);
       for (let key in this.stepImgs) {
         formData.append("stepImgs", this.stepImgs[key]);
       }
       formData.append("data", JSON.stringify(data));
-      const myres = await this.$axios.post("/fabucaipu",formData, {
+      const res = await this.$axios.post("/fabucaipu",formData, {
         header: { "Content-Type": "pplication/x-www-form-urlencoded" },
       });
-      console.log(myres);
+      if(res.data.code===2002){
+        alert(res.data.info);
+      } else if(res.data.code === 4004){
+        alert(res.data.info)
+      }
     },
     // 菜谱成品图片展示的处理
     file1Change(even) {
@@ -101,6 +107,7 @@ export default {
     // 步骤图片的显示处理选择
     file2Change(event) {
       this.stepImgs = [];
+      this.stepImgShow = [];
       const files = event.target.files;
       //将获取的文件赋值给变量stepImgs
       this.stepImgs = files;

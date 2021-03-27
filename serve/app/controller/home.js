@@ -84,12 +84,21 @@ class HomeController extends Controller {
     const filePath = [];
     // 处理传递过来的图片地址
     for (const key in ctx.request.files) {
-      console.log(key);
       // key为0表示为成品图
-      filePath.push(dealFile(ctx.request.files[key], key ? 'test' : 'test1'));
+      filePath.push(dealFile(ctx.request.files[key], key === '0' ? 'food' : 'step'));
     }
-    const result = await ctx.service.home.fabucaipu(ctx.request.body, filePath);
+    const result = await ctx.service.home.fabucaipu(JSON.parse(ctx.request.body.data), filePath);
     this.ctx.body = result;
+  }
+  async menu() {
+    const { ctx } = this;
+    const result = await ctx.service.home.menu(ctx.query);
+    ctx.body = result;
+  }
+  async favorite() {
+    const { ctx } = this;
+    console.log(ctx.query);
+    ctx.body = await ctx.service.home.favorite(ctx.query);
   }
 }
 module.exports = HomeController;
@@ -98,7 +107,7 @@ module.exports = HomeController;
 function dealFile(file, fileAdd) {
   const filename = path.basename(file.filepath);
   const oldPath = file.filepath;
-  const nwePath = `${__dirname}/../public/test/${filename}`;
+  const nwePath = `${__dirname}/../public/${fileAdd}/${filename}`;
   fs.copyFileSync(oldPath, nwePath);
   fs.unlink(oldPath, err => {
     if (err) console.log(err);

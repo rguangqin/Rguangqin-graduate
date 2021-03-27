@@ -163,7 +163,40 @@ class HomeService extends Service {
   }
   async fabucaipu(data, filePath) {
     console.log(data, filePath);
-    return 'res';
+    const foodSql = `insert into food (title,userId,image) values ('${data.name}',${data.userId},'${filePath[0]}')`;
+    const foodRes = await this.app.mysql.query(foodSql);
+    // 处理存入数据库的数据
+    const step = data.stepText.map((item, index) => filePath[index + 1] + '&&' + item).join('||');
+    const ingredient = data.ingredient.filter(item => item.content).map(item => item.name + ':' + item.content).join('。');
+    const carful = data.careful.split('\n').join('||');
+    console.log('看是否存在', data.description, step, ingredient, carful);
+    const foodDetailSql = `insert into food_detail (description,step,Ingredient,careful) values('${data.description}','${step}','${ingredient}','${carful}')`;
+    const foodDetailRes = await this.app.mysql.query(foodDetailSql);
+    if (foodRes.affectedRows && foodDetailRes.affectedRows) {
+      return { code: 2002, info: '发布菜谱成功' };
+    }
+    return { coode: 4004, info: '出现错误，请重新上传菜谱' };
+  }
+  // 个人发布的菜单
+  async menu(params) {
+    console.log(params);
+    const sql = `select * from food,food_detail where userId=${params.userId} and food.id = food_detail.foodId`;
+    const res = await this.app.mysql.query(sql);
+    console.log(res[0]);
+    res.forEach(item => {
+      item.thumb = item.thumb ? item.thumb.split(',') : [];
+      item.favorite = item.favorite ? item.favorite.split(',') : [];
+    });
+    console.log(res);
+    return res;
+  }
+  // 查看收藏的菜谱
+  async favorite(data) {
+    console.log(data);
+    const sql = `select * from food,food_detail where favorite like '%${data.phone}%' and food.id = food_detail.foodId`;
+    const res = await this.app.mysql.query(sql);
+    console.log(res);
+    return res;
   }
 }
 module.exports = HomeService;

@@ -28,6 +28,10 @@ module.exports = appInfo => {
   // 启用上传文件模式
   config.multipart = {
     mode: 'file',
+    fields: 100,
+    fieldSize: '100kb',
+    fileSize: '10mb',
+    files: 20,
   };
   // 配置 session?
   config.session = {
