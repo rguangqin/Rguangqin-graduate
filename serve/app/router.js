@@ -34,4 +34,8 @@ module.exports = app => {
   router.get('/menu', controller.home.menu);
   // 收藏的菜谱
   router.get('/favorite', controller.home.favorite);
+  // 查询个人信息
+  router.get('/userinfo', controller.home.userinfo);
+  // 修改个人信息
+  router.post('/revise', controller.home.revise);
 };

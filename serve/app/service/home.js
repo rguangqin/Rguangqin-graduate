@@ -51,7 +51,7 @@ class HomeService extends Service {
     const sql1 = `select *from myuser where phone ="${userInfo.phone}"`;
     const result = await this.app.mysql.query(sql1);
     if (result[0]) return { code: '4002', info: '手机号已经注册过了哟' };
-    const insertSql = `insert into myuser (userName, phone, userPwd) values ("${userInfo.phone.substring(7, 11)}", "${userInfo.phone}","${userInfo.userPwd}")`;
+    const insertSql = `insert into myuser (userName, phone, userPwd, userPic) values ("${userInfo.phone.substring(7, 11)}", "${userInfo.phone}","${userInfo.userPwd}","http://127.0.0.1:7001/public/headPic/d48aa8b2-88f8-4e8c-843c-43a88fbdd137.png")`;
     const result1 = await this.app.mysql.query(insertSql);
     if (result1.affectedRows > 0) return { code: '2001', info: '注册成功' };
     return { code: '5001', info: '后台错误' };
@@ -154,7 +154,8 @@ class HomeService extends Service {
         return res;
       }// 增加收藏
     } else if (!result[0].favorite || result[0].favorite.indexOf(params.phone) === -1) {
-      if (JSON.parse(params.dianzanIcon)) {
+      if (JSON.parse(params.shoucangIcon)) {
+        console.log('增加收藏');
         const shoucangSql = `update food_detail set favorite='${result[0].favorite + params.phone + ','}' where foodId = ${params.foodId}`;
         const res = await this.app.mysql.query(shoucangSql);
         return res;
@@ -162,14 +163,12 @@ class HomeService extends Service {
     }
   }
   async fabucaipu(data, filePath) {
-    console.log(data, filePath);
     const foodSql = `insert into food (title,userId,image) values ('${data.name}',${data.userId},'${filePath[0]}')`;
     const foodRes = await this.app.mysql.query(foodSql);
     // 处理存入数据库的数据
     const step = data.stepText.map((item, index) => filePath[index + 1] + '&&' + item).join('||');
     const ingredient = data.ingredient.filter(item => item.content).map(item => item.name + ':' + item.content).join('。');
     const carful = data.careful.split('\n').join('||');
-    console.log('看是否存在', data.description, step, ingredient, carful);
     const foodDetailSql = `insert into food_detail (description,step,Ingredient,careful) values('${data.description}','${step}','${ingredient}','${carful}')`;
     const foodDetailRes = await this.app.mysql.query(foodDetailSql);
     if (foodRes.affectedRows && foodDetailRes.affectedRows) {
@@ -179,24 +178,32 @@ class HomeService extends Service {
   }
   // 个人发布的菜单
   async menu(params) {
-    console.log(params);
     const sql = `select * from food,food_detail where userId=${params.userId} and food.id = food_detail.foodId`;
     const res = await this.app.mysql.query(sql);
-    console.log(res[0]);
     res.forEach(item => {
       item.thumb = item.thumb ? item.thumb.split(',') : [];
       item.favorite = item.favorite ? item.favorite.split(',') : [];
     });
-    console.log(res);
     return res;
   }
   // 查看收藏的菜谱
   async favorite(data) {
-    console.log(data);
     const sql = `select * from food,food_detail where favorite like '%${data.phone}%' and food.id = food_detail.foodId`;
     const res = await this.app.mysql.query(sql);
-    console.log(res);
     return res;
+  }
+  async userinfo(data) {
+    const sql = `select * from myuser where userId=${data.userId}`;
+    const res = await this.app.mysql.query(sql);
+    return res;
+  }
+  async revise(data) {
+    const sql = `update myuser set userName='${data.userName}',userPic='${data.userPic}',userSex='${data.userSex}',says='${data.says}' where phone=${data.phone}`;
+    const res = await this.app.mysql.query(sql);
+    if (res.affectedRows === 1) {
+      return { code: 2002, info: '信息修改成功' };
+    }
+    return { code: 4004, info: '信息修改失败' };
   }
 }
 module.exports = HomeService;

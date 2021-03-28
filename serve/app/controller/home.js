@@ -29,7 +29,6 @@ class HomeController extends Controller {
     ctx.body = await this.ctx.service.home.advice();
   }
   async register() {
-    console.log(this.ctx.request.files);
     const { ctx } = this;
     if (ctx.request.files) {
       // const filename = path.basename(ctx.request.files[0].filepath);
@@ -97,8 +96,18 @@ class HomeController extends Controller {
   }
   async favorite() {
     const { ctx } = this;
-    console.log(ctx.query);
     ctx.body = await ctx.service.home.favorite(ctx.query);
+  }
+  async userinfo() {
+    const { ctx } = this;
+    ctx.body = await ctx.service.home.userinfo(ctx.query);
+  }
+  async revise() {
+    const { ctx } = this;
+    const params = ctx.request.body;
+    if (ctx.request.files.length) params.userPic = dealFile(ctx.request.files[0], 'headPic');
+    else params.userPic = params.oldUserPic;
+    ctx.body = await ctx.service.home.revise(params);
   }
 }
 module.exports = HomeController;
