@@ -5,7 +5,7 @@
         </div>
         <p class="foodtile">{{ foodData.title }}</p>
         <p class="userName" v-if="foodData.userName">{{foodData.userName}} </p>
-        <p class="thumb"  v-if="!foodData.userName"><span>{{foodData.thumb.length}}人点赞</span><span>{{foodData.favorite.length}}人收藏</span></p>
+        <!-- <p class="thumb"  v-if="!foodData.userName"><span>{{foodData.thumb.length}}人点赞</span><span>{{foodData.favorite.length}}人收藏</span></p> -->
     </div>
 </template>
 <script>

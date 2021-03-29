@@ -15,14 +15,15 @@
     <div class="book">
       <ul>
         <li v-for="item in bookArr" class="single-book" :key="item.id">
-          <a href="###">
-            <img :src="item.image" class="book-img" alt="图片显示失败" />
+          <router-link :to="'/Book/'+item.id" >
+           <img :src="item.image" class="book-img" alt="图片显示失败" />
             <p>{{item.name}}</p>
-          </a>
-          <p class="content">{{item.content}}</p>
+            <p class="content">{{item.content}}</p>
+          </router-link>
         </li>
       </ul>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 <script>

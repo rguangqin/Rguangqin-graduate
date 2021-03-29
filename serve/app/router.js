@@ -38,4 +38,6 @@ module.exports = app => {
   router.get('/userinfo', controller.home.userinfo);
   // 修改个人信息
   router.post('/revise', controller.home.revise);
+  // 获取食材的做法
+  router.get('/bookdetail', controller.home.bookdetail);
 };

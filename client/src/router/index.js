@@ -100,6 +100,11 @@ const routes = [
             },
         ],
     },
+    {
+        path:'/Book/:id',
+        name:'Book',
+        component:() => import("@/components/Book/BookDetail.vue"),
+    }
 ];
 
 const router = new VueRouter({

@@ -109,6 +109,10 @@ class HomeController extends Controller {
     else params.userPic = params.oldUserPic;
     ctx.body = await ctx.service.home.revise(params);
   }
+  async bookdetail() {
+    const { ctx } = this;
+    ctx.body = await ctx.service.home.bookdetail(ctx.query);
+  }
 }
 module.exports = HomeController;
 

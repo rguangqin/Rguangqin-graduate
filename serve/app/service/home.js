@@ -205,5 +205,17 @@ class HomeService extends Service {
     }
     return { code: 4004, info: '信息修改失败' };
   }
+  async bookdetail(params) {
+    console.log(params);
+    const bookSql = `select * from book where id=${params.id}`;
+    const bookRes = await this.app.mysql.query(bookSql);
+    const foodSql = `select * from food,food_detail,myuser where food.title like '%${bookRes[0].name}%' and food.id=food_detail.foodId and food.userId=myuser.userId`;
+    const foodRes = await this.app.mysql.query(foodSql);
+    console.log(bookRes, foodRes);
+    const data = {};
+    data.book = bookRes;
+    data.food = foodRes;
+    return data;
+  }
 }
 module.exports = HomeService;

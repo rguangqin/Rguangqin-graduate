@@ -81,6 +81,12 @@ export default {
       data.description = this.dishDes;
       data.userId = window.localStorage.getItem('userId');
       formData.append("stepImgs", this.resultImg);
+      for(let key in data){
+        if(data[key]){
+          alert('填写完整的信息');
+          break;
+        }
+      }
       for (let key in this.stepImgs) {
         formData.append("stepImgs", this.stepImgs[key]);
       }
