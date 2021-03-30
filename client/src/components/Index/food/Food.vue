@@ -14,6 +14,15 @@
             <div class="foodkinds" v-for="item in foodData" :key="item.userId" @click="toDetails(item)">
             <FoodCard :foodInfo="item"></FoodCard>
             </div>
+            <!-- <div class="foodkinds" v-for="item in foodData" :key="item.userId" @click="toDetails(item)">
+                <router-link :to="{path:'/Details',params: {item}}">
+                    <div style="overflow: hidden">
+                        <img :src="item.image" alt="图片加载失败" />
+                    </div>
+                    <p class="foodtile">{{ item.title }}</p>
+                </router-link>
+                <p class="userName" v-if="item.userName">{{item.userName}} </p>
+            </div> -->
         </div>
     </div>
 </template>
@@ -37,6 +46,7 @@ export default {
 
     methods: {
         toDetails(item) {
+            //改变仓库里面的用户ID
             this.$store.commit("increment", { n: item.id });
             this.$router.push({ name: "Details", params: { item } });
         },

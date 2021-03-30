@@ -69,7 +69,7 @@ class HomeService extends Service {
     if (result[0].thumb && (result[0].thumb.indexOf(params.phone) !== -1)) data.thumb = true;
     else data.thumb = false;
     // // 收藏
-    if (result[0].favorite && (result[0].favorite.indexOf(params.favorite) !== -1)) data.favorite = true;
+    if (result[0].favorite && (result[0].favorite.indexOf(params.phone) !== -1)) data.favorite = true;
     else data.favorite = false;
     data.description = result[0].description;
     const step1 = result[0].step.split('||');
@@ -119,27 +119,15 @@ class HomeService extends Service {
       if (!JSON.parse(params.dianzanIcon)) {
         const dianzanSql = `update food_detail set thumb='${result[0].thumb.replace(params.phone + ',', '')}' where foodId = ${params.foodId}`;
         const res = await this.app.mysql.query(dianzanSql);
-        console.log('res', res);
+        if (res.affectedRows === 1) return { code: 2002, info: '取消点赞成功' };
+        return { code: 4004, info: '取消点赞失败' };
       }// 增加点赞
     } else if (!result[0].thumb || result[0].thumb.indexOf(params.phone) === -1) {
       if (JSON.parse(params.dianzanIcon)) {
         const dianzanSql = `update food_detail set thumb='${result[0].thumb + params.phone + ','}' where foodId = ${params.foodId}`;
         const res = await this.app.mysql.query(dianzanSql);
-        console.log('res', res);
-      }
-    }
-    // 删除收藏
-    if (result[0].favorite && (result[0].favorite.indexOf(params.phone) !== -1)) {
-      if (!JSON.parse(params.shoucangIcon)) {
-        const shoucangSql = `update food_detail set favorite='${result[0].favorite.replace(params.phone + ',', '')}' where foodId = ${params.foodId}`;
-        const res = await this.app.mysql.query(shoucangSql);
-        return res;
-      }// 增加收藏
-    } else if (!result[0].favorite || result[0].favorite.indexOf(params.phone) === -1) {
-      if (JSON.parse(params.dianzanIcon)) {
-        const shoucangSql = `update food_detail set favorite='${result[0].favorite + params.phone + ','}' where foodId = ${params.foodId}`;
-        const res = await this.app.mysql.query(shoucangSql);
-        return res;
+        if (res.affectedRows === 1) return { code: 2002, info: '点赞成功' };
+        return { code: 4004, info: '点赞失败' };
       }
     }
   }
@@ -151,14 +139,16 @@ class HomeService extends Service {
       if (!JSON.parse(params.shoucangIcon)) {
         const shoucangSql = `update food_detail set favorite='${result[0].favorite.replace(params.phone + ',', '')}' where foodId = ${params.foodId}`;
         const res = await this.app.mysql.query(shoucangSql);
-        return res;
+        if (res.affectedRows === 1) return { code: 2002, info: '取消收藏成功' };
+        return { code: 4004, info: '取消收藏失败' };
       }// 增加收藏
     } else if (!result[0].favorite || result[0].favorite.indexOf(params.phone) === -1) {
       if (JSON.parse(params.shoucangIcon)) {
-        console.log('增加收藏');
-        const shoucangSql = `update food_detail set favorite='${result[0].favorite + params.phone + ','}' where foodId = ${params.foodId}`;
+        const favorite = result[0].favorite ? result[0].favorite : '';
+        const shoucangSql = `update food_detail set favorite='${favorite + params.phone + ','}' where foodId = ${params.foodId}`;
         const res = await this.app.mysql.query(shoucangSql);
-        return res;
+        if (res.affectedRows === 1) return { code: 2002, info: '收藏成功' };
+        return { code: 4004, info: '收藏失败' };
       }
     }
   }
@@ -190,6 +180,10 @@ class HomeService extends Service {
   async favorite(data) {
     const sql = `select * from food,food_detail where favorite like '%${data.phone}%' and food.id = food_detail.foodId`;
     const res = await this.app.mysql.query(sql);
+    res.forEach(item => {
+      item.favorite = item.favorite ? item.favorite.substr(0, item.favorite.length - 1).split(',') : [];
+      item.thumb = item.thumb ? item.thumb.substr(0, item.thumb.length - 1).split(',') : [];
+    });
     return res;
   }
   async userinfo(data) {

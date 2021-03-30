@@ -1,9 +1,9 @@
 <template>
   <div id="publish">
     <div class="aside">
-      <router-link to="/Publish/Vip">个人中心</router-link>
+      <router-link to="/Publish/Vip">个人信息</router-link>
       <router-link to="/Publish/MyBook">发布菜谱</router-link>
-      <router-link to="/Publish/Favorite">收藏</router-link>
+      <router-link to="/Publish/Favorite">收藏菜谱</router-link>
     </div>
     <router-view></router-view>
   </div>

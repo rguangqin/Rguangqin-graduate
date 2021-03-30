@@ -31,14 +31,19 @@ export default {
   padding-right: 0;
   color: #999;
 }
-.public h2 {
-  margin: 20px 0;
+.public {
+  margin: 20px auto;
+  width: 1300px;
 }
 .public-box {
   display: flex;
-  width: 990px;
   flex-wrap: wrap;
+  width: 100%;
 }
+.public h2{
+  padding: 16px 0;
+}
+.public h2,
 .foodkinds {
   margin-left: 20px;
 }

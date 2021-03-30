@@ -23,7 +23,7 @@
             <router-link to="/MyUser/Register">注册</router-link>
             <router-link to="/MyUser/Login">登录</router-link>
           </div>
-          <router-link to="/Publish">发布</router-link>
+          <router-link to="/Publish">个人中心</router-link>
         </div>
       </div>
     </div>

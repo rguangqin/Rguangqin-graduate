@@ -3,13 +3,6 @@
     <div class="search-content">
       <div class="select-box">
         <div class="search-select">
-          <!-- <span
-            :class="el === type ? 'selcet' : ''"
-            v-for="(el, index) in typeArr"
-            :key="index"
-            @click="() => (type = el)"
-            >{{ el }}</span
-          > -->
         </div>
         <div class="searchKey">
           <input
@@ -44,8 +37,6 @@
 export default {
   data() {
     return {
-      // type: "综合",
-      // typeArr: ["综合", "菜谱", "食材"],
       searchKey: "",
       searchData: {},
     };
@@ -57,12 +48,10 @@ export default {
         type:this.type,
       } });
       this.searchData = res.data;
-      console.log("搜索的内容", res);
     },
   },
   mounted() {
     this.searchKey = this.$route.query.searchKey;
-    console.log(this.$route.query.searchKey)
     if (this.searchKey) this.search();
   },
 };

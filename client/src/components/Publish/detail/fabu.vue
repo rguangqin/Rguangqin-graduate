@@ -81,12 +81,6 @@ export default {
       data.description = this.dishDes;
       data.userId = window.localStorage.getItem('userId');
       formData.append("stepImgs", this.resultImg);
-      for(let key in data){
-        if(data[key]){
-          alert('填写完整的信息');
-          break;
-        }
-      }
       for (let key in this.stepImgs) {
         formData.append("stepImgs", this.stepImgs[key]);
       }
@@ -96,6 +90,7 @@ export default {
       });
       if(res.data.code===2002){
         alert(res.data.info);
+        this.$router.push({ name: "MyBook"})
       } else if(res.data.code === 4004){
         alert(res.data.info)
       }

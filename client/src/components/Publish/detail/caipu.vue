@@ -1,6 +1,6 @@
 <template>
 <div>
-    <div class="noPublic" v-if="showdata1"> 你还没有发布任何菜谱,点击 <router-link to="/Publish/MyBook/fabu">发布菜谱</router-link>去发布</div>
+    <div class="noPublic" v-if="showdata1"> <span v-if='!this.foodData.length'>你还没有发布菜谱，点击</span> <router-link to="/Publish/MyBook/fabu">发布菜谱</router-link></div>
     <!-- 发布的菜谱的列表 -->
     <div class="public">
         <h2>我发布的菜谱</h2>
@@ -42,7 +42,6 @@ export default {
 }
 .public-box {
   display: flex;
-  width: 990px;
   flex-wrap: wrap;
 }
 .foodkinds {

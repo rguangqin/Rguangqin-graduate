@@ -38,7 +38,6 @@ export default {
             const res = await this.$axios.get('/bookdetail',{params:{id}});
             this.food = res.data.food;
             this.book = res.data.book[0];
-            console.log(this.book);
         }
     },
 }
