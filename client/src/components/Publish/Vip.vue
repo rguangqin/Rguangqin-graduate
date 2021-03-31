@@ -2,23 +2,23 @@
   <div class="mySelf-box">
     <div class="revise">
       <div class="avator">
-        <span>头像：</span>
+        <p>头像：</p>
         <div>
           <label for="img"><img :src="avator" alt=""></label>
           <input type="file" id="img" @change="dealAvator($event)" v-show="false">
         </div>
       </div>
       <div class="userName">
-        <span>昵称：</span>
+        <p>昵称：</p>
         <input type="text" v-model="userInfo.userName">
       </div>
       <div class="sex">
-        <span>性别：</span>
+        <p>性别：</p>
         <input class="sex1" type="radio" value="男" v-model='userInfo.userSex'/>男
         <input class="sex1" type="radio" value="女" v-model='userInfo.userSex'/>女
       </div>
       <div class="says">
-        <span>个性签名：</span>
+        <p>个性签名：</p>
         <input type="text" v-model="userInfo.says">
       </div>
       <div class="reviseBtn"><button @click="revise">确认修改</button></div>
@@ -72,43 +72,32 @@ export default {
 .mySelf-box{
   margin-left: 120px;
 }
+.revise{
+  font-size: 14px;
+  color: #918989;
+}
 .avator img{
-  widows: 200px;
-  height: 200px;
-  border: #000000;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
 }
-.avator{
-  display: flex;
-  align-items: center;
+.revise p{
+  padding: 12px;
 }
-.revise div{
-  padding: 24px 0;
-}
-.revise span{
-  font-size: 20px;
-  margin-right: 20px;
-}
-.revise input:not(.sex1){
-  width: 300px;
-  line-height: 40px;
+.revise input{
+  margin-left: 12px;
+  line-height: 30px;
+  font-size: 16px;
   outline: none;
-  font-size: 20px;
-  padding: 0 10px;
-}
-.revise .sex{
-  font-size: 20px;
-}
-.sex input{
-  margin: 10px;
+  padding-left: 10px;
 }
 .reviseBtn button{
-  padding: 5px;
-  font-size: 20px;
-  outline: none;
-  color: #FF6767;
-  border-radius: 10px;
-  border: 1px solid #FF6767;
+  line-height: 30px;
   background-color: #ffffff;
+  font-size: 18px;
+  border: 2px solid blueviolet;
+  border-radius: 6px;
+  color: blueviolet;
+  margin: 12px;
 }
 </style>
