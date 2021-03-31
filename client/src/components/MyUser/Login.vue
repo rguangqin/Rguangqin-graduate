@@ -63,6 +63,7 @@ export default {
         // 登陆成功,先缓存，再跳转
         // 前端缓存
         window.localStorage.setItem("userId", loginRes.data.userId);
+        window.localStorage.setItem("islogin", true);
         for(let key in params){
           window.localStorage.setItem(key,params[key])
         }
