@@ -95,9 +95,9 @@ export default {
   line-height: 30px;
   background-color: #ffffff;
   font-size: 18px;
-  border: 2px solid blueviolet;
+  border: 2px solid #FFBE00;
   border-radius: 6px;
-  color: blueviolet;
+  color: #FFBE00;
   margin: 12px;
 }
 </style>

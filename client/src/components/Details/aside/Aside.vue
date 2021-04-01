@@ -171,8 +171,8 @@
 
   .xrimen {
     display: inline-block;
-    color: #ff6767;
-    border-bottom: 3px solid #ff6767;
+    color: #FFBE00;
+    border-bottom: 3px solid #FFBE00;
     font: 20px "Hiragino Sans GB", STHeiti, 微软雅黑, "Microsoft YaHei", Helvetica, Arial, serif;
     /* position: absolute; */
 
@@ -186,7 +186,7 @@
   }
 
   .xmore:hover {
-    color: #ff6767;
+    color: #FFBE00;
   }
 
   /* 热门专题的种类 */
@@ -217,8 +217,8 @@
   }
 
   .xtype a:hover {
-    border: 1px solid #ff6767;
-    color: #ff6767;
+    border: 1px solid #FFBE00;
+    color: #FFBE00;
   }
 
 
@@ -251,7 +251,7 @@
     width: 140px;
     height: 99px;
     /* margin-top: 3px; */
-    border: 1px solid  #ff6767;
+    border: 1px solid  #FFBE00;
     cursor: pointer;
 
   }
@@ -262,7 +262,7 @@
     top: 0;
   }
   .xmore2:hover {
-    color: #ff6767;
+    color: #FFBE00;
   }
  
   .ximgbox p{
@@ -273,7 +273,7 @@
     font-size: 12px;
   }
   .asp:hover{
-    color: #ff6767;
+    color: #FFBE00;
   }
   
 </style>

@@ -128,12 +128,12 @@ export default {
 
 .title1:hover,
 .title2:hover {
-  color: #ff6767;
-  border-bottom: 2px solid #ff6767;
+  color: #FFBE00;
+  border-bottom: 2px solid #FFBE00;
 }
 
 .title3:hover {
-  color: #ff6767;
+  color: #FFBE00;
 }
 
 .adBox img {
@@ -152,7 +152,7 @@ export default {
 }
 
 .adBox a:hover {
-  color: #ff6767;
+  color: #FFBE00;
 }
 
 .adBox a::before {

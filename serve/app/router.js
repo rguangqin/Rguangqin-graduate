@@ -30,7 +30,7 @@ module.exports = app => {
   router.get('/shoucang', controller.home.shoucang);
   // 发布菜谱
   router.post('/fabucaipu', controller.home.fabucaipu);
-  // 个人发布的作评
+  // 个人发布的作品
   router.get('/menu', controller.home.menu);
   // 收藏的菜谱
   router.get('/favorite', controller.home.favorite);
@@ -40,4 +40,6 @@ module.exports = app => {
   router.post('/revise', controller.home.revise);
   // 获取食材的做法
   router.get('/bookdetail', controller.home.bookdetail);
+  // 获取某个用户发表的菜谱
+  router.get('/userfood', controller.home.userfood);
 };

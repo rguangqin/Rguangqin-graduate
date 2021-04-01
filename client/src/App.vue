@@ -8,22 +8,16 @@
             <span>美食天下</span>
             <span>首页</span>
           </router-link>
-          <div class="centerbtn">
-            <router-link
-              :to="item.toWhere"
-              v-for="item in navtile"
-              :key="item.navName"
-              >{{ item.navName }}</router-link
-            >
-          </div>
         </div>
         <!-- 右边导航 -->
         <div class="rightnav">
-          <div class="isLogin">
+          <div class="isLogin" v-if='!isLogin'>
             <router-link to="/MyUser/Register">注册</router-link>
             <router-link to="/MyUser/Login">登录</router-link>
           </div>
+          <div v-else class="loginAvator"><img :src="avator" alt="" class="avator"></div>
           <router-link to="/Publish">个人中心</router-link>
+          <span to="/MyUser" v-if='isLogin' @click="abort">退出登录</span>
         </div>
       </div>
     </div>
@@ -35,6 +29,8 @@
 export default {
   data() {
     return {
+      isLogin:'',
+      avator:'',
       navtile: [
         { navName: "菜谱", toWhere: "##" },
         { navName: "食材", toWhere: "##" },
@@ -42,8 +38,29 @@ export default {
       ],
     };
   },
-  components: {},
-  mounted() {},
+  watch:{
+
+  },
+  methods: {
+    abort(){
+      this.$router.push({path:'/MyUser'})
+      //退出登录清除缓存
+      window.localStorage.clear();
+      this.isLogin = false;
+    },
+    async getUserInfo(){
+    const result = await this.$axios.get('/userinfo',{params:{userId:window.localStorage.getItem('userId')}});
+      this.avator = result.data[0].userPic;
+    }
+  },
+  updated() {
+    this.isLogin = window.localStorage.getItem('islogin');
+    // console.log(window.localStorage.getItem('islogin'))
+    this.getUserInfo();
+  },
+  mounted() {
+    this.getUserInfo();
+  },
 };
 </script>
 
@@ -52,7 +69,7 @@ export default {
   padding: 0;
   margin: 0;
 }
-
+/* 首页轮播图 */
 .w {
   width: 990px;
   margin: 0 auto;
@@ -66,18 +83,19 @@ export default {
   height: 40px;
   width: 100%;
   min-width: 950px;
-  background-color: #333333;
+  background-color: #1a1818;
 }
-
+.topnav{
+  display: flex;
+  justify-content: space-between;
+  width: 950px;
+  margin: 0 auto;
+}
 .leftnav {
-  position: absolute;
-  top: 0;
-  left: 255px;
   font-size: 14px;
   line-height: 40px;
   color: #cccccc;
 }
-
 .leftLogo {
   display: inline-block;
   width: 114px;
@@ -85,7 +103,6 @@ export default {
 }
 
 .leftLogo:hover,
-.centerbtn a:hover,
 .rightnav a:hover {
   background-color: #0d0d0d;
 }
@@ -109,26 +126,21 @@ export default {
   color: #cccccc;
 }
 
-.centerbtn {
-  display: inline-block;
-}
-
-.centerbtn a {
-  display: inline-block;
-  height: 40px;
-  padding: 0 10px;
-  line-height: 40px;
-  text-decoration: none;
-  font-size: 14px;
-  color: #cccccc;
-}
 .rightnav {
-  position: absolute;
-  right: 255px;
-  top: 0;
+  display: flex;
+  align-items: center;
+  color:#cccccc;
+  font-size: 14px;
 }
+.rightnav .loginAvator,
 .rightnav .isLogin{
   display: inline-block;
+}
+.loginAvator img{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin: 0 10px;
 }
 .rightnav a {
   vertical-align: top;
@@ -141,37 +153,4 @@ export default {
   color: #cccccc;
 }
 
-.rightnav a:nth-of-type(3) {
-  vertical-align: top;
-  display: inline-block;
-  height: 40px;
-  padding: 0 10px;
-  line-height: 40px;
-  font-size: 12px;
-  text-decoration: none;
-}
-
-.rightnav a:nth-of-type(4),
-.rightnav a:nth-of-type(5),
-.rightnav a:nth-of-type(6) {
-  display: inline-block;
-  height: 40px;
-  padding: 0 14px;
-  line-height: 40px;
-  font-size: 12px;
-  color: #ffffff;
-  cursor: pointer;
-}
-
-.rightnav a:nth-of-type(4) {
-  background-color: #59c3d1;
-}
-
-.rightnav a:nth-of-type(5) {
-  background-color: #ffa859;
-}
-
-.rightnav a:nth-of-type(6) {
-  background-color: #fe5761;
-}
 </style>

@@ -126,8 +126,8 @@ export default {
 }
 
 .topic-left span:hover {
-  color: #ff6767;
-  border-bottom: 2px solid #ff6767;
+  color: #FFBE00;
+  border-bottom: 2px solid #FFBE00;
   cursor: pointer;
 }
 
@@ -143,7 +143,7 @@ export default {
 }
 
 .topic-right .topic-right-a:hover {
-  color: #ff6767;
+  color: #FFBE00;
 }
 
 /* 从这开始是用户话题模块css样式修改 */

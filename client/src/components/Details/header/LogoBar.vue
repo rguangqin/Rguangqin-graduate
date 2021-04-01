@@ -92,7 +92,7 @@ export default {
   line-height: 30px;
 }
 .caipubox a:hover {
-  background: #ff6767;
+  background: #FFBE00;
   text-decoration: none;
 }
 
@@ -130,7 +130,7 @@ export default {
   height: 20px;
 
   /*transparent 表示透明*/
-  border: 1px solid #ff6767;
+  border: 1px solid #FFBE00;
   /* border-right: 200px solid transparent; */
   border-bottom: 1px solid transparent;
   border-left: 1px solid transparent;
@@ -161,23 +161,23 @@ export default {
 }
 
 .serchBox a:hover {
-  background-color: #ff6767;
+  background-color: #FFBE00;
 }
 
 .logoNav a:hover {
-  color: #ff6767;
+  color: #FFBE00;
 }
 
 .logoNav a:nth-of-type(2) {
-  color: #ff6767;
+  color: #FFBE00;
 }
 
 /* 搜索下方小导航 */
 .sernav {
   width: 990px;
   height: 34px;
-  border-bottom: 1px solid #ff6767;
-  border-top: 1px solid #ff6767;
+  border-bottom: 1px solid #FFBE00;
+  border-top: 1px solid #FFBE00;
   margin-top: 40px;
   position: absolute;
   top: 42px;
@@ -201,7 +201,7 @@ li a {
 }
 
 li a:hover {
-  color: #ff6767;
+  color: #FFBE00;
   text-decoration: none;
 }
 </style>

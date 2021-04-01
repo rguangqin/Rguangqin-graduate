@@ -64,15 +64,15 @@
     }
 
     .xinxiu {
-        color: #ff6767;
-        border-bottom: 3px solid #ff6767;
+        color: #FFBE00;
+        border-bottom: 3px solid #FFBE00;
         
     }
 
 
     .h3:hover {
-        color: #ff6767;
-        border-bottom: 3px solid #ff6767;
+        color: #FFBE00;
+        border-bottom: 3px solid #FFBE00;
     }
 
     .foodright {
@@ -93,6 +93,6 @@
     }
 
     .foodright a:hover {
-        color: #ff6767;
+        color: #FFBE00;
     }
 </style>

@@ -78,7 +78,7 @@ export default {
 </script>
 <style scoped>
 .login-box {
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.8);
   padding-top: 20px;
 }
 .input-box {

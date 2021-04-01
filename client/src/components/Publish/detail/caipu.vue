@@ -1,8 +1,8 @@
 <template>
 <div>
-    <div class="noPublic" v-if="showdata1"> <span v-if='!this.foodData.length'>你还没有发布菜谱，点击</span> <router-link to="/Publish/MyBook/fabu">发布菜谱</router-link></div>
+    <div class="noPublic"> <span v-if='!foodData.length'>你还没有发布菜谱，点击</span> <router-link to="/Publish/MyBook/fabu">发布菜谱</router-link></div>
     <!-- 发布的菜谱的列表 -->
-    <div class="public">
+    <div class="public" v-if="foodData.length">
         <h2>我发布的菜谱</h2>
         <div class="public-box">
             <div class="foodkinds" v-for="item in foodData" :key="item.id" @click="toDetails(item)">
@@ -35,7 +35,7 @@ export default {
 }
 .noPublic a {
   text-decoration: none;
-  color: #ff6767;
+  color: #FFBE00;
 }
 .public h2 {
   margin: 20px 0;

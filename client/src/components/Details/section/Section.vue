@@ -143,7 +143,7 @@ export default {
     width: 100px;
     line-height: 30px;
     text-align: center;
-    background-color: #ff6767;
+    background-color: #FFBE00;
     border-left: 1px solid #ccc;
 }
 .user-avator,
@@ -217,7 +217,7 @@ export default {
     font-size: 20px;
 }
 .cailiao span:hover {
-    color: #ff6767;
+    color: #FFBE00;
     cursor: pointer;
 }
 fieldset {
@@ -266,6 +266,6 @@ fieldset legend {
     color: #000;
 }
 .qiaomen a:hover {
-    color: #ff6767;
+    color: #FFBE00;
 }
 </style>

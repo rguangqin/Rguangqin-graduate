@@ -138,7 +138,7 @@ export default {
 }
 
 .menu .part:hover {
-  background-color: #ff6767;
+  background-color: #FFBE00;
 }
 
 .menu .part:hover .more {
@@ -168,6 +168,6 @@ export default {
   text-decoration: none;
 }
 .more a:hover {
-  color: #ff6767;
+  color: #FFBE00;
 } */
 </style>

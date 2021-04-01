@@ -81,10 +81,10 @@ ul .book-img {
   border-bottom: 1px solid #e8e8e8;
 }
 .book-nav .shicai {
-  color: #ff6767;
+  color: #FFBE00;
   text-decoration: none;
   padding-bottom: 5px;
-  border-bottom: 2px solid #ff6767;
+  border-bottom: 2px solid #FFBE00;
   font-size: 20px;
 }
 .nav-left {
@@ -99,6 +99,6 @@ ul .book-img {
   padding-left: 20px;
 }
 .book-nav li:hover {
-  color: #ff6767;
+  color: #FFBE00;
 }
 </style>

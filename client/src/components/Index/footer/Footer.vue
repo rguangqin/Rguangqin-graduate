@@ -127,7 +127,7 @@ export default {
 }
 
 .about a:hover {
-    color: #ff6767;
+    color: #FFBE00;
     text-decoration: underline;
 }
 
@@ -165,7 +165,7 @@ export default {
 }
 
 .friendship a:hover {
-    color: #ff6767;
+    color: #FFBE00;
     text-decoration: underline;
 }
 
@@ -186,7 +186,7 @@ export default {
     text-decoration: none;
 }
 .copyright a:hover {
-    color: #ff6767;
+    color: #FFBE00;
     text-decoration: underline;
 }
 </style>

@@ -46,12 +46,12 @@ export default {
    border-bottom: 2px  solid transparent;
 }
 .my-left a:hover {
-  color: #ff6767;
-  border-bottom: 2px solid #ff6767;
+  color: #FFBE00;
+  border-bottom: 2px solid #FFBE00;
 }
 .my-right{
   text-decoration: none;
-  background-color:#ff6767;
+  background-color:#FFBE00;
   color: white;
   padding: 3px 5px;
   border-radius: 5px;

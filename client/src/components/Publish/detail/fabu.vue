@@ -201,7 +201,7 @@ textarea{
   height: 30px;
   line-height: 30px;
   text-align: center;
-  background-color: #ff6767;
+  background-color: #FFBE00;
   color: white;
   border-radius: 5px;
   margin-top: 15px;

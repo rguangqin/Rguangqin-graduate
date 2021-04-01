@@ -67,7 +67,7 @@ export default {
 .food-title{
     font-size: 22px;
     font-weight: bold;
-    color: #FF6767;
+    color: #FFBE00;
     padding: 16px 0;
 }
 </style>

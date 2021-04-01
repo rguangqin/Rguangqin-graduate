@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="text" v-if="!favoriteData.length">你还没有收藏任何菜谱</div>
-    <div class="public">
+    <div class="text" v-if="!favoriteData.length">你还没有收藏任何菜谱哦！</div>
+    <div class="public" v-else>
         <h2>我收藏的菜谱</h2>
         <div class="public-box">
             <div class="foodkinds" v-for="item in favoriteData" :key="item.id" @click="toDetails(item)">
@@ -28,8 +28,9 @@ export default {
 <style scoped>
 .text {
   font-size: 20px;
-  padding-right: 0;
   color: #999;
+  text-align: center;
+  line-height: 300px;
 }
 .public {
   margin: 20px auto;

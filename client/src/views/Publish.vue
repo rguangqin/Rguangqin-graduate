@@ -41,7 +41,7 @@ export default {
 }
 
 .aside a:hover {
-  color: #ff6767;
+  color: #FFBE00;
   background-color: #eee;
 }
 </style>

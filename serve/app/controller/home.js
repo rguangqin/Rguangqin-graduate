@@ -113,6 +113,10 @@ class HomeController extends Controller {
     const { ctx } = this;
     ctx.body = await ctx.service.home.bookdetail(ctx.query);
   }
+  async userfood() {
+    const { ctx } = this;
+    ctx.body = await ctx.service.home.userfood(ctx.query);
+  }
 }
 module.exports = HomeController;
 

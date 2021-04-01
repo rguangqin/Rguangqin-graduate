@@ -7,7 +7,7 @@ class HomeService extends Service {
     return data;
   }
   async food() {
-    const sql = 'SELECT food.id, food.title, food.image, myuser.userName FROM food, myuser WHERE food.userId = myuser.userId ORDER BY food.id LIMIT 20';
+    const sql = 'SELECT food.id, food.title, food.image, myuser.userName, myuser.userId FROM food, myuser WHERE food.userId = myuser.userId ORDER BY food.id LIMIT 20';
     return await this.app.mysql.query(sql);
   }
   async book() {
@@ -62,13 +62,13 @@ class HomeService extends Service {
     return result;
   }
   async details(params) {
-    const sql = `select * from food_detail where foodId=${params.foodId}`;
+    const sql = `select * from food,myuser,food_detail where food.id=${params.foodId} and food.userId=myuser.userId and food.id=food_detail.foodId`;
     const result = await this.app.mysql.query(sql);
-    const data = {};
-    // 点赞
+    const data = result[0];
+    // 是否点赞
     if (result[0].thumb && (result[0].thumb.indexOf(params.phone) !== -1)) data.thumb = true;
     else data.thumb = false;
-    // // 收藏
+    // 是否收藏
     if (result[0].favorite && (result[0].favorite.indexOf(params.phone) !== -1)) data.favorite = true;
     else data.favorite = false;
     data.description = result[0].description;
@@ -210,6 +210,18 @@ class HomeService extends Service {
     data.book = bookRes;
     data.food = foodRes;
     return data;
+  }
+  async userfood(params) {
+    console.log(params);
+    const userSql = `select * from myuser where userId=${params.userId}`;
+    const userRes = await this.app.mysql.query(userSql);
+    console.log(userRes);
+    const foodSql = `select * from food where userId=${params.userId}`;
+    const foodRes = await this.app.mysql.query(foodSql);
+    const resultList = {};
+    resultList.userInfo = userRes[0];
+    resultList.foodDetail = foodRes;
+    return resultList;
   }
 }
 module.exports = HomeService;

@@ -4,19 +4,19 @@
       <!-- 菜名以及菜的说明 -->
       <div class="caipu-name">
         <h1>
-          <a href="###" class="caiming">{{ foodData1.title }}</a>
+          <a href="###" class="caiming">{{ foodDetailData.title }}</a>
         </h1>
         <a href="###" class="user-avator">
           <!-- 用户的头像 -->
           <img
-            src="https://i5.meishichina.com/data/avatar/009/17/98/77_avatar_big.jpg?x-oss-process=style/c320&v=20200922"
+            :src="foodDetailData.userPic"
             alt="图片加载失败"
           />
-          <p>{{ foodData1.userName }}</p>
+          <p>{{ foodDetailData.userName }}</p>
         </a>
       </div>
       <a href="###" class="cai-img">
-        <img :src="foodData1.image" alt="图片加载失败" />
+        <img :src="foodDetailData.image" alt="图片加载失败" />
       </a>
       <div class="cai-text">
         <span>{{ foodDetailData.description }}</span>
@@ -65,16 +65,6 @@
         <span :class="`iconfont icon-dianzan1 ${dianzanIcon ? 'dianzan' : ''}`" @click="addDianzanClass()"></span>
         <span :class="`iconfont icon-shoucang2 ${shoucangIcon ? 'shoucang' : ''}`" @click="addShoucangClass()"></span>
       </div>
-      <!-- <div class="pinglun">
-        <textarea name="" id="" cols="30" rows="10"></textarea>
-        <div class="fabiao">
-          <div class="fabiao-left">Ctrl+Enter 也可提交哦</div>
-          <div class="fabiao-right">发表评论</div>
-        </div>
-        <div class="tiaoshu">
-          <span></span>
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -113,9 +103,9 @@ export default {
     };
   },
   async mounted() {
-    // 根据菜谱的 id 请求菜谱的详细信息
     let res = await this.$axios.get("/details", {
-      params: { foodId: this.$store.state.myFoodId,phone:window.localStorage.phone },
+      params: { foodId: this.$route.params.id },
+      // params: { foodId: this.$store.state.myFoodId,phone:window.localStorage.phone },
     });
     this.dianzanIcon = res.data.thumb;
     this.shoucangIcon = res.data.favorite;
@@ -168,7 +158,7 @@ export default {
   width: 100px;
   line-height: 30px;
   text-align: center;
-  background-color: #ff6767;
+  background-color: #FFBE00;
   border-left: 1px solid #ccc;
 }
 .caipu-left {
@@ -250,7 +240,7 @@ export default {
   font-size: 20px;
 }
 .cailiao span:hover {
-  color: #ff6767;
+  color: #FFBE00;
   cursor: pointer;
 }
 fieldset {
@@ -299,7 +289,7 @@ fieldset legend {
   color: #000;
 }
 .qiaomen a:hover {
-  color: #ff6767;
+  color: #FFBE00;
 }
 .user-operat{
   height: 50px;
@@ -309,6 +299,6 @@ fieldset legend {
 }
 .shoucang::before,
 .dianzan::before{
-  color: #ff6767 !important;
+  color: #FFBE00 !important;
 }
 </style>

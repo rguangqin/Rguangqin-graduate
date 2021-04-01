@@ -12,7 +12,7 @@ const routes = [
     },
     {
         // 菜谱细节
-        path: "/Details",
+        path: "/Details/:id",
         name: "Details",
         component: () => import("../views/Details.vue"),
     },
@@ -104,6 +104,12 @@ const routes = [
         path:'/Book/:id',
         name:'Book',
         component:() => import("@/components/Book/BookDetail.vue"),
+    },
+    {
+        // 表示某一个用户发表的菜谱
+        path:'/userDetail/:id',
+        name:'userDetail',
+        component:() => import("../views/userDetail.vue")
     }
 ];
 
@@ -117,7 +123,6 @@ const router = new VueRouter({
 router.beforeEach((to1, from, next) => {
 	if (to1.path == "/" || to1.path == "/MyUser/Login" || to1.path == "/MyUser/Register") {
 		next()
-
 	} else {
 		//判断是否登录过
 		// 如果登录过:放行
@@ -131,5 +136,4 @@ router.beforeEach((to1, from, next) => {
 		}
 	}
 });
-
 export default router;

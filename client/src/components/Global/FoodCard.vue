@@ -1,11 +1,13 @@
 <template>
-    <div :style="{display:'inline-block'}">
-        <div style="overflow: hidden">
-            <img :src="foodData.image" alt="图片加载失败" />
-        </div>
-        <p class="foodtile">{{ foodData.title }}</p>
-        <p class="userName" v-if="foodData.userName">{{foodData.userName}} </p>
-        <!-- <p class="thumb"  v-if="!foodData.userName"><span>{{foodData.thumb.length}}人点赞</span><span>{{foodData.favorite.length}}人收藏</span></p> -->
+    <div class="card-box">
+         <router-link :to="'/Details/'+foodData.id" class="foodInfo">
+            <div>
+                <img :src="foodData.image" alt="图片加载失败" />
+            </div>
+            <p class="foodtile">{{ foodData.title }}</p>
+        </router-link>
+        <router-link :to="'/userDetail/'+foodData.userId" class="userName">{{foodData.userName}}</router-link>
+        <router-view></router-view>
     </div>
 </template>
 <script>
@@ -27,33 +29,22 @@ export default {
 }
 </script>
 <style scoped>
-p{
-    margin: 5px 0;
+.card-box{
+    margin-bottom: 10px;
 }
-.foodkinds {
-    position: relative;
-    width: 230px;
-    height: 305px;
-    margin-bottom: 5px;
-    cursor: pointer;
+.card-box a {
+    text-decoration: none;
+    color: #000000;
+    display: flex;
+    justify-content: center;
 }
-
-.foodtag {
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    font-size: 12px;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 3px;
-    color: #fff;
-    height: 20px;
-    line-height: 20px;
-    padding: 1px 4px;
-    position: absolute;
-    z-index: 2;
+.foodInfo{
+    display: flex;flex-direction: column;
+    align-items: center;
 }
-
+.userName:hover{
+    color: #FFBE00;
+}
 /* 图片缓慢放大效果 */
 .foodkinds img {
     width: 230px;
@@ -63,56 +54,5 @@ p{
     transition-timing-function: ease-in-out;
     transition-delay: 0s;
     margin-bottom: 4px;
-}
-
-.foodkinds img:hover {
-    transform: scale(1.1, 1.1);
-}
-
-.foodkinds .foodtile:hover {
-    color: #ff6767;
-}
-
-.foodkinds p {
-    height: 20px;
-    text-align: center;
-    line-height: 20px;
-    margin: 8px;
-}
-/* 图片上的独家标签 */
-.foodsole {
-    display: inline-block;
-    position: relative;
-    left: 0;
-    top: -299px;
-    color: #ffffff;
-    background: rgba(0, 0, 0, 0.5);
-    padding: 2px;
-    border-radius: 4px;
-    width: 32px;
-    height: 20px;
-    line-height: 20px;
-    font-size: 12px;
-    text-align: center;
-}
-.foodtile {
-    overflow: hidden; /*超出部分隐藏*/
-    text-overflow: ellipsis; /* 超出部分显示省略号 */
-    white-space: nowrap; /*规定段落中的文本不进行换行 */
-    font-size: 18px;
-}
-
-.userName {
-    font-size: 12px;
-    color: #7a7474;
-}
-
-.userName:hover {
-    color: #ff6767;
-}
-.thumb{
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
 }
 </style>

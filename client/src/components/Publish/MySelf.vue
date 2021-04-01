@@ -44,7 +44,7 @@ export default {
    border-bottom: 2px  solid transparent;
 }
 .my-left a:hover {
-  color: #ff6767;
-  border-bottom: 2px solid #ff6767;
+  color: #FFBE00;
+  border-bottom: 2px solid #FFBE00;
 }
 </style>

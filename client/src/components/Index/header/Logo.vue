@@ -87,9 +87,9 @@ export default {
 }
 
 .serchBox a:hover {
-  background-color: #ff6767;
+  background-color: #FFBE00;
 }
 .logoNav a:hover {
-  color: #ff6767;
+  color: #FFBE00;
 }
 </style>

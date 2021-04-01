@@ -77,7 +77,7 @@ export default {
   padding-right: 20px;
 }
 .search-select .selcet {
-  color: #ff6767;
+  color: #FFBE00;
 }
 .searchKey {
   display: flex;
@@ -85,7 +85,7 @@ export default {
 .searchKey input {
   width: 500px;
   height: 50px;
-  border: 2px solid #ff6767;
+  border: 2px solid #FFBE00;
   outline: medium;
   padding-left: 20px;
   font-size: 20px;
@@ -95,7 +95,7 @@ export default {
 }
 .searchKey .search-btn {
   width: 60px;
-  background-color: #ff6767;
+  background-color: #FFBE00;
   color: #ffffff;
   font-size: 20px;
   line-height: 50px;
