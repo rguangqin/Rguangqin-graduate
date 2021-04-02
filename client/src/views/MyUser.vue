@@ -61,6 +61,7 @@ export default {
     },
     methods: {
         choosePlay(arg) {
+            //改变登录注册的样式
             if (arg == 'login') {
                 this.showClass = "mybox selected";
                 this.otherClass = "mybox";

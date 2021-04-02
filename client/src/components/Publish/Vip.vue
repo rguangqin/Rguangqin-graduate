@@ -61,9 +61,11 @@ export default {
     }
   },
   async mounted() {
-    const result = await this.$axios.get('/userinfo',{params:{userId:window.localStorage.getItem('userId')}});
-    this.userInfo =  result.data[0];
-    this.avator = result.data[0].userPic;
+    if(window.localStorage.getItem('userId')){
+      const result = await this.$axios.get('/userinfo',{params:{userId:window.localStorage.getItem('userId')}});
+      this.userInfo =  result.data[0];
+      this.avator = result.data[0].userPic;
+    }
   },
 };
 </script>

@@ -61,16 +61,18 @@ export default {
       let loginRes = await this.$axios.post("/login", params);
       if (loginRes.data.code == 2002) {
         // 登陆成功,先缓存，再跳转
-        // 前端缓存
-        window.localStorage.setItem("userId", loginRes.data.userId);
+        window.localStorage.setItem("userId", loginRes.data.data1.userId);
         window.localStorage.setItem("islogin", true);
         for(let key in params){
           window.localStorage.setItem(key,params[key])
         }
+        alert(loginRes.data.info)
         this.$router.push("/");
       } else if (loginRes.data.code == 4005) {
         // 账号或密码错误
-        this.tip = true;
+        alert(loginRes.data.info)
+        this.phone= "";
+        this.userPwd= "";
       }
     },
   },

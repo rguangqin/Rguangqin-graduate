@@ -83,14 +83,24 @@ export default {
         this.dianzanIcon = false;
       }
       else this.dianzanIcon = true;
-      const res = await this.$axios.get("/dianzan",{params:{foodId:this.$store.state.myFoodId,phone:window.localStorage.phone,dianzanIcon:this.dianzanIcon}})
+      const res = await this.$axios.get("/dianzan",{params:{foodId:this.foodDetailData.foodId,phone:window.localStorage.phone,dianzanIcon:this.dianzanIcon}})
+      if(res.data.code === 2002){
+        alert(res.data.info)
+      }else if(res.data.code === 4004){
+        alert(res.data.info)
+      }
   },
     async addShoucangClass(){
       if(this.shoucangIcon)
       this.shoucangIcon = false;
       else this.shoucangIcon = true;
-      const res = await this.$axios.get("/shoucang",{params:{foodId:this.$store.state.myFoodId,phone:window.localStorage.phone,shoucangIcon:this.shoucangIcon}})
-    }
+      const res = await this.$axios.get("/shoucang",{params:{foodId:this.foodDetailData.foodId,phone:window.localStorage.phone,shoucangIcon:this.shoucangIcon}})
+      if(res.data.code === 2002){
+        alert(res.data.info)
+      }else if(res.data.code === 4004){
+        alert(res.data.info)
+      }
+   }
 
   },
   data() {
@@ -105,7 +115,6 @@ export default {
   async mounted() {
     let res = await this.$axios.get("/details", {
       params: { foodId: this.$route.params.id },
-      // params: { foodId: this.$store.state.myFoodId,phone:window.localStorage.phone },
     });
     this.dianzanIcon = res.data.thumb;
     this.shoucangIcon = res.data.favorite;

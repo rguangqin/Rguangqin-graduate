@@ -48,7 +48,7 @@ class HomeService extends Service {
     return data;
   }
   async register(userInfo) {
-    const sql1 = `select *from myuser where phone ="${userInfo.phone}"`;
+    const sql1 = `select * from myuser where phone ="${userInfo.phone}"`;
     const result = await this.app.mysql.query(sql1);
     if (result[0]) return { code: '4002', info: '手机号已经注册过了哟' };
     const insertSql = `insert into myuser (userName, phone, userPwd, userPic) values ("${userInfo.phone.substring(7, 11)}", "${userInfo.phone}","${userInfo.userPwd}","http://127.0.0.1:7001/public/headPic/d48aa8b2-88f8-4e8c-843c-43a88fbdd137.png")`;
@@ -203,9 +203,13 @@ class HomeService extends Service {
     console.log(params);
     const bookSql = `select * from book where id=${params.id}`;
     const bookRes = await this.app.mysql.query(bookSql);
-    const foodSql = `select * from food,food_detail,myuser where food.title like '%${bookRes[0].name}%' and food.id=food_detail.foodId and food.userId=myuser.userId`;
+    const foodSql = `select myuser.userId,myuser.userName,food.id,food.image,food.title,food_detail.Ingredient from food,food_detail,myuser where food.title like '%${bookRes[0].name}%' and food.id=food_detail.foodId and food.userId=myuser.userId`;
     const foodRes = await this.app.mysql.query(foodSql);
-    console.log(bookRes, foodRes);
+    foodRes.forEach((item, index) => {
+      const a = item.Ingredient.split('。').filter((_, index) => index < 2);
+      foodRes[index].ingredient = a.map(item => item.split('：')[1].split('，')).toString().split(',');
+    });
+    console.log(foodRes);
     const data = {};
     data.book = bookRes;
     data.food = foodRes;

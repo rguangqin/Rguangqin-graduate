@@ -5,9 +5,10 @@
         <div class="leftnav">
           <!-- 首页 -->
           <router-link to="/" class="leftLogo">
-            <span>美食天下</span>
+            <span>美食汇</span>
             <span>首页</span>
           </router-link>
+          <router-link to='/Search' class="search">搜索</router-link>
         </div>
         <!-- 右边导航 -->
         <div class="rightnav">
@@ -55,11 +56,10 @@ export default {
   },
   updated() {
     this.isLogin = window.localStorage.getItem('islogin');
-    // console.log(window.localStorage.getItem('islogin'))
-    this.getUserInfo();
+    if(window.localStorage.getItem('userId')) this.getUserInfo();
   },
   mounted() {
-    this.getUserInfo();
+    if(window.localStorage.getItem('userId')) this.getUserInfo();
   },
 };
 </script>
@@ -92,6 +92,12 @@ export default {
   margin: 0 auto;
 }
 .leftnav {
+  font-size: 14px;
+  line-height: 40px;
+  color: #cccccc;
+}
+.leftnav a{
+  text-decoration: none;
   font-size: 14px;
   line-height: 40px;
   color: #cccccc;

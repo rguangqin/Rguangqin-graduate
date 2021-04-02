@@ -31,15 +31,6 @@ class HomeController extends Controller {
   async register() {
     const { ctx } = this;
     if (ctx.request.files) {
-      // const filename = path.basename(ctx.request.files[0].filepath);
-      // const oldPath = `${ctx.request.files[0].filepath}`;
-      // const newPath = `${__dirname}/../public/upload/${filename}`;
-      // fs.copyFileSync(oldPath, newPath);
-      // fs.unlink(oldPath, err => {
-      //   if (err) console.log(err);
-      // });
-      // const imgUrl = `http://localhost:7001/public/upload/${filename}`;
-      // ctx.request.body.userPic = imgUrl;
       const result = await ctx.service.home.register(ctx.request.body);
       this.ctx.body = result;
     }
@@ -52,7 +43,8 @@ class HomeController extends Controller {
       // ctx.session.email 在整个后端任何地方都可访问，仅限同一个客户端ip
       ctx.session.email = ctx.request.body.email;
       // 返回客户端
-      ctx.body = { code: '2002', info: result[0], userId: result[0].userId };
+      // ctx.body = { code: '2002', info: result[0], userId: result[0].userId };
+      ctx.body = { code: '2002', info: '登录成功', data1: result[0] };
     } else {
       ctx.body = { code: '4005', info: '账号或密码错误' };
     }

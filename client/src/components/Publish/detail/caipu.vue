@@ -5,7 +5,7 @@
     <div class="public" v-if="foodData.length">
         <h2>我发布的菜谱</h2>
         <div class="public-box">
-            <div class="foodkinds" v-for="item in foodData" :key="item.id" @click="toDetails(item)">
+            <div class="foodkinds" v-for="item in foodData" :key="item.id">
                 <FoodCard :foodInfo="item"></FoodCard>
             </div>
         </div>

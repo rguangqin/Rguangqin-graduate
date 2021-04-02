@@ -22,12 +22,10 @@
             <span>{{ el.introduction }}</span>
           </div>
         </div>
-        <div class="food-show" v-for="el in searchData.food" :key="el.id">
-          <img :src="el.image" />
-          <div>
-            <span>{{ el.title }}</span>
-            <span>{{ el.userName }}</span>
-          </div>
+        <div class="foodbox">
+            <div class="foodkinds" v-for="item in searchData.food" :key="item.id">
+            <FoodCard :foodInfo="item"></FoodCard>
+            </div>
         </div>
       </div>
     </div>
@@ -119,5 +117,13 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+.foodbox{
+  display: flex;
+  flex-wrap: wrap;
+}
+.foodbox .foodkinds{
+  margin-right: 15px;
+  
 }
 </style>

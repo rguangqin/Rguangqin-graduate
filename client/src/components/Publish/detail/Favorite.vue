@@ -4,7 +4,7 @@
     <div class="public" v-else>
         <h2>我收藏的菜谱</h2>
         <div class="public-box">
-            <div class="foodkinds" v-for="item in favoriteData" :key="item.id" @click="toDetails(item)">
+            <div class="foodkinds" v-for="item in favoriteData" :key="item.id">
                 <FoodCard :foodInfo="item"></FoodCard>
             </div>
         </div>
