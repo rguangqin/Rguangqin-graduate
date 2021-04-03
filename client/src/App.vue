@@ -25,18 +25,12 @@
     <router-view></router-view>
   </div>
 </template>
-
 <script>
 export default {
   data() {
     return {
       isLogin:'',
       avator:'',
-      navtile: [
-        { navName: "菜谱", toWhere: "##" },
-        { navName: "食材", toWhere: "##" },
-        { navName: "搜索", toWhere: "/Search" },
-      ],
     };
   },
   watch:{

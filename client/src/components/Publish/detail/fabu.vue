@@ -8,11 +8,8 @@
     <!-- 上传菜谱成品图片 -->
     <div class="upload-resultImg">
       <div class="usertext">上传成品图</div>
-      <input type="file" @change="file1Change($event)" />
-    </div>
-    <!-- 成品图片展示 -->
-    <div class="resultImg" v-show="resultImgFlag">
-      <img :src="resultImgShow" alt="图片加载失败" />
+        <label for="food-image"><img :src="resultImgShow" alt="图片加载失败" /></label>
+        <input type="file" @change="file1Change($event)" id='food-image' v-show='false'/>
     </div>
     <!-- 菜谱描述 -->
     <div class="dish-descripte">
@@ -54,6 +51,7 @@
   </div>
 </template>
 <script>
+import defaultImg from "@/image/defaultimg.jpg"
 export default {
   data() {
     return {
@@ -61,10 +59,10 @@ export default {
       dishDes:'',
       careful:'',
       // 食材
-      ingredient:[{name:'主料', content:''},{name:'辅料', content:''},{name:'辅料', content:''}],
+      ingredient:[{name:'主料', content:''},{name:'辅料', content:''},{name:'其他', content:''}],
       resultImgFlag: false,
-      resultImgShow: "",
-      resultImg: "",
+      resultImgShow: defaultImg,
+      resultImg: '',
       stepImgShow: [],
       stepImgs: {},
       stepText: [],
@@ -139,18 +137,9 @@ textarea{
   line-height: 30px;
   padding: 5px;
 }
-/* 菜品成品展示 */
-.resultImg {
-  width: 300px;
-  height: 170px;
-  border: 1px solid #ccc;
-  margin-bottom: 8px;
-  display: flex;
-  justify-content: space-between;
-}
-.resultImg img {
-  width: 170px;
-  height: 170px;
+.upload-resultImg img{
+  height: 200px;
+  width: auto;
 }
 /* 菜谱描述 */
 .dish-descripte textarea {

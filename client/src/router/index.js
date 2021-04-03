@@ -121,9 +121,9 @@ const router = new VueRouter({
 
 // 全局前置守卫 访问拦截
 router.beforeEach((to1, from, next) => {
-	if (to1.path == "/" || to1.path == "/MyUser/Login" || to1.path == "/MyUser/Register") {
+	if (to1.path == "/" || to1.path == "/MyUser/Login" || to1.path == "/MyUser/Register" || to1.path == "/Details/"+to1.params.id || to1.path == "/Book/"+to1.params.id) {
 		next()
-	} else {
+	}else {
 		//判断是否登录过
 		// 如果登录过:放行
 		//如果没登录过:指定他去登录页面

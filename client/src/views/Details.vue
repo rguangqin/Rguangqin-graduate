@@ -79,29 +79,43 @@ export default {
   },
   methods: {
     async addDianzanClass(){
-      if(this.dianzanIcon){
-        this.dianzanIcon = false;
-      }
-      else this.dianzanIcon = true;
-      const res = await this.$axios.get("/dianzan",{params:{foodId:this.foodDetailData.foodId,phone:window.localStorage.phone,dianzanIcon:this.dianzanIcon}})
-      if(res.data.code === 2002){
-        alert(res.data.info)
-      }else if(res.data.code === 4004){
-        alert(res.data.info)
+      //表示用户是登录的状态
+      if(window.localStorage.getItem('isLogin')){
+          // 先查看图标的状态
+        if(this.dianzanIcon){
+          this.dianzanIcon = false;
+        }
+        else this.dianzanIcon = true;
+        // 根据图标的状态传递到后端
+        const res = await this.$axios.get("/dianzan",{params:{foodId:this.foodDetailData.foodId,phone:window.localStorage.phone,dianzanIcon:this.dianzanIcon}})
+        if(res.data.code === 2002){
+          alert(res.data.info)
+        }else if(res.data.code === 4004){
+          alert(res.data.info)
+        }
+      }else{
+        // 若是检查没有登录，那么提示没有，登录，跳转到登录页面。
+        alert('未登录，请先登录！')
+        this.$router.push({name:'Login'})
       }
   },
     async addShoucangClass(){
-      if(this.shoucangIcon)
-      this.shoucangIcon = false;
-      else this.shoucangIcon = true;
-      const res = await this.$axios.get("/shoucang",{params:{foodId:this.foodDetailData.foodId,phone:window.localStorage.phone,shoucangIcon:this.shoucangIcon}})
-      if(res.data.code === 2002){
-        alert(res.data.info)
-      }else if(res.data.code === 4004){
-        alert(res.data.info)
+      if(window.localStorage.getItem('isLogin')){
+        if(this.shoucangIcon)
+        this.shoucangIcon = false;
+        else this.shoucangIcon = true;
+        const res = await this.$axios.get("/shoucang",{params:{foodId:this.foodDetailData.foodId,phone:window.localStorage.phone,shoucangIcon:this.shoucangIcon}})
+        if(res.data.code === 2002){
+          alert(res.data.info)
+        }else if(res.data.code === 4004){
+          alert(res.data.info)
+        }
+      }else{
+        // 若是检查没有登录，那么提示没有，登录，跳转到登录页面。
+        alert('未登录，请先登录！')
+        this.$router.push({name:'Login'})
       }
    }
-
   },
   data() {
     return {
