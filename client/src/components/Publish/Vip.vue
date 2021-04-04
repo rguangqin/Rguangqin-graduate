@@ -101,5 +101,6 @@ export default {
   border-radius: 6px;
   color: #FFBE00;
   margin: 12px;
+  outline: none;
 }
 </style>

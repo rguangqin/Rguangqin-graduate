@@ -1,11 +1,11 @@
 <template>
   <div id="myBook">
     <div class="my">
-      <div class="my-left">
+      <!-- <div class="my-left">
         <router-link :to="el.link" v-for="el in title" :key=el.title>{{el.title}}</router-link>
-      </div>
+      </div> -->
       <div>
-         <router-link to="###" class="my-right">发布新菜单</router-link>
+         <!-- <router-link to="###" class="my-right">发布新菜单</router-link> -->
       </div>
     </div>
      <router-view></router-view>
@@ -33,7 +33,7 @@ export default {
   display: flex;
   margin-right:25px; 
   justify-content: space-between;
-  border-bottom: 1px solid rgb(238, 238, 238);
+  /* border-bottom: 1px solid rgb(238, 238, 238); */
 }
 .my-left a {
   text-decoration: none;

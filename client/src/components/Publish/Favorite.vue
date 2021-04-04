@@ -14,7 +14,7 @@ export default {
   data() {
     return {
         title:[
-        {title:'我收藏的菜谱',link:'/Publish/Favorite/favorite'}]
+        {title:'我收藏的菜谱',link:'/Publish/Favorite'}]
     }
   },
 

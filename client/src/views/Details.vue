@@ -62,8 +62,14 @@
       </div>
       <!-- 图标部分 -->
       <div class="user-operat">
-        <span :class="`iconfont icon-dianzan1 ${dianzanIcon ? 'dianzan' : ''}`" @click="addDianzanClass()"></span>
-        <span :class="`iconfont icon-shoucang2 ${shoucangIcon ? 'shoucang' : ''}`" @click="addShoucangClass()"></span>
+        <div>
+          <span :class="`iconfont icon-dianzan1 ${dianzanIcon ? 'dianzan' : ''}`" @click="addDianzanClass()"></span>
+          <span>{{foodDetailData.thumbCount}}点赞</span>
+        </div>
+        <div>
+          <span :class="`iconfont icon-shoucang2 ${shoucangIcon ? 'shoucang' : ''}`" @click="addShoucangClass()"></span>
+          <span>{{foodDetailData.favoriteCount}}收藏</span>
+        </div>
       </div>
     </div>
   </div>
@@ -80,7 +86,8 @@ export default {
   methods: {
     async addDianzanClass(){
       //表示用户是登录的状态
-      if(window.localStorage.getItem('isLogin')){
+      // console.log(window.localStorage.getItem('islogin'))
+      if(window.localStorage.getItem('islogin')){
           // 先查看图标的状态
         if(this.dianzanIcon){
           this.dianzanIcon = false;
@@ -89,9 +96,10 @@ export default {
         // 根据图标的状态传递到后端
         const res = await this.$axios.get("/dianzan",{params:{foodId:this.foodDetailData.foodId,phone:window.localStorage.phone,dianzanIcon:this.dianzanIcon}})
         if(res.data.code === 2002){
-          alert(res.data.info)
-        }else if(res.data.code === 4004){
-          alert(res.data.info)
+          this.foodDetailData.thumbCount+=1;
+          // alert(res.data.info)
+        }else if(res.data.code === 2001){
+          this.foodDetailData.thumbCount-=1;
         }
       }else{
         // 若是检查没有登录，那么提示没有，登录，跳转到登录页面。
@@ -100,15 +108,15 @@ export default {
       }
   },
     async addShoucangClass(){
-      if(window.localStorage.getItem('isLogin')){
+      if(window.localStorage.getItem('islogin')){
         if(this.shoucangIcon)
         this.shoucangIcon = false;
         else this.shoucangIcon = true;
         const res = await this.$axios.get("/shoucang",{params:{foodId:this.foodDetailData.foodId,phone:window.localStorage.phone,shoucangIcon:this.shoucangIcon}})
         if(res.data.code === 2002){
-          alert(res.data.info)
-        }else if(res.data.code === 4004){
-          alert(res.data.info)
+          this.foodDetailData.favoriteCount+=1;
+        }else if(res.data.code === 2001){
+          this.foodDetailData.favoriteCount-=1;
         }
       }else{
         // 若是检查没有登录，那么提示没有，登录，跳转到登录页面。
@@ -217,7 +225,7 @@ export default {
 }
 .caipu-name h1 {
   height: 70px;
-  width: 200px;
+  /* width: 200px; */
   line-height: 70px;
 }
 .cai-img img {
@@ -319,6 +327,12 @@ fieldset legend {
   width: 100px;
   display: flex;
   justify-content: space-between;
+  font-size: 12px;
+}
+.user-operat div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .shoucang::before,
 .dianzan::before{

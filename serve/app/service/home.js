@@ -112,19 +112,21 @@ class HomeService extends Service {
     return res;
   }
   async dianzan(params) {
-    const sql = `select thumb,favorite from food_detail where foodId=${params.foodId}`;
+    console.log(params);
+    const sql = `select thumb,favorite,thumbCount,favoriteCount from food_detail where foodId=${params.foodId}`;
     const result = await this.app.mysql.query(sql);
     // 删除点赞
     if (result[0].thumb && (result[0].thumb.indexOf(params.phone) !== -1)) {
       if (!JSON.parse(params.dianzanIcon)) {
-        const dianzanSql = `update food_detail set thumb='${result[0].thumb.replace(params.phone + ',', '')}' where foodId = ${params.foodId}`;
+        const dianzanSql = `update food_detail set thumb='${result[0].thumb.replace(params.phone + ',', '')}',thumbCount=${result[0].thumbCount - 1} where foodId = ${params.foodId}`;
         const res = await this.app.mysql.query(dianzanSql);
-        if (res.affectedRows === 1) return { code: 2002, info: '取消点赞成功' };
+        if (res.affectedRows === 1) return { code: 2001, info: '取消点赞成功' };
         return { code: 4004, info: '取消点赞失败' };
       }// 增加点赞
     } else if (!result[0].thumb || result[0].thumb.indexOf(params.phone) === -1) {
       if (JSON.parse(params.dianzanIcon)) {
-        const dianzanSql = `update food_detail set thumb='${result[0].thumb + params.phone + ','}' where foodId = ${params.foodId}`;
+        const thumb = result[0].thumb ? result[0].thumb : '';
+        const dianzanSql = `update food_detail set thumb='${thumb + params.phone + ','}',thumbCount=${result[0].thumbCount + 1} where foodId = ${params.foodId}`;
         const res = await this.app.mysql.query(dianzanSql);
         if (res.affectedRows === 1) return { code: 2002, info: '点赞成功' };
         return { code: 4004, info: '点赞失败' };
@@ -132,20 +134,20 @@ class HomeService extends Service {
     }
   }
   async shoucang(params) {
-    const sql = `select thumb,favorite from food_detail where foodId=${params.foodId}`;
+    const sql = `select thumb,favorite,thumbCount,favoriteCount from food_detail where foodId=${params.foodId}`;
     const result = await this.app.mysql.query(sql);
     // 删除收藏
     if (result[0].favorite && (result[0].favorite.indexOf(params.phone) !== -1)) {
       if (!JSON.parse(params.shoucangIcon)) {
-        const shoucangSql = `update food_detail set favorite='${result[0].favorite.replace(params.phone + ',', '')}' where foodId = ${params.foodId}`;
+        const shoucangSql = `update food_detail set favorite='${result[0].favorite.replace(params.phone + ',', '')}',favoriteCount=${result[0].favoriteCount - 1} where foodId = ${params.foodId}`;
         const res = await this.app.mysql.query(shoucangSql);
-        if (res.affectedRows === 1) return { code: 2002, info: '取消收藏成功' };
+        if (res.affectedRows === 1) return { code: 2001, info: '取消收藏成功' };
         return { code: 4004, info: '取消收藏失败' };
       }// 增加收藏
     } else if (!result[0].favorite || result[0].favorite.indexOf(params.phone) === -1) {
       if (JSON.parse(params.shoucangIcon)) {
         const favorite = result[0].favorite ? result[0].favorite : '';
-        const shoucangSql = `update food_detail set favorite='${favorite + params.phone + ','}' where foodId = ${params.foodId}`;
+        const shoucangSql = `update food_detail set favorite='${favorite + params.phone + ','}',favoriteCount=${result[0].favoriteCount + 1} where foodId = ${params.foodId}`;
         const res = await this.app.mysql.query(shoucangSql);
         if (res.affectedRows === 1) return { code: 2002, info: '收藏成功' };
         return { code: 4004, info: '收藏失败' };
@@ -216,14 +218,21 @@ class HomeService extends Service {
     return data;
   }
   async userfood(params) {
-    console.log(params);
     const userSql = `select * from myuser where userId=${params.userId}`;
     const userRes = await this.app.mysql.query(userSql);
-    console.log(userRes);
     const foodSql = `select * from food where userId=${params.userId}`;
     const foodRes = await this.app.mysql.query(foodSql);
+    const countSql = `select food_detail.thumbCount,food_detail.favoriteCount from food_detail,food where food.userId=${params.userId} and food_detail.foodId=food.id`;
+    const countRes = await this.app.mysql.query(countSql);
+    console.log(countRes);
+    // 计算出用户获得的所有点赞数量和收藏数量
+    const count = countRes.reduce((pre, next) => {
+      return { thumbCount: pre.thumbCount + next.thumbCount, favoriteCount: pre.favoriteCount + next.favoriteCount };
+    });
     const resultList = {};
     resultList.userInfo = userRes[0];
+    resultList.userInfo.thumbCount = count.thumbCount;
+    resultList.userInfo.favoriteCount = count.favoriteCount;
     resultList.foodDetail = foodRes;
     return resultList;
   }

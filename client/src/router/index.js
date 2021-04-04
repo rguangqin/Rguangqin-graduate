@@ -42,28 +42,32 @@ const routes = [
         ],
     },
     {
-        // 发表各种、个人中心、收藏
+        // 发表各种、个人中心、收藏，个人中心
         path: "/Publish",
         name: "Publish",
         component: () => import("../views/Publish.vue"),
         redirect:'Publish/Vip',
         children: [
             {
+                // 修改个人信息
                 path: "Vip",
                 name: "Vip",
                 component: () => import("@/components/Publish/Vip.vue"),
             },
             {
+                // 菜谱部分
                 path: "MyBook",
                 name: "MyBook",
                 component: () => import("@/components/Publish/MyBook.vue"),
                 redirect:'/Publish/MyBook/caipu',
                 children:[
                     {
+                        // 查看自己发布的菜谱
                         path:"caipu",
                         component:() => import("@/components/Publish/detail/caipu.vue"),
                     },
                     {
+                        // 发布菜谱
                         path:"fabu",
                         component:()=>import("@/components/Publish/detail/fabu.vue")
                        }
@@ -79,22 +83,6 @@ const routes = [
                     {
                         path:"favorite",
                         component:() => import("@/components/Publish/detail/Favorite.vue")
-                    },
-                    {
-                        path:"topic",
-                        component:() => import("@/components/Publish/detail/topic.vue")
-                    },
-                    {
-                        path:"log",
-                        component:() => import("@/components/Publish/detail/log.vue")
-                    },
-                    {
-                        path:"zhaunti",
-                        component:() => import("@/components/Publish/detail/zhaunti.vue")
-                    },
-                    {
-                        path:"caidan",
-                        component:() => import("@/components/Publish/detail/caidan.vue")
                     },
                 ]
             },

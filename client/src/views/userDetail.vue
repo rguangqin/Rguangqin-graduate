@@ -6,6 +6,10 @@
           <div class="avator"><img :src="userInfo.userPic" alt=""></div>
           <div class="userName">{{userInfo.userName}}</div>
         </div>
+        <div class="count">
+          <div><span>{{userInfo.thumbCount}}</span>点赞量<span></span></div>
+          <div><span>{{userInfo.favoriteCount}}</span><span>收藏量</span></div>
+        </div>
       </div>
     </div>
     <div class="user-detail-box" v-if='foodInfo.length'>
@@ -32,7 +36,7 @@ methods: {
     const res = await this.$axios.get('/userfood',{params:{userId:this.$route.params.id}});
     this.userInfo = res.data.userInfo;
     this.foodInfo = res.data.foodDetail;
-    console.log(this.foodInfo)
+    console.log(this.userInfo)
   }
 },
 mounted() {
@@ -64,6 +68,19 @@ mounted() {
   font-size: 30px;
   font-weight: bold;
   padding-left: 30px;
+}
+.count{
+  display: flex;
+  justify-content: flex-end;
+}
+.count div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 10px;
+}
+.count div:first-child{
+  border-right: 1px solid #5B7F96;
 }
 .avator img{
   width: 150px;

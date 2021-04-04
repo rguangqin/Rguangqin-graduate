@@ -46,8 +46,8 @@
       <h2>小窍门</h2>
       <textarea v-model="careful"></textarea>
     </div>
-    <!-- 确认修改 -->
-    <div @click="getSure()" class="getSure">确认修改</div>
+    <!-- 确认发布 -->
+    <div @click="getSure()" class="getSure">确认发布</div>
   </div>
 </template>
 <script>
