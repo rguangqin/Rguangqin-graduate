@@ -7,9 +7,17 @@
           <div class="userName">{{userInfo.userName}}</div>
         </div>
         <div class="count">
-          <div><span>{{userInfo.thumbCount}}</span>点赞量<span></span></div>
-          <div><span>{{userInfo.favoriteCount}}</span><span>收藏量</span></div>
-        </div>
+          <div class="aeeention">
+            <!-- 为true表示已经关注 -->
+            <span class="aeeention1" @click="aeeention" v-if="!userInfo.flag">+关注</span>
+            <span class="aeeention2" @click="aeeention" v-else>取消关注</span>
+          </div>
+          <div class="count-two">
+            <div><span>{{userInfo.aeeenteCount}}</span><span>关注量</span></div>
+            <div><span>{{userInfo.thumbCount}}</span><span>点赞量</span></div>
+            <div><span>{{userInfo.favoriteCount}}</span><span>收藏量</span></div>
+          </div>
+          </div>
       </div>
     </div>
     <div class="user-detail-box" v-if='foodInfo.length'>
@@ -32,11 +40,27 @@ data() {
   }
 },
 methods: {
+  async aeeention(){
+    const params = {
+      flag:!this.userInfo.flag,
+      phone:window.localStorage.getItem('phone'),
+      userId:this.$route.params.id
+      }
+    const res = await this.$axios.get('/aeeente',{params})
+    if(res.data.code === 2001 || res.data.code === 2002){
+      this.userInfo.flag = !this.userInfo.flag;
+      if(!this.userInfo.flag) this.userInfo.aeeenteCount-=1;
+      else this.userInfo.aeeenteCount+=1;
+    }
+  },
   async getUserFood(){
-    const res = await this.$axios.get('/userfood',{params:{userId:this.$route.params.id}});
+    const params = {
+      userId:this.$route.params.id,
+      phone:window.localStorage.getItem('phone')
+    }
+    const res = await this.$axios.get('/userfood',{params});
     this.userInfo = res.data.userInfo;
     this.foodInfo = res.data.foodDetail;
-    console.log(this.userInfo)
   }
 },
 mounted() {
@@ -71,16 +95,38 @@ mounted() {
 }
 .count{
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: flex-end;
 }
-.count div{
+.aeeention{
+  width: 150px;
+  display: flex;
+  justify-content: center;
+}
+.count .aeeention span {
+  border-radius: 5px;
+  padding: 5px;
+}
+.count .aeeention .aeeention1{
+  border: 1px solid #ff0000;
+  color: #ff0000;
+}
+.count .aeeention .aeeention2{
+  border: 1px solid rgb(39, 37, 37);
+  color: rgb(39, 37, 37);
+}
+.count-two{
+  display: flex;
+}
+.count-two div:first-of-type,
+.count-two div:nth-of-type(2){
+  border-right: 1px solid #719D98;
+}
+.count-two div{
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 0 10px;
-}
-.count div:first-child{
-  border-right: 1px solid #5B7F96;
 }
 .avator img{
   width: 150px;

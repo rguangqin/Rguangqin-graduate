@@ -4,20 +4,20 @@
       <!-- 菜名以及菜的说明 -->
       <div class="caipu-name">
         <h1>
-          <a href="###" class="caiming">{{ foodDetailData.title }}</a>
+          <span class="caiming">{{ foodDetailData.title }}</span>
         </h1>
-        <a href="###" class="user-avator">
+        <router-link :to="'/userDetail/'+foodDetailData.userId" class="user-avator">
           <!-- 用户的头像 -->
           <img
             :src="foodDetailData.userPic"
             alt="图片加载失败"
           />
           <p>{{ foodDetailData.userName }}</p>
-        </a>
+        </router-link>
       </div>
-      <a href="###" class="cai-img">
+      <div class="cai-img">
         <img :src="foodDetailData.image" alt="图片加载失败" />
-      </a>
+      </div>
       <div class="cai-text">
         <span>{{ foodDetailData.description }}</span>
       </div>
@@ -72,6 +72,7 @@
         </div>
       </div>
     </div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -206,7 +207,9 @@ export default {
   text-decoration: none;
   color: #111;
 }
-
+.user-avator p:hover{
+  color:#FFBE00;
+}
 .user-avator img {
   width: 34px;
   height: 34px;

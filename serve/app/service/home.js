@@ -2,7 +2,7 @@
 const Service = require('egg').Service;
 class HomeService extends Service {
   async lbt() {
-    const sql = 'select * from lbt';
+    const sql = 'select food.image,food.id,food_detail.thumbCount from food_detail,food where food.id=food_detail.foodId order by thumbCount desc limit 0,10';
     const data = await this.app.mysql.query(sql);
     return data;
   }
@@ -51,7 +51,7 @@ class HomeService extends Service {
     const sql1 = `select * from myuser where phone ="${userInfo.phone}"`;
     const result = await this.app.mysql.query(sql1);
     if (result[0]) return { code: '4002', info: '手机号已经注册过了哟' };
-    const insertSql = `insert into myuser (userName, phone, userPwd, userPic) values ("${userInfo.phone.substring(7, 11)}", "${userInfo.phone}","${userInfo.userPwd}","http://127.0.0.1:7001/public/headPic/d48aa8b2-88f8-4e8c-843c-43a88fbdd137.png")`;
+    const insertSql = `insert into myuser (userName, phone, userPwd, userPic,userSex) values ("${userInfo.phone.substring(7, 11)}", "${userInfo.phone}","${userInfo.userPwd}","http://127.0.0.1:7001/public/headPic/d48aa8b2-88f8-4e8c-843c-43a88fbdd137.png","保密")`;
     const result1 = await this.app.mysql.query(insertSql);
     if (result1.affectedRows > 0) return { code: '2001', info: '注册成功' };
     return { code: '5001', info: '后台错误' };
@@ -224,7 +224,6 @@ class HomeService extends Service {
     const foodRes = await this.app.mysql.query(foodSql);
     const countSql = `select food_detail.thumbCount,food_detail.favoriteCount from food_detail,food where food.userId=${params.userId} and food_detail.foodId=food.id`;
     const countRes = await this.app.mysql.query(countSql);
-    console.log(countRes);
     // 计算出用户获得的所有点赞数量和收藏数量
     const count = countRes.reduce((pre, next) => {
       return { thumbCount: pre.thumbCount + next.thumbCount, favoriteCount: pre.favoriteCount + next.favoriteCount };
@@ -233,8 +232,48 @@ class HomeService extends Service {
     resultList.userInfo = userRes[0];
     resultList.userInfo.thumbCount = count.thumbCount;
     resultList.userInfo.favoriteCount = count.favoriteCount;
+    resultList.userInfo.flag = userRes[0].aeeente ? userRes[0].aeeente.indexOf(params.phone) !== -1 : false;
     resultList.foodDetail = foodRes;
     return resultList;
+  }
+  async unfavorite(params) {
+    console.log(params);
+    const foodSql = `select thumb,favorite,thumbCount,favoriteCount from food_detail where foodId=${params.foodId}`;
+    const foodRes = await this.app.mysql.query(foodSql);
+    const updateSql = `update food_detail set favorite='${foodRes[0].favorite.replace(params.phone + ',', '')}',favoriteCount=${foodRes[0].favoriteCount - 1} where foodId = ${params.foodId}`;
+    const updateRes = await this.app.mysql.query(updateSql);
+    if (updateRes.affectedRows) {
+      return { code: 2001, info: '取消收藏成功' };
+    }
+  }
+  async deletefood(params) {
+    const sql1 = `delete from food where id=${params.id}`;
+    const sql2 = `delete from food_detail where foodId=${params.id}`;
+    const sqlRes1 = await this.app.mysql.query(sql1);
+    const sqlRes2 = await this.app.mysql.query(sql2);
+    if (sqlRes1.affectedRows === 1 && sqlRes2.affectedRows === 1) {
+      return { code: 2001, info: '删除菜谱成功' };
+    }
+  }
+  async aeeente(params) {
+    console.log(params);
+    // 为true表示添加关注，反之删除关注
+    const userSql = `select * from myuser where userId=${params.userId}`;
+    const result = await this.app.mysql.query(userSql);
+
+    if (JSON.parse(params.flag)) {
+      const aeeente = result[0].aeeente ? result[0].aeeente : '';
+      const sql = `update myuser set aeeente='${aeeente + params.phone + ','}',aeeenteCount=${result[0].aeeenteCount + 1} where userId = ${params.userId}`;
+      const res = await this.app.mysql.query(sql);
+      if (res.affectedRows === 1) {
+        return { code: 2001, info: '添加关注成功' };
+      } return { code: 4004, info: '添加关注失败' };
+    }
+    const deleteSql = `update myuser set aeeente='${result[0].aeeente.replace(params.phone + ',', '')}',aeeenteCount=${result[0].aeeenteCount - 1} where userId = ${params.userId}`;
+    const deleteRes = await this.app.mysql.query(deleteSql);
+    if (deleteRes.affectedRows === 1) {
+      return { code: 2002, info: '取消关注成功' };
+    } return { code: 4004, info: '取消关注失败' };
   }
 }
 module.exports = HomeService;

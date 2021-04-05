@@ -109,6 +109,18 @@ class HomeController extends Controller {
     const { ctx } = this;
     ctx.body = await ctx.service.home.userfood(ctx.query);
   }
+  async unfavorite() {
+    const { ctx } = this;
+    ctx.body = await ctx.service.home.unfavorite(ctx.query);
+  }
+  async deletefood() {
+    const { ctx } = this;
+    ctx.body = await ctx.service.home.deletefood(ctx.query);
+  }
+  async aeeente() {
+    const { ctx } = this;
+    ctx.body = await ctx.service.home.aeeente(ctx.query);
+  }
 }
 module.exports = HomeController;
 

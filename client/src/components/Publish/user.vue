@@ -16,6 +16,7 @@
         <p>性别：</p>
         <input class="sex1" type="radio" value="男" v-model='userInfo.userSex'/>男
         <input class="sex1" type="radio" value="女" v-model='userInfo.userSex'/>女
+        <input class="sex1" type="radio" value="保密" v-model='userInfo.userSex'/>保密
       </div>
       <div class="says">
         <p>个性签名：</p>
@@ -31,7 +32,7 @@ export default {
   data() {
       return {
         avator:"",
-        sex:'',
+        // 表示上传文件的变量
         avatorFile:'',
         userInfo:{},
       }
@@ -47,17 +48,21 @@ export default {
     },
    async revise(){
       const formdata = new FormData();
-      formdata.append('userPic',this.avatorFile);
-      formdata.append('userName',this.userInfo.userName);
-      formdata.append('userSex',this.userInfo.userSex);
-      formdata.append('says',this.userInfo.says);
-      formdata.append('oldUserPic', this.avator);
-      formdata.append('phone',window.localStorage.getItem('phone'));
-      const res = await this.$axios.post('/revise',formdata,{
-        header: { "Content-Type": "pplication/x-www-form-urlencoded" },
-      })
-      if(res.data.code === 2002) alert(res.data.info);
-      else if(res.data.code === 4004) alert(res.data.info)
+      if(this.userInfo.userName||this.userInfo.says){
+        alert('信息不能为空哟！')
+      }else{
+        formdata.append('userPic',this.avatorFile);
+        formdata.append('userName',this.userInfo.userName);
+        formdata.append('userSex',this.userInfo.userSex);
+        formdata.append('says',this.userInfo.says);
+        formdata.append('oldUserPic', this.avator);
+        formdata.append('phone',window.localStorage.getItem('phone'));
+        const res = await this.$axios.post('/revise',formdata,{
+          header: { "Content-Type": "pplication/x-www-form-urlencoded" },
+        })
+        if(res.data.code === 2002) alert(res.data.info);
+        else if(res.data.code === 4004) alert(res.data.info)
+        }
     }
   },
   async mounted() {

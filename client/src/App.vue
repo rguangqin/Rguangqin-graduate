@@ -68,7 +68,6 @@ export default {
   width: 990px;
   margin: 0 auto;
 }
-
 #topbar {
   position: fixed;
   top: 0;

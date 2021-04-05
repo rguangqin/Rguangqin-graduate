@@ -42,4 +42,10 @@ module.exports = app => {
   router.get('/bookdetail', controller.home.bookdetail);
   // 获取某个用户发表的菜谱
   router.get('/userfood', controller.home.userfood);
+  // 取消收藏
+  router.get('/unfavorite', controller.home.unfavorite);
+  // 删除发布的菜谱
+  router.get('/deletefood', controller.home.deletefood);
+  // 关注
+  router.get('/aeeente', controller.home.aeeente);
 };

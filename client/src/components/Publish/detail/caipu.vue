@@ -5,8 +5,9 @@
     <div class="public" v-if="foodData.length">
         <h2>我发布的菜谱</h2>
         <div class="public-box">
-            <div class="foodkinds" v-for="item in foodData" :key="item.id">
+            <div class="foodkinds" v-for="(item,index) in foodData" :key="item.id">
                 <FoodCard :foodInfo="item"></FoodCard>
+                <p @click="deleteFood(index,item.id)">删除菜谱</p>
             </div>
         </div>
     </div>
@@ -20,6 +21,14 @@ export default {
       showdata1: true,
       foodData: [],
     };
+  },
+  methods: {
+    async deleteFood(index,id){
+      const res = await this.$axios.get('/deletefood',{params:{id}});
+      if(res.data.code === 2001){
+        this.foodData.splice(index,1)
+      }
+    }
   },
   async mounted() {
     const userId = window.localStorage.getItem("userId");
@@ -46,5 +55,14 @@ export default {
 }
 .foodkinds {
   margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.foodkinds p{
+  padding: 5px;
+  border: 1px solid #ff0000;
+  color: #ff0000;
+  border-radius: 7px;
 }
 </style>

@@ -1,9 +1,9 @@
 <template>
   <div id="publish">
     <div class="aside">
-      <router-link to="/Publish/Vip">个人信息</router-link>
-      <router-link to="/Publish/MyBook">发布菜谱</router-link>
-      <router-link to="/Publish/Favorite">收藏菜谱</router-link>
+      <router-link v-for="el in menu" :key="el.link" :class="defaultMenu == el.name ? 'selected':''" :to="el.link" @click.native="() => defaultMenu=el.name">
+        <span>{{el.name}}</span>
+      </router-link>
     </div>
     <router-view></router-view>
   </div>
@@ -11,7 +11,14 @@
 
 <script>
 export default {
-  components: {},
+  data() {
+    return {
+      defaultMenu:'个人信息',
+      menu:[{name:'个人信息',link:'/Publish/user'},
+            {name:'发布菜谱',link:'/Publish/MyBook'},
+            {name:'收藏菜谱',link:'/Publish/Favorite'},]
+    }
+  },
 };
 </script>
 
@@ -43,5 +50,8 @@ export default {
 .aside a:hover {
   color: #FFBE00;
   background-color: #eee;
+}
+.selected span{
+  color: #FFBE00;
 }
 </style>

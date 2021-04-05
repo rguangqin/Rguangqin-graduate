@@ -46,13 +46,13 @@ const routes = [
         path: "/Publish",
         name: "Publish",
         component: () => import("../views/Publish.vue"),
-        redirect:'Publish/Vip',
+        redirect:'Publish/user',
         children: [
             {
                 // 修改个人信息
-                path: "Vip",
-                name: "Vip",
-                component: () => import("@/components/Publish/Vip.vue"),
+                path: "user",
+                name: "user",
+                component: () => import("@/components/Publish/user.vue"),
             },
             {
                 // 菜谱部分
