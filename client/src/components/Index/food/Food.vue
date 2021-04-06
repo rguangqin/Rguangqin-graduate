@@ -35,14 +35,6 @@ export default {
         let result = await this.$axios.get("/food");
         this.foodData = result.data;
     },
-
-    methods: {
-        toDetails(item) {
-            //改变仓库里面的用户ID
-            this.$store.commit("increment", { n: item.id });
-            this.$router.push({ name: "Details", params: { item } });
-        },
-    },
 };
 </script>
 

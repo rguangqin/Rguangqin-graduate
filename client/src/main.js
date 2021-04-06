@@ -17,21 +17,26 @@ Vue.use(Vuex);
 
 // 创建 vue 仓库
 const store = new Vuex.Store({
-    state: { myFoodId: "我是菜谱的id" },
+    state: { userInfo:{} },
     mutations: {
         //默认传第一个参数传state
-        increment(state, obj) {
+        userInfo(state, obj) {
             // 变更状态
-            state.myFoodId = obj.n;
+            console.log(obj)
+            state.userInfo = obj;
         },
     },
+    actions:{
+        userInfo({commit}){
+            commit('userInfo')
+        }
+    }
 
 
 });
 
 // 配置全局的 axios 基础网址
 axios.defaults.baseURL = "http://localhost:7001";
-
 // 允许请求时携带 cookie
 axios.defaults.withCredentials = true;
 Vue.prototype.$axios = axios;
@@ -41,5 +46,8 @@ Vue.config.productionTip = false;
 new Vue({
     render: (h) => h(App),
     router,
+    // 为了在 Vue 组件中访问 this.$store property，你需要为 Vue 
+    // 实例提供创建好的 store。Vuex 提供了一个从根组件向所有子组件，
+    // 以 store 选项的方式“注入”该 store 的机制：
     store, // 挂载仓库
 }).$mount("#app");

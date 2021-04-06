@@ -24,8 +24,8 @@ export default {
     }
   },
   methods: {
+    // 修改密码
     async modifyPwd(){
-      console.log(this.nowPwd, this.pwd, this.rePwd);
       // 三个全部为空
       if(this.nowPwd && this.pwd && this.rePwd){
         // 判断密码是否符合正则表达式

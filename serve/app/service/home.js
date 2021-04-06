@@ -62,12 +62,17 @@ class HomeService extends Service {
     return result;
   }
   async details(params) {
+    console.log(params);
     const sql = `select * from food,myuser,food_detail where food.id=${params.foodId} and food.userId=myuser.userId and food.id=food_detail.foodId`;
     const result = await this.app.mysql.query(sql);
     const data = result[0];
     // 是否点赞
-    if (result[0].thumb && (result[0].thumb.indexOf(params.phone) !== -1)) data.thumb = true;
-    else data.thumb = false;
+    // 使用indexOf查看结果中是否包含此用户的电话号码，没有包含返回-1，反之则为找到的下标
+    if (result[0].thumb && (result[0].thumb.indexOf(params.phone) !== -1)) {
+      data.thumb = true;
+    } else {
+      data.thumb = false;
+    }
     // 是否收藏
     if (result[0].favorite && (result[0].favorite.indexOf(params.phone) !== -1)) data.favorite = true;
     else data.favorite = false;
@@ -112,7 +117,6 @@ class HomeService extends Service {
     return res;
   }
   async dianzan(params) {
-    console.log(params);
     const sql = `select thumb,favorite,thumbCount,favoriteCount from food_detail where foodId=${params.foodId}`;
     const result = await this.app.mysql.query(sql);
     // 删除点赞

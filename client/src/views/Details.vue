@@ -63,11 +63,11 @@
       <!-- 图标部分 -->
       <div class="user-operat">
         <div>
-          <span :class="`iconfont icon-dianzan1 ${dianzanIcon ? 'dianzan' : ''}`" @click="addDianzanClass()"></span>
+          <span :class="`iconfont icon-dianzan1 ${foodDetailData.thumb ? 'dianzan' : ''}`" @click="addDianzanClass()"></span>
           <span>{{foodDetailData.thumbCount}}点赞</span>
         </div>
         <div>
-          <span :class="`iconfont icon-shoucang2 ${shoucangIcon ? 'shoucang' : ''}`" @click="addShoucangClass()"></span>
+          <span :class="`iconfont icon-shoucang2 ${foodDetailData.favorite ? 'shoucang' : ''}`" @click="addShoucangClass()"></span>
           <span>{{foodDetailData.favoriteCount}}收藏</span>
         </div>
       </div>
@@ -87,15 +87,14 @@ export default {
   methods: {
     async addDianzanClass(){
       //表示用户是登录的状态
-      // console.log(window.localStorage.getItem('islogin'))
       if(window.localStorage.getItem('islogin')){
           // 先查看图标的状态
-        if(this.dianzanIcon){
-          this.dianzanIcon = false;
+        if(this.foodDetailData.thumb){
+          this.foodDetailData.thumb = false;
         }
-        else this.dianzanIcon = true;
+        else this.foodDetailData.thumb = true;
         // 根据图标的状态传递到后端
-        const res = await this.$axios.get("/dianzan",{params:{foodId:this.foodDetailData.foodId,phone:window.localStorage.phone,dianzanIcon:this.dianzanIcon}})
+        const res = await this.$axios.get("/dianzan",{params:{foodId:this.foodDetailData.foodId,phone:window.localStorage.phone,dianzanIcon:this.foodDetailData.thumb}})
         if(res.data.code === 2002){
           this.foodDetailData.thumbCount+=1;
           // alert(res.data.info)
@@ -103,17 +102,16 @@ export default {
           this.foodDetailData.thumbCount-=1;
         }
       }else{
-        // 若是检查没有登录，那么提示没有，登录，跳转到登录页面。
         alert('未登录，请先登录！')
         this.$router.push({name:'Login'})
       }
   },
     async addShoucangClass(){
       if(window.localStorage.getItem('islogin')){
-        if(this.shoucangIcon)
-        this.shoucangIcon = false;
-        else this.shoucangIcon = true;
-        const res = await this.$axios.get("/shoucang",{params:{foodId:this.foodDetailData.foodId,phone:window.localStorage.phone,shoucangIcon:this.shoucangIcon}})
+        if(this.foodDetailData.favorite)
+        this.foodDetailData.favorite = false;
+        else this.foodDetailData.favorite = true;
+        const res = await this.$axios.get("/shoucang",{params:{foodId:this.foodDetailData.foodId,phone:window.localStorage.phone,shoucangIcon:this.foodDetailData.favorite}})
         if(res.data.code === 2002){
           this.foodDetailData.favoriteCount+=1;
         }else if(res.data.code === 2001){
@@ -137,10 +135,11 @@ export default {
   },
   async mounted() {
     let res = await this.$axios.get("/details", {
-      params: { foodId: this.$route.params.id },
+      params: { 
+        foodId: this.$route.params.id,
+        phone: window.localStorage.getItem('phone')
+        },
     });
-    this.dianzanIcon = res.data.thumb;
-    this.shoucangIcon = res.data.favorite;
     this.foodDetailData = res.data;
     this.foodData1 = this.$route.params.item;
   },

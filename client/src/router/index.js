@@ -1,8 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-
 Vue.use(VueRouter);
-
 const routes = [
     {
         // 首页
@@ -119,7 +117,6 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes,
 });
-
 // 全局前置守卫 访问拦截
 router.beforeEach((to1, from, next) => {
 	if (to1.path == "/" || to1.path == "/MyUser/Login" || to1.path == "/MyUser/Register" || to1.path == "/Details/"+to1.params.id || to1.path == "/Book/"+to1.params.id) {
