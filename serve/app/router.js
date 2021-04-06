@@ -48,4 +48,6 @@ module.exports = app => {
   router.get('/deletefood', controller.home.deletefood);
   // 关注
   router.get('/aeeente', controller.home.aeeente);
+  // 修改密码
+  router.get('/modifyPwd', controller.home.modifyPwd);
 };

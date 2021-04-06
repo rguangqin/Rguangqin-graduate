@@ -131,8 +131,8 @@ export default {
       data1: 0,
       foodDetailData: [],
       foodData1: {},
-      dianzanIcon:false,
-      shoucangIcon:false,
+      dianzanIcon:'',
+      shoucangIcon:'',
     };
   },
   async mounted() {

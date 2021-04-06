@@ -4,13 +4,13 @@
       <h2 class="nav-left">
         <a href="###" class="shicai">时令食材</a>
       </h2>
-      <ul>
+      <!-- <ul>
         <li>肉禽蛋</li>
         <li>水产品</li>
         <li>蔬菜</li>
         <li>米面豆乳</li>
         <li>食材首页</li>
-      </ul>
+      </ul> -->
     </div>
     <div class="book">
       <ul>

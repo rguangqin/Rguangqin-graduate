@@ -26,8 +26,8 @@
       />
     </div>
     <div :class="this.userPwd ? 'errTip' : 'tip'">
-      <span v-show="!(this.userPwd && /^[A-z]{3}\w{3,9}/.test(this.userPwd))">{{
-        this.userPwd && !/^[A-z]{3}\w{3,9}/.test(this.userPwd)
+      <span v-show="!(this.userPwd && /^[A-z]{3,6}\w{3,9}/.test(this.userPwd))">{{
+        this.userPwd && !/^[A-z]{3,6}\w{3,9}/.test(this.userPwd)
           ? "密码号码格式错误"
           : "密码由3位字母和3-6位数字构成"
       }}</span>

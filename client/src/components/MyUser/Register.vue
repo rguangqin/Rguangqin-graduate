@@ -26,8 +26,8 @@
       />
     </div>
     <div :class="this.userPwd ? 'errTip' : 'tip'">
-      <span v-show="!(this.userPwd && /^[A-z]{3}\w{3,9}/.test(this.userPwd))">{{
-        this.userPwd && !/^[A-z]{3}\w{3,9}/.test(this.userPwd)
+      <span v-show="!(this.userPwd && /^[A-z]{3,6}\w{3,9}/.test(this.userPwd))">{{
+        this.userPwd && !/^[A-z]{3,6}\w{3,9}/.test(this.userPwd)
           ? "密码号码格式错误"
           : "密码由3位字母和3-6位数字构成"
       }}</span>
@@ -42,8 +42,8 @@
       />
     </div>
     <div :class="this.reUserPwd ? 'errTip' : 'tip'">
-      <span v-show="!(this.reUserPwd && /^[A-z]{3}\w{3,9}/.test(this.reUserPwd))">{{
-        this.reUserPwd && !/^[A-z]{3}\w{3,9}/.test(this.reUserPwd)
+      <span v-show="!(this.reUserPwd && /^[A-z]{3,6}\w{3,9}/.test(this.reUserPwd))">{{
+        this.reUserPwd && !/^[A-z]{3,6}\w{3,9}/.test(this.reUserPwd)
           ? "密码号码格式错误"
           : "密码由3位字母和3-6位数字构成"
       }}</span>
@@ -73,7 +73,7 @@ export default {
         if (!/^1[3-5|7-8]\d{9}$/.test(this.phone)) {
           alert("电话号码格式错误，请重新输入！");
           this.phone = "";
-        }else if(!/^[A-z]{3}\w{3,9}/.test(this.userPwd) || !/^[A-z]{3}\w{3,9}/.test(this.reUserPwd)){
+        }else if(!/^[A-z]{3,6}\w{3,9}/.test(this.userPwd) || !/^[A-z]{3,6}\w{3,9}/.test(this.reUserPwd)){
           alert('密码格式错误，请重新输入！')
           this.userPwd='';
           this.reUserPwd = '';

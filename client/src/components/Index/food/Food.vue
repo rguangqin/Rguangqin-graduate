@@ -5,8 +5,8 @@
             <div class="foodleft">
                 <a href="##" class="leftitem">
                     <h3 class="h3 xinxiu">新秀菜谱</h3>
-                    <h3 class="h3">一周热门</h3>
-                    <h3 class="h3">最受欢迎的家常菜</h3>
+                    <!-- <h3 class="h3">一周热门</h3>
+                    <h3 class="h3">最受欢迎的家常菜</h3> -->
                 </a>
             </div>
         </div>

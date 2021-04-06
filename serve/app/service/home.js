@@ -275,5 +275,17 @@ class HomeService extends Service {
       return { code: 2002, info: '取消关注成功' };
     } return { code: 4004, info: '取消关注失败' };
   }
+  async modifyPwd(params) {
+    console.log(params);
+    const sql = `select * from myuser where phone=${params.phone}`;
+    const res = await this.app.mysql.query(sql);
+    if (res[0].userPwd === params.nowPwd) {
+      const updateSql = `update myuser set userPwd='${params.rePwd}' where phone=${params.phone}`;
+      const updateRes = await this.app.mysql.query(updateSql);
+      if (updateRes.affectedRows === 1) {
+        return { code: 2001, info: '修改密码成功，请重新登录' };
+      } return { code: 4002, info: '修改密码失败' };
+    } return { code: 4001, info: '请正确输入当前密码！' };
+  }
 }
 module.exports = HomeService;

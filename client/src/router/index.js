@@ -46,13 +46,26 @@ const routes = [
         path: "/Publish",
         name: "Publish",
         component: () => import("../views/Publish.vue"),
-        redirect:'Publish/user',
+        redirect:'/Publish/user',
         children: [
             {
                 // 修改个人信息
                 path: "user",
                 name: "user",
                 component: () => import("@/components/Publish/user.vue"),
+                redirect:'/Publish/user/userinfo',
+                children:[
+                    {
+                        path:'userinfo',
+                        name:'userinfo',
+                        component:() => import("@/components/Publish/detail/userInfo.vue")
+                    },
+                    {
+                        path:'userpwd',
+                        name:'userpwd',
+                        component:() => import("@/components/Publish/detail/userpwd.vue")
+                    }
+                ]
             },
             {
                 // 菜谱部分
