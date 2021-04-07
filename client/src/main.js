@@ -10,11 +10,9 @@ import Vuex from "vuex";
 import FoodCard from './components/Global/FoodCard.vue'
 //引入vuex-persistedstate
 import createPersistedState from 'vuex-persistedstate'
-
 Vue.component('FoodCard', FoodCard)
 Vue.use(ElementUI);
 Vue.use(Vuex);
-
 // 创建 vue 仓库
 const store = new Vuex.Store({
     state: { userInfo:{} },
@@ -22,27 +20,16 @@ const store = new Vuex.Store({
         //默认传第一个参数传state
         userInfo(state, obj) {
             // 变更状态
-            console.log(obj)
             state.userInfo = obj;
         },
     },
-    actions:{
-        userInfo({commit}){
-            commit('userInfo')
-        }
-    }
-
-
 });
-
 // 配置全局的 axios 基础网址
 axios.defaults.baseURL = "http://localhost:7001";
 // 允许请求时携带 cookie
 axios.defaults.withCredentials = true;
 Vue.prototype.$axios = axios;
-
 Vue.config.productionTip = false;
-
 new Vue({
     render: (h) => h(App),
     router,

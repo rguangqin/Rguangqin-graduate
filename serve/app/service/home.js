@@ -108,6 +108,7 @@ class HomeService extends Service {
     res.book = bookRes;
     const foodSql = `select * from food where title like '%${obj.searchKey}%'`;
     const foodRes = await this.app.mysql.query(foodSql);
+    console.log(foodRes);
     for (let i = 0; i < foodRes.length; i++) {
       const userSql = `select username from myuser where userId=${foodRes[i].userId}`;
       const userRes = await this.app.mysql.query(userSql);

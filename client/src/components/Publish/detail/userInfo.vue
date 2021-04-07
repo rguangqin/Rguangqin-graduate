@@ -60,7 +60,15 @@ export default {
         const res = await this.$axios.post('/revise',formdata,{
           header: { "Content-Type": "pplication/x-www-form-urlencoded" },
         })
-        if(res.data.code === 2002) alert(res.data.info);
+        if(res.data.code === 2002) {
+          alert(res.data.info);
+          // 将修改后的数据修改到store里面去
+          const obj = {userName:this.userInfo.userName,
+                       userPic:this.avator,
+                       userSex:this.userSex,
+                       says:this.userInfo.says};
+          this.$store.commit('userInfo',obj)
+        }
         else if(res.data.code === 4004) alert(res.data.info)
         }
     }

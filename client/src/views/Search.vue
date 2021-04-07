@@ -10,6 +10,7 @@
             type="text"
             v-model="searchKey"
             placeholder="搜索菜谱或者食材"
+            @keyup.enter="search()"
           />
           <div class="search-btn" @click="search()">搜索</div>
         </div>
@@ -28,6 +29,7 @@
             </div>
         </div>
       </div>
+      <div v-if="isSearch">没有找到<span>{{searchKey}}相关的，换个关键词试试</span></div>
     </div>
   </div>
 </template>
@@ -37,6 +39,7 @@ export default {
     return {
       searchKey: "",
       searchData: {},
+      isSearch:'',
     };
   },
   methods: {
@@ -46,6 +49,7 @@ export default {
         type:this.type,
       } });
       this.searchData = res.data;
+      this.isSearch = (res.data.food.length && res.data.book.length) ? false : true
     },
   },
   mounted() {

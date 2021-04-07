@@ -16,7 +16,7 @@
             <router-link to="/MyUser/Register">注册</router-link>
             <router-link to="/MyUser/Login">登录</router-link>
           </div>
-          <div v-else class="loginAvator"><img :src="avator" alt="" class="avator"></div>
+          <div v-else class="loginAvator"><img :src="this.$store.state.userInfo.userPic" alt="" class="avator"></div>
           <router-link to="/Publish">个人中心</router-link>
           <span to="/MyUser" v-if='isLogin' @click="abort">退出登录</span>
         </div>
@@ -33,9 +33,6 @@ export default {
       avator:'',
     };
   },
-  watch:{
-
-  },
   methods: {
     abort(){
       this.$router.push({path:'/MyUser'})
@@ -45,12 +42,11 @@ export default {
     },
     async getUserInfo(){
     const result = await this.$axios.get('/userinfo',{params:{userId:window.localStorage.getItem('userId')}});
-      this.avator = result.data[0].userPic;
+      this.$store.commit('userInfo',result.data[0])
     }
   },
   updated() {
     this.isLogin = window.localStorage.getItem('islogin');
-    if(window.localStorage.getItem('userId')) this.getUserInfo();
   },
   mounted() {
     if(window.localStorage.getItem('userId')) this.getUserInfo();
