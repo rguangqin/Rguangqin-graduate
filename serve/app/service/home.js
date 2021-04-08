@@ -10,10 +10,34 @@ class HomeService extends Service {
     const sql = 'SELECT food.id, food.title, food.image, myuser.userName, myuser.userId FROM food, myuser WHERE food.userId = myuser.userId ORDER BY food.id LIMIT 20';
     return await this.app.mysql.query(sql);
   }
-  async book() {
-    const sql = 'SELECT * FROM book ORDER BY book.id LIMIT 14';
-    const data = await this.app.mysql.query(sql);
-    return data;
+  async book(params) {
+    console.log(params);
+    let classify = '';
+    switch (params.classify) {
+      case '2':
+        classify = '蔬菜';
+        break;
+      case '3':
+        classify = '水果';
+        break;
+      case '4':
+        classify = '肉类';
+        break;
+      case '5':
+        classify = '海鲜';
+        break;
+      default:
+        classify = '不限';
+    }
+    console.log(classify);
+    if (classify === '不限') {
+      const sql = 'SELECT * FROM book ORDER BY book.id LIMIT 14';
+      const data = await this.app.mysql.query(sql);
+      return data;
+    }
+    const classSql = `SELECT * FROM book where classify like '%${classify}%' limit 14`;
+    const ClassData = await this.app.mysql.query(classSql);
+    return ClassData;
   }
   async topic() {
     const sql1 = 'SELECT topic.id, topic.proDate, topic.article, topic.title FROM topic';
@@ -42,8 +66,7 @@ class HomeService extends Service {
     return res;
   }
   async advice() {
-    const sql =
-        'SELECT advise_title.adviseId,advise.image,advise_title.title,advise_title.titlelink FROM advise,advise_title WHERE advise.id = advise_title.adviseId';
+    const sql = 'SELECT advise_title.adviseId,advise.image,advise_title.title,advise_title.titlelink FROM advise,advise_title WHERE advise.id = advise_title.adviseId';
     const data = await this.app.mysql.query(sql);
     return data;
   }

@@ -4,15 +4,7 @@
     <div class="topic">
       <!--标题行 整体标题 热门话题-->
       <div class="topic-left topictitle">
-        <span v-for="(el,index) in  topictitle" :key="index">{{el}}</span>
-      </div>
-      <div class="topic-right topictitle">
-        <router-link
-          to="##"
-          v-for="(el2,index2) in  topicadv"
-          :key="index2"
-          class="topic-right-a"
-        >{{el2}}</router-link>
+        <span>话题</span>
       </div>
     </div>
     <div class="dongtai">
@@ -27,18 +19,13 @@
             <p>{{item.proDate}}</p>
           </div>
         </div>
-        <!-- 标题 -->
         <router-link to="###" class="user-content">
           <span class="title">{{item.title}}</span>
           <br />
-          <!-- 发表内容 -->
           {{item.article}}
         </router-link>
-        <!-- 用户发表图片 -->
         <img v-for="myitem in item.content" :src="myitem" alt="加载失败" :key="myitem" class="user-img" />
-        <!-- 喜欢 和评论-->
-        <!-- <p class="like">{{ell.like}}个喜欢，{{ell.comment}}条评论</p> -->
-        <p class="like">1个喜欢，1条评论</p>
+        <p class="like">1个喜欢</p>
       </div>
     </div>
   </div>
@@ -50,8 +37,6 @@ export default {
 
   data() {
     return {
-      topictitle: ["热门话题", "精华日志"],
-      topicadv: ["全部话题", "全部话题", "全部话题"],
       content: "",
       pageContent: [],
     };

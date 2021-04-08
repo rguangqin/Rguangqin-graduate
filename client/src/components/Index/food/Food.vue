@@ -3,11 +3,7 @@
         <div class="food">
             <!-- 菜谱左边 -->
             <div class="foodleft">
-                <a href="##" class="leftitem">
-                    <h3 class="h3 xinxiu">新秀菜谱</h3>
-                    <!-- <h3 class="h3">一周热门</h3>
-                    <h3 class="h3">最受欢迎的家常菜</h3> -->
-                </a>
+                <h3 class="h3 xinxiu">新秀菜谱</h3>
             </div>
         </div>
         <div class="foodbox">
@@ -25,7 +21,6 @@ export default {
     data() {
         return {
             id:1,
-            foodItem: ["热菜", "凉菜", "汤羹", "主食", "小吃", "西餐", "菜谱首页"],
             foodData:[],
         };
     },
@@ -78,5 +73,4 @@ export default {
     text-decoration: none;
     color: #000000;
 }
-
 </style>

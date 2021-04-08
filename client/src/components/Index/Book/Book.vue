@@ -2,15 +2,12 @@
   <div id="book" class="w">
     <div class="book-nav">
       <h2 class="nav-left">
-        <a href="###" class="shicai">时令食材</a>
+        <router-link to="/ClassifyBook" class="shicai">食材</router-link>
       </h2>
-      <!-- <ul>
-        <li>肉禽蛋</li>
-        <li>水产品</li>
-        <li>蔬菜</li>
-        <li>米面豆乳</li>
-        <li>食材首页</li>
-      </ul> -->
+      <!-- 食材的分类 -->
+      <div class="classify">
+        <span v-for="el in classify" :key="el.id" :class="classifyId === el.id ? 'selected' : ''" @click="changeSelect(el.id)">{{el.name}}</span>
+      </div>
     </div>
     <div class="book">
       <ul>
@@ -30,12 +27,29 @@
 export default {
   data() {
     return {
+      classifyId:1,
       bookArr: "",
+      classify:[{id:1,name:'不限'},
+      {id:2,name:'蔬菜'},
+      {id:3,name:'水果'},
+      {id:4,name:'肉类'},
+      {id:5,name:'海鲜'},]
     };
   },
-  async mounted() {
-    let result = await this.$axios.get("/book");
-    this.bookArr = result.data;
+  mounted() {
+    this.getBookData();
+  },
+  methods: {
+    changeSelect(id){
+      this.classifyId=id;
+      this.getBookData();
+    },
+    async getBookData(){
+      const params = {classify:this.classifyId}
+      const result = await this.$axios.get("/book",{params});
+      this.bookArr = result.data;
+      console.log(this.bookArr)
+    }
   },
 };
 </script>
@@ -82,7 +96,6 @@ ul .book-img {
 }
 .book-nav .shicai {
   color: #FFBE00;
-  text-decoration: none;
   padding-bottom: 5px;
   border-bottom: 2px solid #FFBE00;
   font-size: 20px;
@@ -100,5 +113,15 @@ ul .book-img {
 }
 .book-nav li:hover {
   color: #FFBE00;
+}
+.classify{
+  width: 200px;
+  display: flex;
+  justify-content: space-between;
+}
+.classify .selected{
+  color: #FFBE00;
+  padding: 0 3px;
+  border-bottom: 2px solid #FFBE00;
 }
 </style>

@@ -7,12 +7,12 @@
         <span class="title3">{{itemBox.title3}}</span>
       </div>
       <img :src="itemBox.images" alt="图片加载失败" width="310px" />
-      <a
-        :href="myitem.where"
+      <div class="content-box">
+        <span
         v-for="myitem in itemBox.content"
         :key="myitem.name"
-        target="_blank"
-      >{{myitem.name}}</a>
+      >{{myitem.name}}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -50,6 +50,7 @@ export default {
     // 请求推荐模块全部内容
     let result = await this.$axios.get("/advice");
     // 提取三栏内容
+    console.log(result)
     for (let i = 0; i < result.data.length; i++) {
       if (result.data[i].adviseId == 1) {
         this.adData[0].images = result.data[i].image;
@@ -95,6 +96,16 @@ export default {
   height: 36px;
   border-bottom: 1px solid #999999;
 }
+.content-box span{
+  display: block;
+  margin-top: 10px;
+  height: 26px;
+  font-size: 16px;
+  line-height: 26px;
+  color: #333333;
+  text-decoration: none;
+  text-align: left;
+}
 
 .title1,
 .title2,
@@ -138,17 +149,6 @@ export default {
 
 .adBox img {
   margin-top: 10px;
-}
-
-.adBox a {
-  display: block;
-  margin-top: 10px;
-  height: 26px;
-  font-size: 16px;
-  line-height: 26px;
-  color: #333333;
-  text-decoration: none;
-  text-align: left;
 }
 
 .adBox a:hover {

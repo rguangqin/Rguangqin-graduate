@@ -18,7 +18,7 @@ class HomeController extends Controller {
   }
   async book() {
     const { ctx } = this;
-    ctx.body = await this.ctx.service.home.book();
+    ctx.body = await this.ctx.service.home.book(ctx.query);
   }
   async topic() {
     const { ctx } = this;

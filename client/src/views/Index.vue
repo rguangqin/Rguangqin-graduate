@@ -2,10 +2,10 @@
   <div id="index">
     <!-- <Logo></Logo> -->
     <Lbt></Lbt>
-    <Advice></Advice>
+    <!-- <Advice></Advice> -->
     <Food></Food>
     <Book></Book>
-    <Topic></Topic>
+    <!-- <Topic></Topic> -->
     <Footer></Footer>
   </div>
 </template>
