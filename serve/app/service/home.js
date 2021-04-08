@@ -11,7 +11,6 @@ class HomeService extends Service {
     return await this.app.mysql.query(sql);
   }
   async book(params) {
-    console.log(params);
     let classify = '';
     switch (params.classify) {
       case '2':
@@ -29,7 +28,6 @@ class HomeService extends Service {
       default:
         classify = '不限';
     }
-    console.log(classify);
     if (classify === '不限') {
       const sql = 'SELECT * FROM book ORDER BY book.id LIMIT 14';
       const data = await this.app.mysql.query(sql);
@@ -314,6 +312,20 @@ class HomeService extends Service {
         return { code: 2001, info: '修改密码成功，请重新登录' };
       } return { code: 4002, info: '修改密码失败' };
     } return { code: 4001, info: '请正确输入当前密码！' };
+  }
+  async classify() {
+    const arr = [ '蔬菜', '水果', '肉类', '海鲜' ];
+    const data = [];
+    for (let i = 0; i < arr.length; i++) {
+      const obj = {};
+      const sql = `select id,book_name from book where classify like '%${arr[i]}%'`;
+      const res = await this.app.mysql.query(sql);
+      obj.name = arr[i];
+      console.log(res);
+      obj.data = res;
+      data.push(obj);
+    }
+    return data;
   }
 }
 module.exports = HomeService;

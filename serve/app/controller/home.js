@@ -125,6 +125,9 @@ class HomeController extends Controller {
     const { ctx } = this;
     ctx.body = await ctx.service.home.modifyPwd(ctx.query);
   }
+  async classify() {
+    this.ctx.body = await this.ctx.service.home.classify();
+  }
 }
 module.exports = HomeController;
 

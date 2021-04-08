@@ -50,4 +50,6 @@ module.exports = app => {
   router.get('/aeeente', controller.home.aeeente);
   // 修改密码
   router.get('/modifyPwd', controller.home.modifyPwd);
+  // 菜谱的分类
+  router.get('/classify', controller.home.classify);
 };
