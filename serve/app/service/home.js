@@ -83,7 +83,6 @@ class HomeService extends Service {
     return result;
   }
   async details(params) {
-    console.log(params);
     const sql = `select * from food,myuser,food_detail where food.id=${params.foodId} and food.userId=myuser.userId and food.id=food_detail.foodId`;
     const result = await this.app.mysql.query(sql);
     const data = result[0];
@@ -124,12 +123,11 @@ class HomeService extends Service {
   }
   async search(obj) {
     const res = {};
-    const bookSql = `select * from book where name='${obj.searchKey}'`;
+    const bookSql = `select * from book where book_name='${obj.searchKey}'`;
     const bookRes = await this.app.mysql.query(bookSql);
     res.book = bookRes;
     const foodSql = `select * from food where title like '%${obj.searchKey}%'`;
     const foodRes = await this.app.mysql.query(foodSql);
-    console.log(foodRes);
     for (let i = 0; i < foodRes.length; i++) {
       const userSql = `select username from myuser where userId=${foodRes[i].userId}`;
       const userRes = await this.app.mysql.query(userSql);
@@ -228,16 +226,14 @@ class HomeService extends Service {
     return { code: 4004, info: '信息修改失败' };
   }
   async bookdetail(params) {
-    console.log(params);
     const bookSql = `select * from book where id=${params.id}`;
     const bookRes = await this.app.mysql.query(bookSql);
-    const foodSql = `select myuser.userId,myuser.userName,food.id,food.image,food.title,food_detail.Ingredient from food,food_detail,myuser where food.title like '%${bookRes[0].name}%' and food.id=food_detail.foodId and food.userId=myuser.userId`;
+    const foodSql = `select myuser.userId,myuser.userName,food.id,food.image,food.title,food_detail.Ingredient from food,food_detail,myuser where food.title like '%${bookRes[0].book_name}%' and food.id=food_detail.foodId and food.userId=myuser.userId`;
     const foodRes = await this.app.mysql.query(foodSql);
     foodRes.forEach((item, index) => {
       const a = item.Ingredient.split('。').filter((_, index) => index < 2);
       foodRes[index].ingredient = a.map(item => item.split('：')[1].split('，')).toString().split(',');
     });
-    console.log(foodRes);
     const data = {};
     data.book = bookRes;
     data.food = foodRes;
@@ -263,7 +259,6 @@ class HomeService extends Service {
     return resultList;
   }
   async unfavorite(params) {
-    console.log(params);
     const foodSql = `select thumb,favorite,thumbCount,favoriteCount from food_detail where foodId=${params.foodId}`;
     const foodRes = await this.app.mysql.query(foodSql);
     const updateSql = `update food_detail set favorite='${foodRes[0].favorite.replace(params.phone + ',', '')}',favoriteCount=${foodRes[0].favoriteCount - 1} where foodId = ${params.foodId}`;
@@ -282,11 +277,9 @@ class HomeService extends Service {
     }
   }
   async aeeente(params) {
-    console.log(params);
     // 为true表示添加关注，反之删除关注
     const userSql = `select * from myuser where userId=${params.userId}`;
     const result = await this.app.mysql.query(userSql);
-
     if (JSON.parse(params.flag)) {
       const aeeente = result[0].aeeente ? result[0].aeeente : '';
       const sql = `update myuser set aeeente='${aeeente + params.phone + ','}',aeeenteCount=${result[0].aeeenteCount + 1} where userId = ${params.userId}`;
@@ -302,7 +295,6 @@ class HomeService extends Service {
     } return { code: 4004, info: '取消关注失败' };
   }
   async modifyPwd(params) {
-    console.log(params);
     const sql = `select * from myuser where phone=${params.phone}`;
     const res = await this.app.mysql.query(sql);
     if (res[0].userPwd === params.nowPwd) {
@@ -321,8 +313,7 @@ class HomeService extends Service {
       const sql = `select id,book_name from book where classify like '%${arr[i]}%'`;
       const res = await this.app.mysql.query(sql);
       obj.name = arr[i];
-      console.log(res);
-      obj.data = res;
+      obj.bookData = res;
       data.push(obj);
     }
     return data;

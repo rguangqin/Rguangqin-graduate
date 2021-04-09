@@ -49,10 +49,6 @@ export default {
 .foodkinds img {
     width: 230px;
     height: 230px;
-    transition-property: transform;
-    transition-duration: 0.5s;
-    transition-timing-function: ease-in-out;
-    transition-delay: 0s;
     margin-bottom: 4px;
 }
 </style>

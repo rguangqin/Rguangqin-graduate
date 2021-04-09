@@ -19,7 +19,7 @@
     <div class="input-box">
       <label for="userPwd">用户密码:</label>
       <input
-        type="text"
+        type="password"
         v-model="userPwd"
         id="userPwd"
         placeholder="请输入密码"
@@ -35,7 +35,7 @@
     <div class="input-box">
       <label for="reUserPwd">确认密码:</label>
       <input
-        type="text"
+        type="password"
         v-model="reUserPwd"
         id="reUserPwd"
         placeholder="请输入密码"

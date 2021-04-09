@@ -48,7 +48,7 @@ export default {
 }
 .public {
   margin: 20px auto;
-  width: 1300px;
+  width: 100%;
 }
 .public-box {
   display: flex;
@@ -68,6 +68,7 @@ export default {
   padding: 5px;
   border: 1px solid #ff0000;
   border-radius: 7px;
+  margin-bottom: 10px;
 }
 .public h2,
 .foodkinds {

@@ -1,11 +1,7 @@
 <template>
   <div id="myBook">
     <div class="my">
-      <!-- <div class="my-left">
-        <router-link :to="el.link" v-for="el in title" :key=el.title>{{el.title}}</router-link>
-      </div> -->
       <div>
-         <!-- <router-link to="###" class="my-right">发布新菜单</router-link> -->
       </div>
     </div>
      <router-view></router-view>
@@ -14,13 +10,11 @@
 
 <script>
 export default {
-  data() {
-    return {
-       title:[
-        {title:'我的菜谱',link:'###'},{title:'待审核',link:'###'},{title:'退稿箱',link:'###'},{title:'草稿箱',link:'###'}
-      ]
-    }
-  },
+ data() {
+   return {
+     
+   }
+ },
 };
 </script>
 
@@ -33,7 +27,6 @@ export default {
   display: flex;
   margin-right:25px; 
   justify-content: space-between;
-  /* border-bottom: 1px solid rgb(238, 238, 238); */
 }
 .my-left a {
   text-decoration: none;

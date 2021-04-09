@@ -4,6 +4,7 @@
       <div class="topnav">
         <div class="leftnav">
           <!-- 首页 -->
+          <!-- 表示路由的链接，被点击后，内部会把to的值传到router.push()里面 -->
           <router-link to="/" class="leftLogo">
             <span>美食汇</span>
             <span>首页</span>

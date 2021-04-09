@@ -29,7 +29,7 @@
             </div>
         </div>
       </div>
-      <div v-if="isSearch">没有找到<span>{{searchKey}}相关的，换个关键词试试</span></div>
+      <div v-if="isSearch" class="nores">没有找到<span>{{searchKey}}相关的，换个关键词试试</span></div>
     </div>
   </div>
 </template>
@@ -128,6 +128,11 @@ export default {
 }
 .foodbox .foodkinds{
   margin-right: 15px;
-  
+}
+.nores{
+  font-size: 26px;
+  color: #ccc;
+  text-align: center;
+  line-height: 200px;
 }
 </style>

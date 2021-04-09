@@ -8,7 +8,7 @@
         <span>新密码：</span><input type="password" v-model='pwd'>
       </div>
       <div>
-        <span>再次输入新密码：</span><input type="password" name="" id="" v-model='rePwd'>
+        <span>再次输入新密码：</span><input type="password" v-model='rePwd'>
       </div>
       <div class="btn" @click='modifyPwd'>确认修改</div>
     </div>

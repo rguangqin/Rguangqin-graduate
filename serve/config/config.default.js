@@ -15,6 +15,7 @@ module.exports = appInfo => {
   // add your middleware config here
   config.middleware = [];
   // 关闭csrf
+  // 框架内部针对表单 POST 请求均会验证 CSRF 的值，因此我们在表单提交时，请带上 CSRF key 进行提交，
   config.security = {
     csrf: {
       enable: false,
@@ -23,6 +24,7 @@ module.exports = appInfo => {
   // 跨域
   config.cors = {
     origin: 'http://localhost:8080',
+    // 是否携带cookie
     credentials: true,
   };
   // 启用上传文件模式

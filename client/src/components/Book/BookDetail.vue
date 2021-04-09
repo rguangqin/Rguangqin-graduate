@@ -28,7 +28,6 @@
 </template>
 <script>
 export default {
-    props:['foodInfo'],
     data() {
         return {
             book:{},
@@ -39,6 +38,7 @@ export default {
     mounted() {
        this.bookDetail = this.getBookDetail(this.$route.params.id);
     },
+    // 在复用组件的时候，路由参数变化做出相应的响应
     beforeRouteUpdate(to,from,next){
         this.bookDetail = getBookDetail(to.params.id);
         next();
@@ -48,6 +48,7 @@ export default {
             const res = await this.$axios.get('/bookdetail',{params:{id}});
             this.food = res.data.food;
             this.book = res.data.book[0];
+            console.log(res.data)
         }
     },
 }

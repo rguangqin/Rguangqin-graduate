@@ -2,7 +2,7 @@
   <div id="favorite">
     <div class="my">
       <div class="my-left">
-        <router-link :to="el.link" v-for="el in title" :key=el.title>{{el.title}}</router-link>
+        <router-link :to="el.link" v-for="el in title" :key='el.title'>{{el.title}}</router-link>
       </div>
     </div>
      <router-view></router-view>

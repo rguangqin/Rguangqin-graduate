@@ -1,7 +1,6 @@
 <template>
     <div id="food" class="w">
         <div class="food">
-            <!-- 菜谱左边 -->
             <div class="foodleft">
                 <h3 class="h3 xinxiu">新秀菜谱</h3>
             </div>

@@ -20,12 +20,13 @@
       <label for="password">用户密码:</label>
       <input
         id="password"
-        type="text"
+        type="password"
         v-model="userPwd"
         placeholder="请输入您的密码"
       />
     </div>
     <div :class="this.userPwd ? 'errTip' : 'tip'">
+      <!-- 符合正则表达不显示，当密码不为空，不符合正则表达式，显示格式错误 -->
       <span v-show="!(this.userPwd && /^[A-z]{3,6}\w{3,9}/.test(this.userPwd))">{{
         this.userPwd && !/^[A-z]{3,6}\w{3,9}/.test(this.userPwd)
           ? "密码号码格式错误"

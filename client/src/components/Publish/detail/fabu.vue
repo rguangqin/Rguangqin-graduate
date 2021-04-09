@@ -79,25 +79,36 @@ export default {
       data.description = this.dishDes;
       data.userId = window.localStorage.getItem('userId');
       formData.append("stepImgs", this.resultImg);
+      // 查看步骤里面是否有空字符的
+      // 表示找到空字符
+      // 查看食材里面content里面是否含有空
       for (let key in this.stepImgs) {
         formData.append("stepImgs", this.stepImgs[key]);
       }
-      formData.append("data", JSON.stringify(data));
-      const res = await this.$axios.post("/fabucaipu",formData, {
-        header: { "Content-Type": "pplication/x-www-form-urlencoded" },
-      });
-      if(res.data.code===2002){
-        alert(res.data.info);
-        this.$router.push({ name: "MyBook"})
-      } else if(res.data.code === 4004){
-        alert(res.data.info)
+      const a = this.ingredient.filter(e =>e.content === '')
+      if(!this.dishName || !this.resultImg || !this.dishDes || a.length || this.stepText.length || this.stepText.indexOf('')===-1 || !this.careful){
+        alert('不能为空哟')
       }
+      else{
+        formData.append("data", JSON.stringify(data));
+        const res = await this.$axios.post("/fabucaipu",formData, {
+          header: { "Content-Type": "pplication/x-www-form-urlencoded" },
+        });
+        if(res.data.code===2002){
+          alert(res.data.info);
+          this.$router.push({ name: "MyBook"})
+        } else if(res.data.code === 4004){
+          alert(res.data.info)
+        }
+        }
     },
     // 菜谱成品图片展示的处理
     file1Change(even) {
       this.resultImgFlag = true;
       const file = new FileReader();
       this.resultImg = even.target.files[0];
+      // 读取为URL格式的Base64字符串以表示所读取文件的内容
+      // 读取的方式为下面这个时，会触发onload函数
       file.readAsDataURL(even.target.files[0]);
       file.onload = (event) => {
         this.resultImgShow = event.target.result;

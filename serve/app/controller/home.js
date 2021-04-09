@@ -1,8 +1,9 @@
 'use strict';
+// 用于对系统的文件及目录进行读写操作。
 const fs = require('fs');
+// 处理文件路径
 const path = require('path');
 const Controller = require('egg').Controller;
-
 class HomeController extends Controller {
   async index() {
     const { ctx } = this;
@@ -57,7 +58,6 @@ class HomeController extends Controller {
   async search() {
     const { ctx } = this;
     const res = await ctx.service.home.search(ctx.query);
-    console.log(res);
     ctx.body = res;
   }
   async dianzan() {
@@ -129,12 +129,15 @@ class HomeController extends Controller {
     this.ctx.body = await this.ctx.service.home.classify();
   }
 }
+// 返回的是模块对象本身，返回的是一个类
 module.exports = HomeController;
 
 // 将图片复制当相应的文件且返回存放的地址
 function dealFile(file, fileAdd) {
+  // 返回path的最后一个部分
   const filename = path.basename(file.filepath);
   const oldPath = file.filepath;
+  // __dirname 总是指向被执行 js 文件的绝对路径
   const nwePath = `${__dirname}/../public/${fileAdd}/${filename}`;
   fs.copyFileSync(oldPath, nwePath);
   fs.unlink(oldPath, err => {

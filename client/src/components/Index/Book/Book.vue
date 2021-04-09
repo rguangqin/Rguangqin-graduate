@@ -48,7 +48,6 @@ export default {
       const params = {classify:this.classifyId}
       const result = await this.$axios.get("/book",{params});
       this.bookArr = result.data;
-      console.log(this.bookArr)
     }
   },
 };
