@@ -41,6 +41,11 @@ data() {
 },
 methods: {
   async aeeention(){
+    // 表示尚未登陆的状态
+    if(!window.localStorage.getItem('islogin')){
+      alert("未登录，请先登录")
+      this.$router.push('/MyUser/Login')
+    }
     const params = {
       flag:!this.userInfo.flag,
       phone:window.localStorage.getItem('phone'),

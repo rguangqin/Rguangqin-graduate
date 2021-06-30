@@ -16,7 +16,7 @@
 
 <script>
 export default {
-    props:['foodInfo'],
+    // props:['foodInfo'],
     data() {
         return {
             id:1,

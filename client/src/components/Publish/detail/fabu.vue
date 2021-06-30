@@ -86,10 +86,10 @@ export default {
         formData.append("stepImgs", this.stepImgs[key]);
       }
       const a = this.ingredient.filter(e =>e.content === '')
-      if(!this.dishName || !this.resultImg || !this.dishDes || a.length || this.stepText.length || this.stepText.indexOf('')===-1 || !this.careful){
-        alert('不能为空哟')
-      }
-      else{
+      // if(!this.dishName || !this.resultImg || !this.dishDes || a.length || this.stepText.length || this.stepText.indexOf('')===-1 || !this.careful){
+      //   alert('不能为空哟')
+      // }
+      // else{
         formData.append("data", JSON.stringify(data));
         const res = await this.$axios.post("/fabucaipu",formData, {
           header: { "Content-Type": "pplication/x-www-form-urlencoded" },
@@ -100,7 +100,7 @@ export default {
         } else if(res.data.code === 4004){
           alert(res.data.info)
         }
-        }
+        // }
     },
     // 菜谱成品图片展示的处理
     file1Change(even) {

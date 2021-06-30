@@ -124,7 +124,13 @@ const router = new VueRouter({
 });
 // 全局前置守卫 访问拦截
 router.beforeEach((to1, from, next) => {
-	if (to1.path == "/" || to1.path == "/MyUser/Login" || to1.path == "/MyUser/Register" || to1.path == "/Details/"+to1.params.id || to1.path == "/Book/"+to1.params.id) {
+    // 游客可以查看的页面
+    // 1、首页
+    // 登录注册
+    // 菜谱详情
+    // 食材详情
+    // 用户详情
+	if (to1.path == "/" || to1.path == "/MyUser/Login" || to1.path == "/MyUser/Register" || to1.path == "/Details/"+to1.params.id || to1.path == "/Book/"+to1.params.id || to1.path == "/Search" || to1.path == "/Details/"+to1.params.id || to1.path == "/userDetail/"+to1.params.id) {
 		next()
 	}else {
 		//判断是否登录过
